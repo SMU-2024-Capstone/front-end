@@ -11,6 +11,91 @@
   background-color: #0D0E10;
 }
 
+.App > text {
+  font-size: 12px;
+  color: red;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: right;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  background-color: #A2B59F;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+.start {
+  text-align: center;
+  width: 392px;
+  height: 852px;
+  background-image: url(../src/assets/back.svg);
+}
+
+#logo {
+  margin-top: 168px;
+}
+
+#igilro {
+  margin-top: 168px;
+}
+
+.btn-kakao {
+  width: 360px;
+  height: 54px;
+  background-color: #fee500;
+  border-radius: 6px;
+  margin: 0 auto;
+  cursor: pointer;
+  filter: drop-shadow(0px 6px 8px #fee5004d);
+  margin-top: 40px;
+}
+
+#kakao {
+  margin-top: 13.5px;
+}
+
+#naver {
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.start > p {
+  color: #d9d9d9;
+  font-size: 12px;
+}
+
+.bottom-bar {
+  width: 392px;
+  height: 56px;
+  background-color: rgb(62, 62, 62);
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.bottom-bar > img {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: "Sebang-Gothic-OTF";
   src: url(./SebangGothic/SEBANG-Gothic-OTF.otf);

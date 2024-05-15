@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const NextButton = () => {
-  const Button = styled.div`
+  const Button = styled.button`
     width: 360px;
     height: 54px;
     background-color: #0D0E10;
@@ -10,6 +10,14 @@ const NextButton = () => {
     margin-left: 16px;
     margin-top: 24px;
     filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
+
+    activebtn {
+      background-color: #0095f6;
+    }
+
+    unactivebtn {
+      background-color: #0095f6;
+    }
   `;
 
   const Text = styled.div`
@@ -19,7 +27,7 @@ const NextButton = () => {
     letter-spacing: -0.3%;
     line-height: 140%;
     text-align: center;
-    margin-top: 14px;
+    
   `;
   
   return (
