@@ -1,5 +1,20 @@
-import "../App.css";
-import kakao from "../assets/kakao_login.svg";
+import styled from "styled-components";
+import kakao from "../assets/images/login_images/kakao_login.svg";
+
+const KaKaoButton = styled.div`
+  width: 360px;
+  height: 54px;
+  background-color: #fee500;
+  border-radius: 6px;
+  margin: 0 auto;
+  cursor: pointer;
+  filter: drop-shadow(0px 6px 8px #fee5004d);
+  margin-top: 40px;
+`;
+
+const KaKao = styled.img`
+  margin-top: 13.5px;
+`;
 
 const KaKaoLogin = () => {
   const REST_API_KEY = import.meta.env.VITE_APP_REST_API_KEY;
@@ -11,9 +26,9 @@ const KaKaoLogin = () => {
   };
 
   return (
-    <div className="btn-kakao">
-      <img id="kakao" src={kakao} onClick={loginHandler} alt="카카오 로그인" />
-    </div>
+    <KaKaoButton>
+      <KaKao src={kakao} onClick={loginHandler} alt="카카오 로그인" />
+    </KaKaoButton>
   );
 };
 
