@@ -1,34 +1,31 @@
 import styled from "styled-components";
 
-const NextButtonColored = () => {
-  const ButtonColored = styled.button`
-    width: 359px;
-    height: 54px;
-    background-color: #ECEFF0;
-    border: 1px solid #ECEFF0;
-    border-radius: 60px; 
-    filter: drop-shadow(0px 6px 8px #ECEFF04D);
-    text {
-      color: #0D0E10;
-      font-size: 18px;
-      font-family: "GothicA1-Medium";
-      letter-spacing: -0.3%;
-      text-align: center;
-    }
-  `;
+const StyledNextButtonColored = styled.button`
+  margin-top: 24px;
+  margin-left: 16px;
+  width: 360px;
+  height: 54px;
+  border-radius: 12px;
+  border: 1px solid #ECEFF0;
+  background-color: #ECEFF0;
+  cursor: pointer;
+  filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
+  color: #0D0E10;
+  font-size: 18px;
+  font-family: "GothicA1-Medium";
+  letter-spacing: -0.3%;
+  line-height: 140%;
+  text-align: center;
+`;
 
-  const NextButtonColored = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-  `;
-  
+const NextButtonColored = () => {
   return (
-    <NextButtonColored>
-      <ButtonColored>
-        <text>Next</text>
-      </ButtonColored>
-    </NextButtonColored>
-  )
+    <div>
+      <StyledNextButtonColored>
+      Next
+      </StyledNextButtonColored>
+    </div>
+  );
 };
 
 export default NextButtonColored;

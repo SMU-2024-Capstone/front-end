@@ -1,5 +1,12 @@
+import React from 'react';
 import './App.css'
-import Register from "./pages/Nickname"
+import Welcome from './pages/WelcomePage';
+import Nickname from './pages/Nickname';
+import Search from './pages/Search';
+import SearchCategory2 from './pages/Loading';
+import TheaterLocation from './components/Kakaomap';
+import MapTest from './components/Kakaomap';
+import Start from './pages/Start';
 
 
 
@@ -7,8 +14,7 @@ function App() {
 
   return (
     <div className="App"> 
-    <Register />
-    <text>* 최대 글자 수 6</text>
+    <Search />
     </div>
   );
 }

@@ -1,40 +1,29 @@
 import styled from "styled-components";
 
-const NextButton = () => {
-  const Button = styled.button`
-    width: 360px;
-    height: 54px;
-    background-color: #0D0E10;
-    border: 1px solid #ECEFF0;
-    border-radius: 12px;
-    margin-left: 16px;
-    margin-top: 24px;
-    filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
+const StyledNextButton = styled.button`
+  margin-top: 24px;
+  margin-left: 16px;
+  width: 360px;
+  height: 54px;
+  border-radius: 12px;
+  border: 1px solid #ECEFF0;
+  background-color: ${(props) => (props.disabled ? '#0D0E10' : '#ECEFF0')};
+  color: ${(props) => (props.disabled ? '#6A6D6E' : '#0D0E10')};
+  font-size: 18px;
+  font-family: "GothicA1-Medium";
+  letter-spacing: -0.3%;
+  line-height: 140%;
+  text-align: center;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
+`;
 
-    activebtn {
-      background-color: #0095f6;
-    }
-
-    unactivebtn {
-      background-color: #0095f6;
-    }
-  `;
-
-  const Text = styled.div`
-    color: #6A6D6E;
-    font-size: 18px;
-    font-family: "GothicA1-Medium";
-    letter-spacing: -0.3%;
-    line-height: 140%;
-    text-align: center;
-    
-  `;
-  
+const NextButton = (props) => {
   return (
     <div>
-    <Button>
-      <Text>Next</Text>
-    </Button>
+      <StyledNextButton disabled={props.disabled} onClick={props.onClick}>
+      Next
+      </StyledNextButton>
     </div>
   );
 };
