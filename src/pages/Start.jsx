@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import KaKaoLogin from "../components/KakaoLogin";
 import NaverLogin from "../components/NaverLogin";
-import logo from "../assets/images/logo/logo.svg";
+import logo from "../assets/images/logo/Logo.svg";
 import igilro from "../assets/images/logo/Logo_lettering.svg";
 import login_back from "../assets/images/login_images/login_back.svg";
 
