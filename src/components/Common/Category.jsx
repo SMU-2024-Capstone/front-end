@@ -81,7 +81,7 @@ const NumberCircle = styled.div`
   top: -5px;
   right: -5px;
   line-height: 1;
-  text-align: center;
+  padding-top: 1px;
 `;
 
 const categories = [
