@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  margin: 0 auto;
+  width: 392px;
+  height: 852px;
+  background-color: #0D0E10;
+}
+
+
+@font-face {
+  font-family: "Sebang-Gothic-OTF";
+  src: url(./SebangGothic/SEBANG-Gothic-OTF.otf);
+}
+
+@font-face {
+  font-family: "Sebang-Gothic-OTF-Bold";
+  src: url(./SebangGothic/SEBANG-Gothic-OTF-Bold.otf);
+}
+
+@font-face {
+  font-family: "GothicA1-SemiBold";
+  src: url(./Gothic_A1/GothicA1-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: "GothicA1-Medium";
+  src: url(./fonts/Gothic_A1/GothicA1-Medium.ttf);
+}
+
