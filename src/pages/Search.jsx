@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import NextButton from '../components/Common/NextButton';
 import SearchCourseBox from '../components/Common/SearchCourseBox';
 import SearchBox from '../components/Common/SearchBox';
 import SearchCategory from './SearchCategory';
+import SearchArea from './SearchArea';
+import DetailSelect from '../components/Common/DetailSelect';
+import { sidoText, gugunText } from "../components/CustomSelect";
 
 const Ul = styled.ul`
   display: flex;
@@ -21,7 +23,7 @@ const Li = styled.li`
     color: #D9D9D9;
     text-align: left;
     font-size: 18px;
-    font-family: "GothicA1-Medium";
+    font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.3%;
     line-height: 140%;
     background-color: #282728;
@@ -40,43 +42,76 @@ const Li = styled.li`
     .button {
       background: linear-gradient(#282728, #0D0E10);
       height: 454px;
-      box-shadow: 0px 8px 16px rgba(40, 39, 40); 
+      filter: drop-shadow(0 8px 16px rgba(40, 39, 40));
+      cursor: default;
     }
   }
-  
 `;
 
 const Search = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [canProceed, setCanProceed] = useState(false);
 
   const handleClick = (index) => {
     setActiveIndex(index);
   };
 
+  const updateCanProceed = (selectedCategories) => {
+    setCanProceed(selectedCategories.length >= 2);
+  };
+
   const contents = [
-    <NextButton />,
-    <SearchCategory />,
-    '세부사항을 선택해주세요.'
+    <SearchArea />,
+    <SearchCategory 
+      selectedCategories={selectedCategories} 
+      setSelectedCategories={setSelectedCategories} 
+      updateCanProceed={updateCanProceed}
+    />,
+    selectedCategories.length >= 2 ? (
+      <DetailSelect 
+        selectedCategories={selectedCategories}
+        setCanProceed={setCanProceed} 
+      />
+    ) : (
+      <div style={{ padding: '24px', color: '#D9D9D9' }}>
+        <p>카테고리를 최소 2개 이상 선택해야 합니다.</p>
+      </div>
+    ),
   ];
+
+
 
   return (
     <div>
-    <SearchCourseBox></SearchCourseBox>
-    <Ul>
-      {['지역', '카테고리', '세부사항'].map((menu, index) => (
-        <Li key={index} className={activeIndex === index ? 'on' : ''}>
-          <button className="button" onClick={() => handleClick(index)}>
-            {activeIndex !== index && <div className="buttonText">{menu}</div>}
-            {activeIndex === index && (
-              <div>
-                {contents[index]}
-              </div>
-            )}
-          </button>
-        </Li>
-      ))}
-    </Ul>
-    <SearchBox></SearchBox>
+      <SearchCourseBox 
+        selectedCategories={selectedCategories} 
+        sidoText={sidoText}
+        gugunText={gugunText} 
+      />
+      <Ul>
+        {['지역', '카테고리', '세부사항'].map((menu, index) => (
+          <Li key={index} className={activeIndex === index ? 'on' : ''}>
+            <button 
+              className="button" 
+              onClick={() => {
+                if (index === 2 && selectedCategories.length < 2) return; 
+                handleClick(index);
+              }}
+            >
+              {activeIndex !== index && <div className="buttonText">{menu}</div>}
+              {activeIndex === index && (
+                <div>
+                  {contents[index]}
+                </div>
+              )}
+            </button>
+          </Li>
+        ))}
+      </Ul>
+      <SearchBox 
+        selectedCategories={selectedCategories} 
+        canProceed={canProceed} />
     </div>
   );
 };

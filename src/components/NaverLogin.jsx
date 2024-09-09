@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import naver from "../assets/images/login_images/naver_login.svg";
+import { useNavigate } from "react-router-dom";
 
 const NaverButton = styled.div`
   width: 360px;
@@ -17,8 +18,14 @@ const Naver = styled.img`
 `;
 
 const NaverLogin = () => {
+  const navigate = useNavigate(); 
+
+  const handleButtonClick = () => {
+    navigate("/nickname"); 
+  };
+
   return (
-    <NaverButton>
+    <NaverButton onClick={handleButtonClick}>
       <Naver src={naver} alt="네이버 로그인" />
     </NaverButton>
   );

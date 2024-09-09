@@ -30,7 +30,7 @@ const P = styled.p`
   color: #d9d9d9;
   font-size: 12px;
   margin-top: 12px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
 `;

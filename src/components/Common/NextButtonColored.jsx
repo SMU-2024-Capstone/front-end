@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from "styled-components";
 
 const StyledNextButtonColored = styled.button`
@@ -12,19 +13,17 @@ const StyledNextButtonColored = styled.button`
   filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
   color: #0D0E10;
   font-size: 18px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
   text-align: center;
 `;
 
-const NextButtonColored = () => {
+const NextButtonColored = ({ onClick }) => {
   return (
-    <div>
-      <StyledNextButtonColored>
-      Next
-      </StyledNextButtonColored>
-    </div>
+    <StyledNextButtonColored onClick={onClick}>
+      다음
+    </StyledNextButtonColored>
   );
 };
 

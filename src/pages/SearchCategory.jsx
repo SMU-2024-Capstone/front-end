@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Category from '../components/Common/Category';
 
@@ -8,7 +8,7 @@ const BigText = styled.div`
   color: #ECEFF0;
   text-align: left;
   font-size: 20px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
   line-height: 130%;
 `;
@@ -18,18 +18,17 @@ const Smalltext = styled.div`
   color: #D9D9D9;
   text-align: left;
   font-size: 16px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
 `;
 
-
-const SearchCategory = () => {
+const SearchCategory = ({ selectedCategories, setSelectedCategories }) => {
   return (
     <div>
       <BigText>카테고리를 선택해 주세요.</BigText>
       <Smalltext>최소 2개 이상 최대 4개 이하</Smalltext>
-      <Category></Category>
+      <Category selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
     </div>
   );
 };

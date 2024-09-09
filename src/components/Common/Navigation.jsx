@@ -1,141 +1,112 @@
-import "../App.css";
-import home from "../assets/icons/home.svg";
-import social from "../assets/icons/social.svg";
-import recommend from "../assets/icons/recommend.svg";
-import bookmark from "../assets/icons/bookmark.svg";
-import mypage from "../assets/icons/mypage.svg";
-import home_clicked from "../assets/icons/home_clicked.svg";
-import social_clicked from "../assets/icons/social_clicked.svg";
-import recommend_clicked from "../assets/icons/recommend_clicked.svg";
-import bookmark_clicked from "../assets/icons/bookmark_clicked.svg";
-import mypage_clicked from "../assets/icons/mypage_clicked.svg";
-import { useState } from "react";
+import styled from "styled-components";
+import home from "../../assets/images/icons/home.svg";
+import social from "../../assets/images/icons/social.svg";
+import recommend from "../../assets/images/icons/recommend.svg";
+import bookmark from "../../assets/images/icons/bookmark.svg";
+import mypage from "../../assets/images/icons/mypage.svg";
+import home_clicked from "../../assets/images/icons/home_clicked.svg";
+import social_clicked from "../../assets/images/icons/social_clicked.svg";
+import recommend_clicked from "../../assets/images/icons/recommend_clicked.svg";
+import bookmark_clicked from "../../assets/images/icons/bookmark_clicked.svg";
+import mypage_clicked from "../../assets/images/icons/mypage_clicked.svg";
+import bottom from "../../assets/images/icons/bottom.svg";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-// gpt -> 코드 줄이기
+const BottomBar = styled.div`
+  width: 392px;
+  height: 56px;
+  background-color: #0d0e10;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+`;
+
+const Bottom = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 8px;
+  position: relative;
+`;
+
+const Button = styled.img`
+  cursor: pointer;
+`;
+
+const BottomIcon = styled.img`
+  position: absolute;
+  bottom: -8px;
+  transition: all 0.3s ease;
+`;
+
 const Navigation = () => {
-  const [currentImage, setCurrentImage] = useState({
-    home: home_clicked,
-    social: social,
-    recommend: recommend,
-    bookmark: bookmark,
-    mypage: mypage,
-    styleHome: { paddingTop: "8px" },
-    styleSocial: { paddingTop: "0px" },
-    styleRecommend: { paddingTop: "0px" },
-    styleBookmark: { paddingTop: "0px" },
-    styleMypage: { paddingTop: "0px" },
-  });
+  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState("home");
+  const [stylePosition, setStylePosition] = useState({ left: "44px" });
 
-  const clickHome = () => {
-    setCurrentImage({
-      home: home_clicked,
-      social: social,
-      recommend: recommend,
-      bookmark: bookmark,
-      mypage: mypage,
-      styleHome: { paddingTop: "8px" },
-      styleSocial: { paddingTop: "0px" },
-      styleRecommend: { paddingTop: "0px" },
-      styleBookmark: { paddingTop: "0px" },
-      styleMypage: { paddingTop: "0px" },
-    });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const path = location.pathname.replace("/", "") || "home";
+    // Special case handling for 'SearchResult' to highlight 'home'
+    const page = path === "searchresult" || path === "homeresult" ? "home" : path;
+    setCurrentPage(page);
+    setStylePosition({ left: calculatePosition(page) });
+  }, [location.pathname]);
+
+  const handleClick = useCallback(
+    (page) => {
+      setCurrentPage(page);
+      navigate(`/${page}`);
+    },
+    [navigate]
+  );
+
+  const calculatePosition = (page) => {
+    switch (page) {
+      case "home":
+        return "44px";
+      case "social":
+        return "113px";
+      case "recommend":
+        return "182px";
+      case "bookmark":
+        return "252px";
+      case "mypage":
+        return "321px";
+      default:
+        return "44px";
+    }
   };
 
-  const clickSocial = () => {
-    setCurrentImage({
-      home: home,
-      social: social_clicked,
-      recommend: recommend,
-      bookmark: bookmark,
-      mypage: mypage,
-      styleHome: { paddingTop: "0px" },
-      styleSocial: { paddingTop: "8px" },
-      styleRecommend: { paddingTop: "0px" },
-      styleBookmark: { paddingTop: "0px" },
-      styleMypage: { paddingTop: "0px" },
-    });
-  };
-
-  const clickRecommend = () => {
-    setCurrentImage({
-      home: home,
-      social: social,
-      recommend: recommend_clicked,
-      bookmark: bookmark,
-      mypage: mypage,
-      styleHome: { paddingTop: "0px" },
-      styleSocial: { paddingTop: "0px" },
-      styleRecommend: { paddingTop: "8px" },
-      styleBookmark: { paddingTop: "0px" },
-      styleMypage: { paddingTop: "0px" },
-    });
-  };
-
-  const clickBookmark = () => {
-    setCurrentImage({
-      home: home,
-      social: social,
-      recommend: recommend,
-      bookmark: bookmark_clicked,
-      mypage: mypage,
-      styleHome: { paddingTop: "0px" },
-      styleSocial: { paddingTop: "0px" },
-      styleRecommend: { paddingTop: "0px" },
-      styleBookmark: { paddingTop: "8px" },
-      styleMypage: { paddingTop: "0px" },
-    });
-  };
-
-  const clickMypage = () => {
-    setCurrentImage({
-      home: home,
-      social: social,
-      recommend: recommend,
-      bookmark: bookmark,
-      mypage: mypage_clicked,
-      styleHome: { paddingTop: "0px" },
-      styleSocial: { paddingTop: "0px" },
-      styleRecommend: { paddingTop: "0px" },
-      styleBookmark: { paddingTop: "0px" },
-      styleMypage: { paddingTop: "8px" },
-    });
+  const getImageSrc = (page) => {
+    switch (page) {
+      case "home":
+        return currentPage === "home" ? home_clicked : home;
+      case "social":
+        return currentPage === "social" ? social_clicked : social;
+      case "recommend":
+        return currentPage === "recommend" ? recommend_clicked : recommend;
+      case "bookmark":
+        return currentPage === "bookmark" ? bookmark_clicked : bookmark;
+      case "mypage":
+        return currentPage === "mypage" ? mypage_clicked : mypage;
+      default:
+        return home;
+    }
   };
 
   return (
-    <>
-      <div className="bottom-bar">
-        <img
-          src={currentImage.home}
-          style={currentImage.styleHome}
-          onClick={clickHome}
-          alt="홈버튼"
-        />
-        <img
-          src={currentImage.social}
-          style={currentImage.styleSocial}
-          onClick={clickSocial}
-          alt="친구버튼"
-        />
-        <img
-          src={currentImage.recommend}
-          style={currentImage.styleRecommend}
-          onClick={clickRecommend}
-          alt="추천버튼"
-        />
-        <img
-          src={currentImage.bookmark}
-          style={currentImage.styleBookmark}
-          onClick={clickBookmark}
-          alt="북마크버튼"
-        />
-        <img
-          src={currentImage.mypage}
-          style={currentImage.styleMypage}
-          onClick={clickMypage}
-          alt="마이페이지버튼"
-        />
-      </div>
-    </>
+    <BottomBar>
+      <Bottom>
+        <BottomIcon src={bottom} style={stylePosition} alt="표시" />
+        <Button src={getImageSrc("home")} onClick={() => handleClick("home")} alt="홈버튼" />
+        <Button src={getImageSrc("social")} onClick={() => handleClick("social")} alt="친구버튼" />
+        <Button src={getImageSrc("recommend")} onClick={() => handleClick("recommend")} alt="추천버튼" />
+        <Button src={getImageSrc("bookmark")} onClick={() => handleClick("bookmark")} alt="북마크버튼" />
+        <Button src={getImageSrc("mypage")} onClick={() => handleClick("mypage")} alt="마이페이지버튼" />
+      </Bottom>
+    </BottomBar>
   );
 };
 

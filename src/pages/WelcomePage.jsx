@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import Logo_welcome from '../assets/images/logo/Logo.svg';
 import NextButtonColored from '../components/Common/NextButtonColored';
+import { useLocation, useNavigate } from 'react-router-dom'; 
 
 const BackgroundBox = styled.div`
   width: 360px;
@@ -25,40 +26,46 @@ const Logo = styled.div`
   }
 `;
 
-const Text = styled.div`
+const TextWrapper = styled.div`
   color: #ECEFF0;
   font-size: 36px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
   line-height: 120%;
   margin-top: 192px;
   margin-left: 12px;
 `;
 
-const NicknameText = styled.div`
+const NicknameText = styled.span`
   color: ${(props) => props.textColor};
   font-size: 36px;
-  font-family: "GothicA1-Medium";
-  letter-spacing: -0.4%;
-  line-height: 120%;
-  margin-left: 12px;
+  font-family: "Apple-SD-GothicNeo-Medium";
 `;
 
-const Welcome = ({ nickname }) => {
+const Welcome = () => {
+  const location = useLocation();
+  const { nickname } = location.state || { nickname: '' };
+  const navigate = useNavigate();  
+
+  const handleButtonClick = () => {
+    console.log('Navigating to /home'); 
+    navigate("/home"); 
+  };
+
   return (
     <div>
-        <Box>
+      <Box>
         <BackgroundBox bgColor1="#282728" bgColor2="#0D0E10">
           <Logo>
             <img src={Logo_welcome} alt="Logo_welcome" />
           </Logo>
-          <Text>
-            <NicknameText textColor="#D3FF4E">{nickname}</NicknameText>님
+          <TextWrapper>
+            <NicknameText textColor="#D3FF4E">{nickname}</NicknameText>님,
             <br />이길로에 오신 걸<br />환영합니다!
-          </Text>
+          </TextWrapper>
         </BackgroundBox>
       </Box>
-      <NextButtonColored />
+      <NextButtonColored onClick={handleButtonClick} />
     </div>
   );
 };
