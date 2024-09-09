@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Food from '../../assets/images/icons/category/Food.svg';
 import Cafe from '../../assets/images/icons/category/Cafe.svg';
@@ -13,17 +13,17 @@ import Tourism from '../../assets/images/icons/category/Tourism.svg';
 import Shopping from '../../assets/images/icons/category/Shopping.svg';
 import Add from '../../assets/images/icons/category/Add.svg';
 import SelectedFood from '../../assets/images/icons/category/Selected_Food.svg';
-import SelectedCafe from '../../assets/images/icons/category/Selected_Cafe.svg'; 
+import SelectedCafe from '../../assets/images/icons/category/Selected_Cafe.svg';
 import SelectedDrink from '../../assets/images/icons/category/Selected_Drink.svg';
-import SelectedSports from '../../assets/images/icons/category/Selected_Sports.svg'; 
+import SelectedSports from '../../assets/images/icons/category/Selected_Sports.svg';
 import SelectedGame from '../../assets/images/icons/category/Selected_Game.svg';
-import SelectedMovie from '../../assets/images/icons/category/Selected_Movie.svg'; 
+import SelectedMovie from '../../assets/images/icons/category/Selected_Movie.svg';
 import SelectedShow from '../../assets/images/icons/category/Selected_Show.svg';
-import SelectedExhibition from '../../assets/images/icons/category/Selected_Exhibition.svg'; 
+import SelectedExhibition from '../../assets/images/icons/category/Selected_Exhibition.svg';
 import SelectedBook from '../../assets/images/icons/category/Selected_Book.svg';
-import SelectedTourism from '../../assets/images/icons/category/Selected_Tourism.svg'; 
+import SelectedTourism from '../../assets/images/icons/category/Selected_Tourism.svg';
 import SelectedShopping from '../../assets/images/icons/category/Selected_Shopping.svg';
-import SelectedAdd from '../../assets/images/icons/category/Selected_Add.svg'; 
+import SelectedAdd from '../../assets/images/icons/category/Selected_Add.svg';
 
 const Container = styled.div`
   margin-top: 36px;
@@ -48,7 +48,7 @@ const CategoryButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${(props) => (props.isSelectable ? 'pointer' : 'not-allowed')};
   position: relative;
 
   img {
@@ -60,7 +60,7 @@ const CategoryText = styled.div`
   color: ${(props) => (props.isSelected ? '#FFFFFF' : '#ECEFF0')}; 
   text-align: center;
   font-size: 12px;
-  font-family: 'GothicA1-Medium';
+  font-family: 'Apple-SD-GothicNeo-Medium';
   letter-spacing: -0.3%;
   line-height: 140%;
   margin-top: 8px; 
@@ -70,7 +70,7 @@ const NumberCircle = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 8px;
-  font-family: 'GothicA1-Medium';
+  font-family: 'Apple-SD-GothicNeo-Medium';
   background-color: #B083D3;
   color: #F8FAF9;
   font-size: 10px;
@@ -99,19 +99,18 @@ const categories = [
   { icon: Add, selectedIcon: SelectedAdd, label: '기타' }
 ];
 
-const SearchCategory = () => {
-  const [selectedCategories, setSelectedCategories] = useState([]); 
-
-  const handleClick = (icon) => {
-    const isSelected = selectedCategories.includes(icon);
+const Category = ({ selectedCategories, setSelectedCategories }) => {
+  const handleClick = (category) => {
+    const isSelected = selectedCategories.includes(category);
     let newSelectedCategories = [];
 
     if (isSelected) {
-      newSelectedCategories = selectedCategories.filter((item) => item !== icon);
+      newSelectedCategories = selectedCategories.filter((item) => item !== category);
     } else if (selectedCategories.length < 4) {
-      newSelectedCategories = [...selectedCategories, icon];
+      newSelectedCategories = [...selectedCategories, category];
     }
 
+    console.log('Updated Categories:', newSelectedCategories); // Debugging line
     setSelectedCategories(newSelectedCategories);
   };
 
@@ -119,21 +118,22 @@ const SearchCategory = () => {
     <Container>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '8px' }}>
         {categories.map((category, index) => {
-          const isSelected = selectedCategories.includes(category.icon);
-          const selectedIndex = selectedCategories.indexOf(category.icon);
+          const isSelected = selectedCategories.includes(category);
+          const isSelectable = selectedCategories.length < 4 || isSelected;
           
           return (
             <CategoryButtonContainer key={index}>
               <CategoryButton
                 isSelected={isSelected}
-                onClick={() => handleClick(category.icon)}
+                isSelectable={isSelectable}
+                onClick={() => isSelectable && handleClick(category)}
               >
                 <img 
                   src={isSelected ? category.selectedIcon : category.icon} 
                   alt={category.label} 
                 />
                 {isSelected && (
-                  <NumberCircle>{selectedIndex + 1}</NumberCircle>
+                  <NumberCircle>{selectedCategories.indexOf(category) + 1}</NumberCircle>
                 )}
               </CategoryButton>
               <CategoryText isSelected={isSelected}>
@@ -147,4 +147,4 @@ const SearchCategory = () => {
   );
 };
 
-export default SearchCategory;
+export default Category;

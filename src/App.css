@@ -9,7 +9,10 @@
   width: 392px;
   height: 852px;
   background-color: #0D0E10;
+  position: relative;
+  overflow: hidden;
 }
+
 
 
 @font-face {
@@ -32,3 +35,27 @@
   src: url(./fonts/Gothic_A1/GothicA1-Medium.ttf);
 }
 
+@font-face {
+  font-family: "GothicA1-Bold";
+  src: url(./fonts/Gothic_A1/GothicA1-Bold.ttf);
+}
+
+@font-face {
+  font-family: "Apple-SD-GothicNeo-Bold";
+  src: url(./fonts/AppleSD_Gothic_Neo/AppleSDGothicNeoB.ttf);
+}
+
+@font-face {
+  font-family: "Apple-SD-GothicNeo-Medium";
+  src: url(./fonts/AppleSD_Gothic_Neo/AppleSDGothicNeoM.ttf);
+}
+
+@font-face {
+  font-family: "Apple-SD-GothicNeo-Light";
+  src: url(./fonts/AppleSD_Gothic_Neo/AppleSDGothicNeoL.ttf);
+}
+
+@font-face {
+  font-family: "Yeongdo";
+  src: url(./fonts/Yeongdo/Yeongdo.ttf);
+}

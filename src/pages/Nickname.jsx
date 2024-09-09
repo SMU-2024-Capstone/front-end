@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
 import NextButton from '../components/Common/NextButton';
-import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 const SmallLogo = styled.div`
   img {
@@ -28,7 +27,7 @@ const Text = styled.div`
   padding-left: 24px;
   color: #F8FAF9;
   font-size: 30px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
   line-height: 140%;
 `;
@@ -41,9 +40,9 @@ const InputBox = styled.div`
     outline: none;
     border-width: 0 0 1px;
     background-color: transparent;
-    color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
+    color: #D3FF4E;
     font-size: 30px;
-    font-family: "GothicA1-Medium";
+    font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.4%;
     line-height: 140%;
 
@@ -57,7 +56,7 @@ const InputBox = styled.div`
     }
 
     &:focus {
-      color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
+      color: #D3FF4E;
       border-width: 0 0 1px;
     }
   }
@@ -65,19 +64,10 @@ const InputBox = styled.div`
   text {
     color: #F8FAF9;
     font-size: 30px;
-    font-family: "GothicA1-Medium";
+    font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.4%;
     line-height: 140%;
   }
-`;
-
-const WarningText = styled.div`
-  color: #F44336;
-  font-size: 12px;
-  font-family: "GothicA1-Medium";
-  margin-top: 8px;
-  margin-left: 24px;
-  line-height: 140%;
 `;
 
 const CateGoryBox = styled.div`
@@ -94,7 +84,7 @@ const CateGoryText = styled.div`
   padding-left: 24px;
   color: #6A6D6E;
   font-size: 18px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
 `;
@@ -102,7 +92,8 @@ const CateGoryText = styled.div`
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
   const [isActive, setIsActive] = useState(false);
-  const [isDuplicate, setIsDuplicate] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleNickname = (e) => {
     const newValue = e.target.value;
@@ -115,29 +106,10 @@ const Nickname = () => {
     }
 
     setIsActive(filteredValue.length > 0);
-    setIsDuplicate(false); 
   };
 
   const handleNextButtonClick = () => {
-    if (nickname.length === 0) {
-      alert("다시 확인해주세요");
-    if (setIsDuplicate(false)) {
-      window.location.href = "./WelcomePage";
-    }
-    }
-
-    axios.post('http://localhost:8080/user/nickname', { nickname })
-      .then((res) => {
-        if (res.data.isDuplicate) { 
-          setIsDuplicate(true);
-        } else {
-          setIsDuplicate(false);
-          console.log('닉네임 사용 가능');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    navigate("/onboarding", { state: { nickname } });  // /onboarding으로 이동
   };
 
   return (
@@ -155,7 +127,6 @@ const Nickname = () => {
             placeholder='최대 8자까지'/>
           <text>입니다.</text>
         </InputBox>
-        {isDuplicate && <WarningText>이미 사용 중인 닉네임입니다.</WarningText>}
       </BackgroundBox>
       <CateGoryBox>
         <CateGoryText>카테고리</CateGoryText>

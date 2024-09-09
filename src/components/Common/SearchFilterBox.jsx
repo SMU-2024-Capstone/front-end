@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Search from '../../assets/images/icons/Search.svg'
 import Filter from "../../assets/images/icons/Filter.svg"
+import { useLocation, useNavigate } from 'react-router-dom'; 
 
 const SearchFilterBox = () => {
   const SearchButton = styled.div`
@@ -8,9 +9,10 @@ const SearchFilterBox = () => {
     height: 48px;
     border: 1px solid #ECEFF0;
     border-radius: 12px; 
+    cursor: pointer;
     text {
       color: #6A6D6E;
-      font-family: "GothicA1-Medium";
+      font-family: "Apple-SD-GothicNeo-Medium";
       letter-spacing: -0.3%;
       line-height: 140%;
       font-size: 16px;
@@ -28,6 +30,7 @@ const SearchFilterBox = () => {
   height: 48px;
   border: 1px solid #ECEFF0;
   border-radius: 12px; 
+  cursor: pointer;
   img {
     margin: 12px;
   }
@@ -39,21 +42,32 @@ const SearchFilterBox = () => {
     width: 392px;
     height: 80px;
     padding-top: 16px;
-    box-shadow: 0px 8px 8px rgba(79, 80, 82, 0.2); 
+    filter: drop-shadow(0 8px 8px rgba(79, 80, 82, 0.2));
   `;
   
-    
+  const navigate = useNavigate();  
+
+  const handleSearchButtonClick = () => {
+    console.log('Navigating to /search'); 
+    navigate("/search"); 
+  };
+
+  const handleFilterButtonClick = () => {
+    console.log('Navigating to /filter'); 
+    navigate("/filter"); 
+  };
+
   return (
     <SearchFilterBox>
-      <SearchButton>
+      <SearchButton onClick={handleSearchButtonClick}>
         <img src={Search} />
         <text>나에게 맞는 코스 찾아보기</text>
       </SearchButton>
-      <FilterButton>
+      <FilterButton onClick={handleFilterButtonClick}>
         <img src={Filter} />
       </FilterButton>
     </SearchFilterBox>
   )
 };
 
-export default SearchBox;
+export default SearchFilterBox;

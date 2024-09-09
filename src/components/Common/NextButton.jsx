@@ -10,7 +10,7 @@ const StyledNextButton = styled.button`
   background-color: ${(props) => (props.disabled ? '#0D0E10' : '#ECEFF0')};
   color: ${(props) => (props.disabled ? '#6A6D6E' : '#0D0E10')};
   font-size: 18px;
-  font-family: "GothicA1-Medium";
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
   text-align: center;
@@ -22,7 +22,7 @@ const NextButton = (props) => {
   return (
     <div>
       <StyledNextButton disabled={props.disabled} onClick={props.onClick}>
-      Next
+        다음
       </StyledNextButton>
     </div>
   );
