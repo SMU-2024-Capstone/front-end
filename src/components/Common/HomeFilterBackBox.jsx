@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import Back from "../../assets/images/icons/Back.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom'; 
+
 
 const SearchButton = styled.div`
   width: 296px;
@@ -47,9 +48,11 @@ const SearchBackBox = styled.div`
 
 const HomeFilterBackBox = () => {
   const navigate = useNavigate(); 
+  const location = useLocation();
+  const { nickname } = location.state || { nickname: '' };
 
   const handleButtonClick = () => {
-    navigate("/home"); 
+    navigate("/home",{ state: { nickname } }); 
   };
   
   return (

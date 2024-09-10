@@ -48,8 +48,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const path = location.pathname.replace("/", "") || "home";
-    // Special case handling for 'SearchResult' to highlight 'home'
-    const page = path === "searchresult" || path === "homeresult" ? "home" : path;
+    const page = path === "map" ||path === "searchresult" || path === "homeresult" ? "home" : path;
     setCurrentPage(page);
     setStylePosition({ left: calculatePosition(page) });
   }, [location.pathname]);

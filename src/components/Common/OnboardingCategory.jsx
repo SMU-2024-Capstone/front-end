@@ -1,179 +1,449 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Food from '../../assets/images/icons/category/Food.svg';
-import Cafe from '../../assets/images/icons/category/Cafe.svg';
-import Drink from '../../assets/images/icons/category/Drink.svg';
-import Sports from '../../assets/images/icons/category/Sports.svg';
-import Game from '../../assets/images/icons/category/Game.svg';
-import Movie from '../../assets/images/icons/category/Movie.svg';
-import Show from '../../assets/images/icons/category/Show.svg';
-import Exhibition from '../../assets/images/icons/category/Exhibition.svg';
-import Book from '../../assets/images/icons/category/Book.svg';
-import Tourism from '../../assets/images/icons/category/Tourism.svg';
-import Shopping from '../../assets/images/icons/category/Shopping.svg';
-import Add from '../../assets/images/icons/category/Add.svg';
-import SelectedFood from '../../assets/images/icons/category/Selected_Food.svg';
-import SelectedCafe from '../../assets/images/icons/category/Selected_Cafe.svg'; 
-import SelectedDrink from '../../assets/images/icons/category/Selected_Drink.svg';
-import SelectedSports from '../../assets/images/icons/category/Selected_Sports.svg'; 
-import SelectedGame from '../../assets/images/icons/category/Selected_Game.svg';
-import SelectedMovie from '../../assets/images/icons/category/Selected_Movie.svg'; 
-import SelectedShow from '../../assets/images/icons/category/Selected_Show.svg';
-import SelectedExhibition from '../../assets/images/icons/category/Selected_Exhibition.svg'; 
-import SelectedBook from '../../assets/images/icons/category/Selected_Book.svg';
-import SelectedTourism from '../../assets/images/icons/category/Selected_Tourism.svg'; 
-import SelectedShopping from '../../assets/images/icons/category/Selected_Shopping.svg';
-import SelectedAdd from '../../assets/images/icons/category/Selected_Add.svg'; 
-import NextButton from '../Common/NextButton';
-import { useNavigate, useLocation } from "react-router-dom";
-
-const Container = styled.div`
-  margin-top: 36px;
-  margin-left: 24px;
-`;
+import NextButton from './NextButton';
+import CompleteButton from './CompleteButton';
+import { useLocation } from 'react-router-dom';
+import { SwiperSlide } from 'swiper/react';
+import { Swiper } from "swiper/react";
+import "swiper/css";
 
 const BackgroundBox = styled.div`
   width: 360px;
-  height: 502px;
+  height: 520px;
   background: linear-gradient(${(props) => props.bgColor1}, ${(props) => props.bgColor2});
   border-radius: 12px;
   filter: drop-shadow(0px 8px 16px #282728);
-  margin-top: 32px;
+  margin-top: 24px;
   margin-left: 16px;
-  padding-top: 36px; 
+  padding-top: 32px;
+`;
+
+const TextContainer = styled.div`
+  width: auto;
+  height: 26px;
+  display: flex;
+  align-items: center; 
+  margin-left: 24px;
+  margin-bottom: 22px;
 `;
 
 const BigText = styled.div`
   color: #ECEFF0;
-  text-align: left;
   font-size: 20px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
   line-height: 130%;
-  margin-left: 24px;
 `;
 
-const Smalltext = styled.div`
-  color: #D9D9D9;
+const NicknameText = styled.span`
+  color: #D3FF4E;
+  font-size: 20px;
+  font-family: "Apple-SD-GothicNeo-Medium";
+  letter-spacing: -0.4%;
+  line-height: 130%;
+  margin-right: 5px;
+`;
+
+const CategoryText = styled.span`
+  color: #C675FF;
+  font-size: 20px;
+  font-family: "Apple-SD-GothicNeo-Medium";
+  letter-spacing: -0.4%;
+  line-height: 130%;
+  margin-right: 5px;
+`;
+
+const FilterText = styled.div`
+  color: #FFFFFF;
   text-align: left;
-  font-size: 16px;
+  font-size: 18px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
   margin-left: 24px;
+  margin-bottom: 8px;
 `;
 
-const CategoryButtonContainer = styled.div`
+const FilterCircleContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border-radius: 8px;
-  position: relative;
+  justify-content: space-around;
+  margin-bottom: 25px;
+  gap: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
-const CategoryButton = styled.div`
-  width: 44px;
-  height: 44px;
-  background-color: ${(props) => (props.isSelected ? '#F8FAF9' : 'transparent')};
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  display: flex;
+const FilterCircle = styled.div`
+  border-radius: 60px;
+  border: 1px solid #F8FAF9;
+  padding: 4px 18px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  background-color: ${(props) => (props.isSelected ? '#F8FAF9' : 'transparent')};
+  color: ${(props) => (props.isSelected ? '#8F4ABF' : '#6A6D6E')};
   cursor: pointer;
-  position: relative;
-
-  img {
-    margin: 0; 
-  }
+  transition: background-color 0.3s, color 0.3s;
+  width: auto; 
+  box-sizing: border-box;
 `;
 
-const CategoryText = styled.div`
-  color: ${(props) => (props.isSelected ? '#FFFFFF' : '#ECEFF0')}; 
-  text-align: center;
+const FilterDetailText = styled.div`
   font-size: 12px;
-  font-family: 'Apple-SD-GothicNeo-Medium';
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
-  margin-top: 8px; 
 `;
 
-const categories = [
-  { icon: Food, selectedIcon: SelectedFood, label: '식사' },
-  { icon: Cafe, selectedIcon: SelectedCafe, label: '카페' },
-  { icon: Drink, selectedIcon: SelectedDrink, label: '술' },
-  { icon: Sports, selectedIcon: SelectedSports, label: '스포츠' },
-  { icon: Game, selectedIcon: SelectedGame, label: '오락' },
-  { icon: Movie, selectedIcon: SelectedMovie, label: '영화' },
-  { icon: Show, selectedIcon: SelectedShow, label: '공연' },
-  { icon: Exhibition, selectedIcon: SelectedExhibition, label: '전시' },
-  { icon: Book, selectedIcon: SelectedBook, label: '독서' },
-  { icon: Tourism, selectedIcon: SelectedTourism, label: '관광' },
-  { icon: Shopping, selectedIcon: SelectedShopping, label: '쇼핑' },
-  { icon: Add, selectedIcon: SelectedAdd, label: '기타' }
-];
+const SwiperContainer = styled.div`
 
-const OnboardingCategory = () => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { nickname } = location.state || { nickname: '' }; // Nickname 페이지에서 전달된 값
+`;
 
-  const handleClick = (icon) => {
-    const isSelected = selectedCategories.includes(icon);
-    let newSelectedCategories = [];
+const CircleBox = styled.div`
+  display: flex;
+  margin-left: 174px;
+`;
 
-    if (isSelected) {
-      newSelectedCategories = selectedCategories.filter((item) => item !== icon);
-    } else {
-      newSelectedCategories = [...selectedCategories, icon];
-    }
+const Circle1 = styled.div`
+  width: 5px;
+  height: 5px;
+  background-color: ${(props) => (props.isActive ? "#d9d9d9" : "#6a6d6e")};
+  border-radius: 50%;
+  margin-right: 4px;
+`;
 
-    setSelectedCategories(newSelectedCategories);
+const Circle2 = styled.div`
+  width: 5px;
+  height: 5px;
+  background-color: ${(props) => (props.isActive ? "#6a6d6e" : "#d9d9d9")};
+  border-radius: 50%;
+`;
+
+const HomeFilterCategory = () => {
+  const [selectedFilters, setSelectedFilters] = useState({
+    가격: null,
+    맛: null,
+    양: null,
+    청결도: null,
+    웨이팅: null,
+  });
+
+  const [selectedFoods, setSelectedFoods] = useState({
+    한식: null,
+    양식: null,
+    일식: null,
+    중식: null,
+    아시아음식: null,
+  });
+
+  const [selectedDrinks, setSelectedDrinks] = useState({
+    요리주점: null,
+    이자카야: null,
+    맥주호프: null,
+    포장마차: null,
+    바: null,
+    와인: null,
+  });
+
+  const [selectedCafes, setSelectedCafes] = useState({
+    커피전문점: null,
+    디저트: null,
+  });
+
+  const [selectedGames, setSelectedGames] = useState({
+    공연 : null,
+    스포츠: null,
+    영화 : null,
+    오락: null,
+    전시및관광 : null,
+  });
+
+  const [step, setStep] = useState(1);
+
+  const handleFilterClick = (preference, value) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [preference]: value,
+    }));
+  };
+
+  const handleFoodClick = (food, value) => {
+    setSelectedFoods((prevFoods) => ({
+      ...prevFoods,
+      [food]: value,
+    }));
+  };
+
+  const handleDrinkClick = (drink, value) => {
+    setSelectedDrinks((prevDrinks) => ({
+      ...prevDrinks,
+      [drink]: value,
+    }));
+  };
+
+  const handleCafeClick = (cafe, value) => {
+    setSelectedCafes((prevCafes) => ({
+      ...prevCafes,
+      [cafe]: value,
+    }));
+  };
+
+  const handleGameClick = (game, value) => {
+    setSelectedGames((prevGames) => ({
+      ...prevGames,
+      [game]: value,
+    }));
   };
 
   const handleNextButtonClick = () => {
-    navigate("/welcome", { state: { nickname, selectedCategories } }); // 상태를 /welcome으로 전달
+    setStep(step + 1); 
+  };
+
+  const preferences = [
+    { label: '가격', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+    { label: '맛', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+    { label: '양', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+    { label: '청결도', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+    { label: '웨이팅', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+  ];
+
+  const foods = [
+    { label: '한식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '양식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '일식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '중식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '아시아음식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+  ];
+
+  const drinks = [
+    { label: '요리주점', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '이자카야', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '맥주호프', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '포장마차', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '바', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '와인', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+  ];
+
+  const cafes = [
+    { label: '커피전문점', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '디저트', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+  ];
+
+  const games = [
+    { label: '공연', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '스포츠', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '영화', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '오락', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: '전시 및 관광', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+  ];
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleSlideChange = (swiper) => {
+    setActiveIndex(swiper.activeIndex);
+  };
+
+  const location = useLocation();
+  const { nickname } = location.state || { nickname: '' };
+
+  const renderStepContent = () => {
+    if (step === 1) {
+      return (
+        <>
+          <TextContainer>
+            <NicknameText>{nickname}</NicknameText>
+            <BigText>님의 중요도를 선택해 주세요.</BigText>
+          </TextContainer>
+          {preferences.map((preference) => (
+            <div key={preference.label}>
+              <FilterText>{preference.label}</FilterText>
+              <FilterCircleContainer>
+                {preference.options.map((option, index) => (
+                  <FilterCircle
+                    key={index}
+                    isSelected={selectedFilters[preference.label] === option}
+                    onClick={() => handleFilterClick(preference.label, option)}
+                  >
+                    <FilterDetailText>{option}</FilterDetailText>
+                  </FilterCircle>
+                ))}
+              </FilterCircleContainer>
+            </div>
+          ))}
+        </>
+      );
+    } else if (step === 2) {
+      return (
+        <>
+          <TextContainer>
+            <CategoryText>식사</CategoryText>
+            <BigText>선호도를 선택해 주세요.</BigText>
+          </TextContainer>
+          {foods.map((food) => (
+            <div key={food.label}>
+              <FilterText>{food.label}</FilterText>
+              <FilterCircleContainer>
+                {food.options.map((option, index) => (
+                  <FilterCircle
+                    key={index}
+                    isSelected={selectedFoods[food.label] === option}
+                    onClick={() => handleFoodClick(food.label, option)}
+                  >
+                    <FilterDetailText>{option}</FilterDetailText>
+                  </FilterCircle>
+                ))}
+              </FilterCircleContainer>
+            </div>
+          ))}
+        </>
+      );
+    }
+    else if (step === 3) {
+      return (
+        <>
+          <TextContainer>
+            <CategoryText>술</CategoryText>
+            <BigText>선호도를 선택해 주세요.</BigText>
+          </TextContainer>
+          <SwiperContainer>
+          <Swiper
+            spaceBetween={0}
+            slidesPerView={1}
+            onSlideChange={handleSlideChange}
+          >
+
+            <SwiperSlide>
+              {drinks.slice(0, 5).map((drink) => (
+                <div key={drink.label}>
+                  <FilterText>{drink.label}</FilterText>
+                  <FilterCircleContainer>
+                    {drink.options.map((option, index) => (
+                      <FilterCircle
+                        key={index}
+                        isSelected={selectedDrinks[drink.label] === option}
+                        onClick={() => handleDrinkClick(drink.label, option)}
+                      >
+                        <FilterDetailText>{option}</FilterDetailText>
+                      </FilterCircle>
+                    ))}
+                  </FilterCircleContainer>
+                </div>
+              ))}
+            </SwiperSlide>
+    
+            <SwiperSlide>
+              {drinks.slice(5, 6).map((drink) => (
+                <div key={drink.label}>
+                  <FilterText>{drink.label}</FilterText>
+                  <FilterCircleContainer>
+                    {drink.options.map((option, index) => (
+                      <FilterCircle
+                        key={index}
+                        isSelected={selectedDrinks[drink.label] === option}
+                        onClick={() => handleDrinkClick(drink.label, option)}
+                      >
+                        <FilterDetailText>{option}</FilterDetailText>
+                      </FilterCircle>
+                    ))}
+                  </FilterCircleContainer>
+                </div>
+              ))}
+            </SwiperSlide>
+          </Swiper>
+          </SwiperContainer>
+
+          <CircleBox>
+          <Circle1 isActive={activeIndex === 0}></Circle1>
+          <Circle2 isActive={activeIndex === 0}></Circle2>
+        </CircleBox>
+        </>
+      );
+    }
+    else if (step === 4) {
+      return (
+        <>
+          <TextContainer>
+            <CategoryText>카페</CategoryText>
+            <BigText>선호도를 선택해 주세요.</BigText>
+          </TextContainer>
+          {cafes.map((cafe) => (
+            <div key={cafe.label}>
+              <FilterText>{cafe.label}</FilterText>
+              <FilterCircleContainer>
+                {cafe.options.map((option, index) => (
+                  <FilterCircle
+                    key={index}
+                    isSelected={selectedCafes[cafe.label] === option}
+                    onClick={() => handleCafeClick(cafe.label, option)}
+                  >
+                    <FilterDetailText>{option}</FilterDetailText>
+                  </FilterCircle>
+                ))}
+              </FilterCircleContainer>
+            </div>
+          ))}
+        </>
+      );
+    }
+    else {
+      return (
+        <>
+          <TextContainer>
+            <CategoryText>기타 놀거리</CategoryText>
+            <BigText>선호도를 선택해 주세요.</BigText>
+          </TextContainer>
+          {games.map((game) => (
+            <div key={game.label}>
+              <FilterText>{game.label}</FilterText>
+              <FilterCircleContainer>
+                {game.options.map((option, index) => (
+                  <FilterCircle
+                    key={index}
+                    isSelected={selectedGames[game.label] === option}
+                    onClick={() => handleGameClick(game.label, option)}
+                  >
+                    <FilterDetailText>{option}</FilterDetailText>
+                  </FilterCircle>
+                ))}
+              </FilterCircleContainer>
+            </div>
+          ))}
+        </>
+      );
+    }
+    
+      
   };
 
   return (
     <>
       <BackgroundBox bgColor1="#282728" bgColor2="#0D0E10">
-        <BigText>카테고리를 선택해 주세요</BigText>
-        <Smalltext>최소 3개 이상</Smalltext>
-        <Container>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '8px' }}>
-            {categories.map((category, index) => {
-              const isSelected = selectedCategories.includes(category.icon);
-              
-              return (
-                <CategoryButtonContainer key={index}>
-                  <CategoryButton
-                    isSelected={isSelected}
-                    onClick={() => handleClick(category.icon)}
-                  >
-                    <img 
-                      src={isSelected ? category.selectedIcon : category.icon} 
-                      alt={category.label} 
-                    />
-                  </CategoryButton>
-                  <CategoryText isSelected={isSelected}>
-                    {category.label}
-                  </CategoryText>
-                </CategoryButtonContainer>
-              );
-            })}
-          </div>
-        </Container>
+        {renderStepContent()}
       </BackgroundBox>
-      <NextButton 
-        disabled={selectedCategories.length < 3}
-        onClick={handleNextButtonClick}
-      >
-      </NextButton>
+
+      {step === 5 ? (
+        <CompleteButton 
+          onClick={handleNextButtonClick} 
+          disabled={
+            Object.values(selectedGames).filter((value) => value !== null).length < 5
+          }
+        >
+        </CompleteButton>
+      ) : (
+        <NextButton
+          disabled={
+            (step === 1 && Object.values(selectedFilters).filter((value) => value !== null).length < 5) ||
+            (step === 2 && Object.values(selectedFoods).filter((value) => value !== null).length < 5) ||
+            (step === 3 && Object.values(selectedDrinks).filter((value) => value !== null).length < 6) ||
+            (step === 4 && Object.values(selectedCafes).filter((value) => value !== null).length < 2)
+          }
+          onClick={handleNextButtonClick}
+        >
+        </NextButton>
+      )}
     </>
   );
 };
 
-export default OnboardingCategory;
+export default HomeFilterCategory;

@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <div>
       <SearchFilterBox></SearchFilterBox>
-      <Text>이길로 추천 코스</Text>
+      <Text>이길로 추천 장소</Text>
       <HomeContents></HomeContents>
       <MapButton></MapButton>
       <Navigation></Navigation>

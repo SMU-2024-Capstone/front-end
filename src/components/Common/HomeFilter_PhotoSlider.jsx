@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import imageData from "./HomeFilter_Photo"; // 이미지 데이터 가져오기
-
+import imageData from "./HomeFilter_Photo"; 
 
 const CarouselContainer = styled.div`
   width: 400px;
-  height: 245px; /* 슬라이더 높이를 이미지 높이에 맞게 설정 */
+  height: 217px; 
   overflow: hidden;
   position: relative;
   margin: auto;
@@ -19,11 +18,11 @@ const SlideWrapper = styled.div`
 
 const Slide = styled.div`
   width: 400px;
-  height: 245px;
+  height: 217px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0; /* 슬라이드 크기 유지 */
+  flex-shrink: 0; 
 `;
 
 const Image = styled.img`
@@ -50,31 +49,38 @@ const Indicator = styled.button`
   cursor: pointer;
 `;
 
-const PhotoSlider = () => {
-  const shuffleArray = (array) => {
-    let shuffledArray = array.slice();
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    return shuffledArray;
-  };
-  
+const PhotoSlider = ({ selectedCategories = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [shuffledImages, setShuffledImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
+
+  const getRandomImagePerCategory = (categories) => {
+    if (!categories || categories.length === 0) return [];
+
+    const filteredImages = categories.map(category => {
+      const categoryImages = imageData.filter(image => image.category === category);
+      if (categoryImages.length > 0) {
+        return categoryImages[Math.floor(Math.random() * categoryImages.length)];
+      }
+      return null;
+    });
+    return filteredImages.filter(image => image !== null);
+  };
 
   useEffect(() => {
-    setShuffledImages(shuffleArray(imageData)); // 랜덤으로 섞인 이미지 데이터 설정
-  }, []);
+    const randomImages = getRandomImagePerCategory(selectedCategories);
+    setSelectedImages(randomImages);
+  }, [selectedCategories]);
 
-  const totalSlides = shuffledImages.length;
+  const totalSlides = selectedImages.length;
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-    }, 3000); // 3초마다 슬라이드 변경
+    if (totalSlides > 0) {
+      const intervalId = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+      }, 3000);
 
-    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 클리어
+      return () => clearInterval(intervalId);
+    }
   }, [totalSlides]);
 
   const goToSlide = (index) => {
@@ -84,16 +90,20 @@ const PhotoSlider = () => {
   return (
     <div>
       <CarouselContainer>
-        <SlideWrapper currentIndex={currentIndex}>
-          {shuffledImages.map((image, index) => (
-            <Slide key={index}>
-              <Image src={image.src} alt={image.alt} />
-            </Slide>
-          ))}
-        </SlideWrapper>
+        {totalSlides > 0 ? (
+          <SlideWrapper currentIndex={currentIndex}>
+            {selectedImages.map((image, index) => (
+              <Slide key={index}>
+                <Image src={image.src} alt={image.alt} />
+              </Slide>
+            ))}
+          </SlideWrapper>
+        ) : (
+          <p>No images available</p>
+        )}
       </CarouselContainer>
       <IndicatorWrapper>
-        {shuffledImages.map((_, index) => (
+        {selectedImages.map((_, index) => (
           <Indicator
             key={index}
             isActive={index === currentIndex}

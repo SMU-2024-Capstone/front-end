@@ -1,5 +1,7 @@
 import styled from "styled-components";
+import { useLocation, useNavigate } from 'react-router-dom'; 
 
+const CompleteButton = (props) => {
 const StyledCompleteButton = styled.button`
   margin-top: 24px;
   margin-left: 16px;
@@ -18,10 +20,18 @@ const StyledCompleteButton = styled.button`
   filter: drop-shadow(0px 6px 8px rgba(236, 239, 240, 30%)); 
 `;
 
-const CompleteButton = (props) => {
+const navigate = useNavigate(); 
+const location = useLocation();
+const { nickname } = location.state || { nickname: '' };
+
+const handleButtonClick = () => {
+  console.log('Navigating to /welcome'); 
+  navigate("/welcome", { state: { nickname } }); 
+};
+
   return (
     <div>
-      <StyledCompleteButton disabled={props.disabled} onClick={props.onClick}>
+      <StyledCompleteButton disabled={props.disabled} onClick={handleButtonClick}>
         완료
       </StyledCompleteButton>
     </div>

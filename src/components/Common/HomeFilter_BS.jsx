@@ -30,17 +30,20 @@ import SelectedBook from '../../assets/images/icons/category/Selected_Book.svg';
 import SelectedTourism from '../../assets/images/icons/category/Selected_Tourism.svg';
 import SelectedShopping from '../../assets/images/icons/category/Selected_Shopping.svg';
 import SelectedAdd from '../../assets/images/icons/category/Selected_Add.svg';
+import bus from '../../assets/images/icons/bus.svg';
+import subway from '../../assets/images/icons/subway.svg';
+import walking from '../../assets/images/icons/walking.svg';
 
 export const MIN_Y = 0;
-export const MAX_Y = 540;
+export const MAX_Y = 548;
 
 const Wrapper = styled.div`
   position: relative;
   width: 392px;
-  top: 136px;
+  top: 124px;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  height: 580px;
+  height: 592px;
   background: #0D0E10; 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease-out;
@@ -49,7 +52,7 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  height: 52px;
+  height: 44px;
   position: relative;
   padding: 16px 0;
   cursor: grab;
@@ -107,9 +110,8 @@ const T1 = styled.div`
   font-size: 14px;
   line-height: 140%;
   letter-spacing: -0.3%;
-  margin-bottom: 16px;
   margin-left: 16px;
-  height: 42px;
+  height: 20px;
 `;
 
 const T2 = styled.div`
@@ -119,12 +121,12 @@ const T2 = styled.div`
   line-height: 140%;
   letter-spacing: -0.3%;
   margin-left: 16px;
-  margin-top: 24px;
+  margin-top: 12px;
 `;
 
 const CategoryList = styled.div`
   display: flex;
-  margin-top: 4px;
+  margin-top: 7px;
   margin-left: 16px;
 `;
 
@@ -146,7 +148,7 @@ const CategoryButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: ${(props) => (props.isSelectable ? 'pointer' : 'not-allowed')};
+  cursor: default
   position: relative;
 
   img {
@@ -180,6 +182,38 @@ const NumberCircle = styled.div`
   right: -5px;
   line-height: 1;
   padding-top: 1px;
+`;
+
+const MethodContainer = styled.div`
+  width: auto;
+  height: 20px;  
+  display: flex;
+  align-items: center;  
+  margin-left: 24px; 
+`;
+
+const MethodImg = styled.img`
+  width:14px;
+  height: 16px;
+  margin-top: 2px;
+  margin-right: 6px;
+`;
+
+const MethodText = styled.div`
+  color: #C675FF;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Apple-SD-GothicNeo-Bold';
+  letter-spacing: -0.3%;
+  line-height: 140%;
+  margin-left: 6px;  
+`;
+
+const MethodRod = styled.div`
+  width: 40px;
+  height: 4px;
+  background-color: #C675FF;
+  border-radius: 12px;
 `;
 
 const categories = [
@@ -263,7 +297,7 @@ const BottomSheet = ({ selectedCategories }) => {
         <Handle />
       </Header>
       <Content>
-        <PhotoSlider />
+      <PhotoSlider selectedCategories={selectedCategoryLabels} />
         <TopBar>
           <Send src={send} />
           <BookMarkButton onClick={toggleBookmark}>
@@ -276,7 +310,25 @@ const BottomSheet = ({ selectedCategories }) => {
         </TopBar>
       </Content>
       <Head>{sidoText} {gugunText}에 도착</Head>
-      <T1>#국립현대미술관 #스타벅스 광화문점 #뼈탄집</T1>
+      <T1>#국립현대미술관</T1>
+      <MethodContainer>
+        <MethodImg src={walking} alt="walking" />
+        <MethodRod></MethodRod>
+        <MethodText>도보 10분</MethodText>
+      </MethodContainer>
+      <T1>#스타벅스 광화문점</T1>
+      <MethodContainer>
+        <MethodImg src={subway} alt="subway" />
+        <MethodRod></MethodRod>
+        <MethodText>지하철 20분</MethodText>
+      </MethodContainer>
+      <T1>#뼈탄집</T1>
+      <MethodContainer>
+        <MethodImg src={bus} alt="bus" />
+        <MethodRod></MethodRod>
+        <MethodText>버스 23분</MethodText>
+      </MethodContainer>
+      <T1>#스타벅스 경복궁점</T1>
       <T2>코스 순서:</T2>
       <CategoryList>
         {filteredCategories.map((category, index) => {

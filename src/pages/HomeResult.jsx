@@ -4,6 +4,7 @@ import styled from "styled-components";
 import HomeSearchIconCourseBox from '../components/Common/HomeSearchIconCourseBox';
 import Navigation from '../components/Common/Navigation';
 import HomeBottomSheet from '../components/Common/Home_BS';
+import MapComponent from '../components/MapComponent';
 
 const SearchResult = () => {
   const location = useLocation();
@@ -12,8 +13,8 @@ const SearchResult = () => {
   return (
     <div>
       <HomeSearchIconCourseBox />
+      <MapComponent />
       <Navigation></Navigation>
-      <HomeBottomSheet selectedCategories={selectedCategories} />
     </div>
   );
 };

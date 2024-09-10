@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import SearchCourseBox from '../components/Common/SearchCourseBox';
-import SearchBox from '../components/Common/SearchBox';
-import SearchCategory from './SearchCategory';
-import SearchArea from './SearchArea';
-import DetailSelect from '../components/Common/DetailSelect';
+import React, { useState } from "react";
+import styled from "styled-components";
+import SearchCourseBox from "../components/Common/SearchCourseBox";
+import SearchBox from "../components/Common/SearchBox";
+import SearchCategory from "./SearchCategory";
+import SearchArea from "./SearchArea";
+import DetailSelect from "../components/Common/DetailSelect";
 import { sidoText, gugunText } from "../components/CustomSelect";
 
 const Ul = styled.ul`
@@ -20,7 +20,7 @@ const Li = styled.li`
   .button {
     width: 360px;
     height: 72px;
-    color: #D9D9D9;
+    color: #d9d9d9;
     text-align: left;
     font-size: 18px;
     font-family: "Apple-SD-GothicNeo-Medium";
@@ -40,7 +40,7 @@ const Li = styled.li`
 
   &.on {
     .button {
-      background: linear-gradient(#282728, #0D0E10);
+      background: linear-gradient(#282728, #0d0e10);
       height: 454px;
       filter: drop-shadow(0 8px 16px rgba(40, 39, 40));
       cursor: default;
@@ -63,55 +63,54 @@ const Search = () => {
 
   const contents = [
     <SearchArea />,
-    <SearchCategory 
-      selectedCategories={selectedCategories} 
-      setSelectedCategories={setSelectedCategories} 
+    <SearchCategory
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
       updateCanProceed={updateCanProceed}
     />,
     selectedCategories.length >= 2 ? (
-      <DetailSelect 
+      <DetailSelect
         selectedCategories={selectedCategories}
-        setCanProceed={setCanProceed} 
+        setCanProceed={setCanProceed}
       />
     ) : (
-      <div style={{ padding: '24px', color: '#D9D9D9' }}>
+      <div style={{ padding: "24px", color: "#D9D9D9" }}>
         <p>카테고리를 최소 2개 이상 선택해야 합니다.</p>
       </div>
     ),
   ];
 
-
-
   return (
     <div>
-      <SearchCourseBox 
-        selectedCategories={selectedCategories} 
+      <SearchCourseBox
+        selectedCategories={selectedCategories}
         sidoText={sidoText}
-        gugunText={gugunText} 
+        gugunText={gugunText}
       />
       <Ul>
-        {['지역', '카테고리', '세부사항'].map((menu, index) => (
-          <Li key={index} className={activeIndex === index ? 'on' : ''}>
-            <button 
-              className="button" 
+        {["지역", "카테고리", "세부사항"].map((menu, index) => (
+          <Li key={index} className={activeIndex === index ? "on" : ""}>
+            <button
+              className="button"
               onClick={() => {
-                if (index === 2 && selectedCategories.length < 2) return; 
+                if (gugunText == "전체") return;
+
+                if (index === 2 && selectedCategories.length < 2) return;
                 handleClick(index);
               }}
             >
-              {activeIndex !== index && <div className="buttonText">{menu}</div>}
-              {activeIndex === index && (
-                <div>
-                  {contents[index]}
-                </div>
+              {activeIndex !== index && (
+                <div className="buttonText">{menu}</div>
               )}
+              {activeIndex === index && <div>{contents[index]}</div>}
             </button>
           </Li>
         ))}
       </Ul>
-      <SearchBox 
-        selectedCategories={selectedCategories} 
-        canProceed={canProceed} />
+      <SearchBox
+        selectedCategories={selectedCategories}
+        canProceed={canProceed}
+      />
     </div>
   );
 };

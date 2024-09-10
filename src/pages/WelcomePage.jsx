@@ -49,7 +49,7 @@ const Welcome = () => {
 
   const handleButtonClick = () => {
     console.log('Navigating to /home'); 
-    navigate("/home"); 
+    navigate("/home", { state: { nickname } }); 
   };
 
   return (

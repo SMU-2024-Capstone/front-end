@@ -92,18 +92,18 @@ const DetailOptions = {
 
 const getSwiperSettings = (category) => {
   const settings = {
-    식사: { slidesPerView: 5, spaceBetween: 8 },
-    카페: { slidesPerView: 3, spaceBetween: 5 },
+    식사: { slidesPerView: 4, spaceBetween: 8 },
+    카페: { slidesPerView: 3, spaceBetween: 8 },
     술: { slidesPerView: 4, spaceBetween: 8 },
     스포츠: { slidesPerView: 4, spaceBetween: 8 },
-    오락: { slidesPerView: 4, spaceBetween: 10 },
+    오락: { slidesPerView: 3, spaceBetween: 8 },
     영화: { slidesPerView: 3, spaceBetween: 8 },
     공연: { slidesPerView: 3, spaceBetween: 8 },
     전시: { slidesPerView: 2, spaceBetween: 8 },
-    독서: { slidesPerView: 4, spaceBetween: 10 },
-    관광: { slidesPerView: 4, spaceBetween: 10 },
-    쇼핑: { slidesPerView: 5, spaceBetween: 8 },
-    기타: { slidesPerView: 3, spaceBetween: 8 },
+    독서: { slidesPerView: 4, spaceBetween: 8 },
+    관광: { slidesPerView: 3, spaceBetween: 8 },
+    쇼핑: { slidesPerView: 3, spaceBetween: 8 },
+    기타: { slidesPerView: 2, spaceBetween: 8 },
   };
   return settings[category] || { slidesPerView: 4, spaceBetween: 8 };
 };
