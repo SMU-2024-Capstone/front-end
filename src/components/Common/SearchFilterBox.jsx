@@ -46,7 +46,9 @@ const SearchFilterBox = () => {
   `;
   
   const navigate = useNavigate();  
-
+  const location = useLocation();
+  const { nickname } = location.state || { nickname: '' };
+  
   const handleSearchButtonClick = () => {
     console.log('Navigating to /search'); 
     navigate("/search"); 
@@ -54,7 +56,7 @@ const SearchFilterBox = () => {
 
   const handleFilterButtonClick = () => {
     console.log('Navigating to /filter'); 
-    navigate("/filter"); 
+    navigate("/filter", { state: { nickname } }); 
   };
 
   return (

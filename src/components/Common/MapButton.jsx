@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import map_default from '../../assets/images/map_default.svg';
 import map_clicked from '../../assets/images/map_clicked.svg';
+import { useNavigate } from "react-router-dom";
 
 const MapBtn = styled.div`
   width: 40px;
@@ -69,16 +70,16 @@ const MapButton = (props) => {
     setHover(false);
   };
 
-  const handleClick = () => {
-    if (!props.disabled && props.onClick) {
-      props.onClick();
-    }
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/map");
   };
 
   return (
     <MapBtn 
       disabled={props.disabled}
-      onClick={handleClick}
+      onClick={handleButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

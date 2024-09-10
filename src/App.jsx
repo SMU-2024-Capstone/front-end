@@ -12,6 +12,7 @@ import Recommend from './pages/Recommend';
 import SearchResult from './pages/SearchResult';
 import Redirection from './components/Redirection';
 import HomeResult from './pages/HomeResult';
+import Map from './pages/Map';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/searchresult" element={<SearchResult />} />
           <Route path="/homeresult" element={<HomeResult />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
     </div>

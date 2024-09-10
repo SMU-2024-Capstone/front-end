@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Back from "../../assets/images/icons/Back.svg";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 // Styled components 정의
 const SearchButton = styled.div`
@@ -48,14 +49,22 @@ const SearchCourseBox = ({ selectedCategories, sidoText, gugunText }) => {
     navigate("/home");
   };
 
-  const selectedCategoriesText = selectedCategories && selectedCategories.length > 0 
-    ? selectedCategories.map(category => `#${category.label}`).join(" ") 
-    : "";
+  const selectedCategoriesText =
+    selectedCategories && selectedCategories.length > 0
+      ? selectedCategories.map((category) => `#${category.label}`).join(" ")
+      : "";
 
   const displayText =
     gugunText !== "전체"
       ? `#${sidoText} #${gugunText} ${selectedCategoriesText}`
       : "나에게 맞는 코스 찾아보기";
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.location.hash = "reloaded"; // 해시 추가
+      window.location.reload(); // 페이지 새로고침
+    }
+  }, []);
 
   return (
     <SearchBackBox>

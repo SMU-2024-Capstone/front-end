@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
 import NextButton from '../components/Common/NextButton';
@@ -99,17 +99,34 @@ const Nickname = () => {
     const newValue = e.target.value;
     const filteredValue = newValue.replace(/[^a-zA-Z가-힣]/g, '');
 
-    if (filteredValue.length > 8) {
-      setNickname(filteredValue.substr(0, 8));
+    // Set the character limit to 5
+    if (filteredValue.length > 5) {
+      setNickname(filteredValue.substr(0, 5));
     } else {
       setNickname(filteredValue);
     }
-
-    setIsActive(filteredValue.length > 0);
   };
 
+  const handleCompositionEnd = (e) => {
+    const newValue = e.target.value;
+    const filteredValue = newValue.replace(/[^a-zA-Z가-힣]/g, '');
+
+    if (filteredValue.length > 5) {
+      setNickname(filteredValue.substr(0, 5));
+    } else {
+      setNickname(filteredValue);
+    }
+  };
+
+
+  useEffect(() => {
+    setIsActive(nickname.length === 5);
+  }, [nickname]);
+
   const handleNextButtonClick = () => {
-    navigate("/onboarding", { state: { nickname } });  // /onboarding으로 이동
+    if (isActive) {
+      navigate("/onboarding", { state: { nickname } });
+    }
   };
 
   return (
@@ -123,8 +140,9 @@ const Nickname = () => {
           <input 
             value={nickname}
             onChange={handleNickname}
+            onCompositionEnd={handleCompositionEnd}
             id="nickname"
-            placeholder='최대 8자까지'/>
+            placeholder='최대 5자까지'/>
           <text>입니다.</text>
         </InputBox>
       </BackgroundBox>
