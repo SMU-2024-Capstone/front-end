@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import HomeFilterNextButton from './HomeFilterNextButton';
-import HomeFilterCompleteButton from './HomeFilterCompleteButton';
-import { useLocation } from 'react-router-dom';
-import { SwiperSlide } from 'swiper/react';
+import React, { useState } from "react";
+import styled from "styled-components";
+import HomeFilterNextButton from "./HomeFilterNextButton";
+import HomeFilterCompleteButton from "./HomeFilterCompleteButton";
+import { useLocation } from "react-router-dom";
+import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
 import "swiper/css";
 
 const BackgroundBox = styled.div`
   width: 360px;
   height: 520px;
-  background: linear-gradient(${(props) => props.bgColor1}, ${(props) => props.bgColor2});
+  background: linear-gradient(
+    ${(props) => props.bgColor1},
+    ${(props) => props.bgColor2}
+  );
   border-radius: 12px;
   filter: drop-shadow(0px 8px 16px #282728);
   margin-top: 52px;
@@ -22,13 +25,13 @@ const TextContainer = styled.div`
   width: auto;
   height: 26px;
   display: flex;
-  align-items: center; 
+  align-items: center;
   margin-left: 24px;
   margin-bottom: 22px;
 `;
 
 const BigText = styled.div`
-  color: #ECEFF0;
+  color: #eceff0;
   font-size: 20px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
@@ -36,7 +39,7 @@ const BigText = styled.div`
 `;
 
 const NicknameText = styled.span`
-  color: #D3FF4E;
+  color: #d3ff4e;
   font-size: 20px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
@@ -45,7 +48,7 @@ const NicknameText = styled.span`
 `;
 
 const CategoryText = styled.span`
-  color: #C675FF;
+  color: #c675ff;
   font-size: 20px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
@@ -54,7 +57,7 @@ const CategoryText = styled.span`
 `;
 
 const FilterText = styled.div`
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: left;
   font-size: 18px;
   font-family: "Apple-SD-GothicNeo-Medium";
@@ -75,16 +78,17 @@ const FilterCircleContainer = styled.div`
 
 const FilterCircle = styled.div`
   border-radius: 60px;
-  border: 1px solid #F8FAF9;
+  border: 1px solid #f8faf9;
   padding: 4px 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => (props.isSelected ? '#F8FAF9' : 'transparent')};
-  color: ${(props) => (props.isSelected ? '#8F4ABF' : '#6A6D6E')};
+  background-color: ${(props) =>
+    props.isSelected ? "#F8FAF9" : "transparent"};
+  color: ${(props) => (props.isSelected ? "#8F4ABF" : "#6A6D6E")};
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-  width: auto; 
+  width: auto;
   box-sizing: border-box;
 `;
 
@@ -95,9 +99,7 @@ const FilterDetailText = styled.div`
   line-height: 140%;
 `;
 
-const SwiperContainer = styled.div`
-
-`;
+const SwiperContainer = styled.div``;
 
 const CircleBox = styled.div`
   display: flex;
@@ -150,12 +152,14 @@ const HomeFilterCategory = () => {
     디저트: null,
   });
 
+  const tour = "전시 및 관광";
+
   const [selectedGames, setSelectedGames] = useState({
-    공연 : null,
+    공연: null,
     스포츠: null,
-    영화 : null,
+    영화: null,
     오락: null,
-    전시및관광 : null,
+    [tour]: null,
   });
 
   const [step, setStep] = useState(1);
@@ -196,47 +200,79 @@ const HomeFilterCategory = () => {
   };
 
   const handleNextButtonClick = () => {
-    setStep(step + 1); 
+    setStep(step + 1);
   };
 
   const preferences = [
-    { label: '가격', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
-    { label: '맛', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
-    { label: '양', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
-    { label: '청결도', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
-    { label: '웨이팅', options: ['상관없음', '약간 중요', '중요', '매우 중요'] },
+    { label: "가격", options: ["상관없음", "약간 중요", "중요", "매우 중요"] },
+    { label: "맛", options: ["상관없음", "약간 중요", "중요", "매우 중요"] },
+    { label: "양", options: ["상관없음", "약간 중요", "중요", "매우 중요"] },
+    {
+      label: "청결도",
+      options: ["상관없음", "약간 중요", "중요", "매우 중요"],
+    },
+    {
+      label: "웨이팅",
+      options: ["상관없음", "약간 중요", "중요", "매우 중요"],
+    },
   ];
 
   const foods = [
-    { label: '한식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '양식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '일식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '중식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '아시아음식', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: "한식", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    { label: "양식", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    { label: "일식", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    { label: "중식", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    {
+      label: "아시아음식",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
   ];
 
   const drinks = [
-    { label: '요리주점', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '이자카야', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '맥주호프', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '포장마차', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '바', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '와인', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    {
+      label: "요리주점",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    {
+      label: "이자카야",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    {
+      label: "맥주호프",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    {
+      label: "포장마차",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    { label: "바", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    { label: "와인", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
   ];
 
   const cafes = [
-    { label: '커피전문점', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '디저트', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    {
+      label: "커피전문점",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    {
+      label: "디저트",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
   ];
 
   const games = [
-    { label: '공연', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '스포츠', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '영화', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '오락', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
-    { label: '전시 및 관광', options: ['선호 안함', '약간 선호', '선호', '매우 선호'] },
+    { label: "공연", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    {
+      label: "스포츠",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
+    { label: "영화", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    { label: "오락", options: ["선호 안함", "약간 선호", "선호", "매우 선호"] },
+    {
+      label: "전시 및 관광",
+      options: ["선호 안함", "약간 선호", "선호", "매우 선호"],
+    },
   ];
-
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -245,7 +281,7 @@ const HomeFilterCategory = () => {
   };
 
   const location = useLocation();
-  const { nickname } = location.state || { nickname: '' };
+  const { nickname } = location.state || { nickname: "" };
 
   const renderStepContent = () => {
     if (step === 1) {
@@ -298,8 +334,7 @@ const HomeFilterCategory = () => {
           ))}
         </>
       );
-    }
-    else if (step === 3) {
+    } else if (step === 3) {
       return (
         <>
           <TextContainer>
@@ -307,61 +342,59 @@ const HomeFilterCategory = () => {
             <BigText>선호도를 선택해 주세요.</BigText>
           </TextContainer>
           <SwiperContainer>
-          <Swiper
-            spaceBetween={0}
-            slidesPerView={1}
-            onSlideChange={handleSlideChange}
-          >
+            <Swiper
+              spaceBetween={0}
+              slidesPerView={1}
+              onSlideChange={handleSlideChange}
+            >
+              <SwiperSlide>
+                {drinks.slice(0, 5).map((drink) => (
+                  <div key={drink.label}>
+                    <FilterText>{drink.label}</FilterText>
+                    <FilterCircleContainer>
+                      {drink.options.map((option, index) => (
+                        <FilterCircle
+                          key={index}
+                          isSelected={selectedDrinks[drink.label] === option}
+                          onClick={() => handleDrinkClick(drink.label, option)}
+                        >
+                          <FilterDetailText>{option}</FilterDetailText>
+                        </FilterCircle>
+                      ))}
+                    </FilterCircleContainer>
+                  </div>
+                ))}
+              </SwiperSlide>
 
-            <SwiperSlide>
-              {drinks.slice(0, 5).map((drink) => (
-                <div key={drink.label}>
-                  <FilterText>{drink.label}</FilterText>
-                  <FilterCircleContainer>
-                    {drink.options.map((option, index) => (
-                      <FilterCircle
-                        key={index}
-                        isSelected={selectedDrinks[drink.label] === option}
-                        onClick={() => handleDrinkClick(drink.label, option)}
-                      >
-                        <FilterDetailText>{option}</FilterDetailText>
-                      </FilterCircle>
-                    ))}
-                  </FilterCircleContainer>
-                </div>
-              ))}
-            </SwiperSlide>
-    
-            <SwiperSlide>
-              {drinks.slice(5, 6).map((drink) => (
-                <div key={drink.label}>
-                  <FilterText>{drink.label}</FilterText>
-                  <FilterCircleContainer>
-                    {drink.options.map((option, index) => (
-                      <FilterCircle
-                        key={index}
-                        isSelected={selectedDrinks[drink.label] === option}
-                        onClick={() => handleDrinkClick(drink.label, option)}
-                      >
-                        <FilterDetailText>{option}</FilterDetailText>
-                      </FilterCircle>
-                    ))}
-                  </FilterCircleContainer>
-                </div>
-              ))}
-              <div style={{width: "360px", height: "330px"}} />
-            </SwiperSlide>
-          </Swiper>
+              <SwiperSlide>
+                {drinks.slice(5, 6).map((drink) => (
+                  <div key={drink.label}>
+                    <FilterText>{drink.label}</FilterText>
+                    <FilterCircleContainer>
+                      {drink.options.map((option, index) => (
+                        <FilterCircle
+                          key={index}
+                          isSelected={selectedDrinks[drink.label] === option}
+                          onClick={() => handleDrinkClick(drink.label, option)}
+                        >
+                          <FilterDetailText>{option}</FilterDetailText>
+                        </FilterCircle>
+                      ))}
+                    </FilterCircleContainer>
+                  </div>
+                ))}
+                <div style={{ width: "360px", height: "330px" }} />
+              </SwiperSlide>
+            </Swiper>
           </SwiperContainer>
 
           <CircleBox>
-          <Circle1 isActive={activeIndex === 0}></Circle1>
-          <Circle2 isActive={activeIndex === 0}></Circle2>
-        </CircleBox>
+            <Circle1 isActive={activeIndex === 0}></Circle1>
+            <Circle2 isActive={activeIndex === 0}></Circle2>
+          </CircleBox>
         </>
       );
-    }
-    else if (step === 4) {
+    } else if (step === 4) {
       return (
         <>
           <TextContainer>
@@ -386,8 +419,7 @@ const HomeFilterCategory = () => {
           ))}
         </>
       );
-    }
-    else {
+    } else {
       return (
         <>
           <TextContainer>
@@ -413,8 +445,6 @@ const HomeFilterCategory = () => {
         </>
       );
     }
-    
-      
   };
 
   return (
@@ -424,24 +454,36 @@ const HomeFilterCategory = () => {
       </BackgroundBox>
 
       {step === 5 ? (
-        <HomeFilterCompleteButton 
-          onClick={handleNextButtonClick} 
+        <HomeFilterCompleteButton
+          onClick={handleNextButtonClick}
           disabled={
-            Object.values(selectedGames).filter((value) => value !== null).length < 5
+            Object.values(selectedGames).filter((value) => value !== null)
+              .length < 5
           }
-        >
-        </HomeFilterCompleteButton>
+          filterArray={selectedFilters}
+          foods={selectedFoods}
+          drinks={selectedDrinks}
+          cafes={selectedCafes}
+          games={selectedGames}
+        ></HomeFilterCompleteButton>
       ) : (
         <HomeFilterNextButton
           disabled={
-            (step === 1 && Object.values(selectedFilters).filter((value) => value !== null).length < 5) ||
-            (step === 2 && Object.values(selectedFoods).filter((value) => value !== null).length < 5) ||
-            (step === 3 && Object.values(selectedDrinks).filter((value) => value !== null).length < 6) ||
-            (step === 4 && Object.values(selectedCafes).filter((value) => value !== null).length < 2)
+            (step === 1 &&
+              Object.values(selectedFilters).filter((value) => value !== null)
+                .length < 5) ||
+            (step === 2 &&
+              Object.values(selectedFoods).filter((value) => value !== null)
+                .length < 5) ||
+            (step === 3 &&
+              Object.values(selectedDrinks).filter((value) => value !== null)
+                .length < 6) ||
+            (step === 4 &&
+              Object.values(selectedCafes).filter((value) => value !== null)
+                .length < 2)
           }
           onClick={handleNextButtonClick}
-        >
-        </HomeFilterNextButton>
+        ></HomeFilterNextButton>
       )}
     </>
   );

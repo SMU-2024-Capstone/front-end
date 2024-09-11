@@ -27,7 +27,7 @@ const ScrollableContent = styled.div`
 `;
 
 const HomeContents = () => {
-  const [contentItems, setContentItems] = useState([1, 2, 3, 4, 5, 6]); 
+  const [contentItems, setContentItems] = useState([1, 2, 3, 4, 5]); 
   const [pageCount, setPageCount] = useState(1); 
   const [isLoading, setIsLoading] = useState(false); 
   const containerRef = useRef(null);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from "styled-components";
 import Search_grey from '../../assets/images/icons/Search_grey.svg';
 import Search_black from '../../assets/images/icons/Search_black.svg';
@@ -36,13 +36,16 @@ const Text = styled.div`
   font-size: 18px;
 `;
 
-const accessToken = window.localStorage.getItem("accessToken");
-
 const SearchBox = ({ canProceed, selectedCategories, selectedOptions, nothingState }) => {
+  const [requestData, setRequestData] = useState({
+    region: sidoText + gugunText,
+    categories: []
+  });
+
   const navigate = useNavigate();
   const region = sidoText + gugunText;
 
-  const groupCategories = (options) => {
+  const groupCategories = useCallback((options) => {
     const groupedCategories = [];
 
     selectedCategories.forEach(category => {
@@ -50,52 +53,53 @@ const SearchBox = ({ canProceed, selectedCategories, selectedOptions, nothingSta
       const categoryOptions = options[categoryLabel];
 
       if (categoryOptions === '상관없음') {
-
         groupedCategories.push(nothingState[categoryLabel] || []);
       } else {
-
         groupedCategories.push(categoryOptions.filter(option => option !== '상관없음'));
       }
     });
 
     return groupedCategories;
-  };
+  }, [nothingState, selectedCategories]);
 
   const handleClick = () => {
     if (canProceed) {
+      // Simplified for testing navigation
       const categories = groupCategories(selectedOptions);
 
-      const requestData = {
+      const updatedRequestData = {
         region: region,
-        categories: categories,
+        categories: categories
       };
 
-      fetch(`http://localhost:8080/search/category`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          navigate("/searchresult", { state: { selectedCategories } }); 
-        })
-        .catch((error) => {
-          console.error("지역검색 코스 추천 중 오류 발생:", error);
-        });
+      setRequestData(updatedRequestData);
 
-      console.log(selectedOptions);
-      console.log(selectedCategories);
-      console.log(categories);
-      navigate("/searchresult", { state: { selectedCategories } }); 
+      // Commenting out the API call
+      // fetch(`http://localhost:8080/search/category`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + accessToken,
+      //   },
+      //   body: JSON.stringify(updatedRequestData),
+      // })
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error("Failed to fetch");
+      //     }
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     console.log(data);
+      //     navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
+      //   })
+      //   .catch((error) => {
+      //     console.error("지역검색 코스 추천 중 오류 발생:", error);
+      //   });
+
+      // Testing navigation
+      console.log("Navigating to /searchresult with:", { selectedCategories, requestData: updatedRequestData });
+      navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
     }
   };
 

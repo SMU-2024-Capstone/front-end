@@ -10,9 +10,6 @@ import NaverMap from '../components/NaverMap';
 import HomeMap from '../components/HomeMap';
 
 const Map = () => {
-  const location = useLocation();
-  const selectedCategories = location.state?.selectedCategories || [];
-
   return (
     <div>
       <MapSearchBox />
