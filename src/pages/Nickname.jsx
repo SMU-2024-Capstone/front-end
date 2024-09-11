@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
 import NextButton from '../components/Common/NextButton';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 const SmallLogo = styled.div`
   img {
@@ -112,16 +111,16 @@ const Nickname = () => {
   const handleNickname = (e) => {
     const newValue = e.target.value;
     const filteredValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, '');
-  
+
     if (filteredValue.length > 5) {
       setNickname(filteredValue.substr(0, 5));
     } else {
       setNickname(filteredValue);
     }
-  
+
     setIsDuplicate(false); // 닉네임 수정 시 중복 상태 초기화
   };
-  
+
   const handleCompositionEnd = (e) => {
     const newValue = e.target.value;
     const filteredValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, '');
@@ -145,7 +144,7 @@ const Nickname = () => {
     const requestData = {
       nickname: nickname
     };
-  console.log(nickname);
+    console.log(nickname);
 
     try {
       const response = await fetch(`http://localhost:8080/user/nickname`, {
@@ -176,10 +175,12 @@ const Nickname = () => {
       return false; // 오류 발생 시 false 반환
     }
   };
-  
+
   useEffect(() => {
-    const Jamo = /^[ㄱ-ㅎ]*$/.test(nickname);
-    setIsActive(nickname.length > 0 && !isDuplicate && !Jamo); 
+    // 자음만 포함된 부분이 있는지 검사
+    const containsJamoOnlyParts = /([ㄱ-ㅎ]+)([^ㄱ-ㅎ]|$)/.test(nickname);
+
+    setIsActive(nickname.length > 0 && !isDuplicate && !containsJamoOnlyParts);
   }, [nickname, isDuplicate]);
 
   const handleNextButtonClick = async () => {
@@ -200,7 +201,7 @@ const Nickname = () => {
           <input 
             value={nickname}
             onChange={handleNickname}
-            onCompositionEnd={handleCompositionEnd}
+            // onCompositionEnd={handleCompositionEnd}
             onFocus={handleFocus} // 입력창을 클릭하면 중복 상태 초기화 및 내용 비우기
             id="nickname"
             placeholder='최대 5자까지'/>
@@ -212,7 +213,7 @@ const Nickname = () => {
         <CateGoryText>카테고리</CateGoryText>
       </CateGoryBox>
       <NextButton 
-        disabled={!isActive}
+        disabled={!isActive} // 로딩 상태 제거 후 버튼 활성화 조건 업데이트
         onClick={handleNextButtonClick}>
       </NextButton>
     </div>
