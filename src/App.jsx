@@ -21,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Start />} />
+          <Route path="/login/oauth2/code/kakao" element={<Redirection />} />
           <Route path="/nickname" element={<Nickname />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/welcome" element={<Welcome />} />

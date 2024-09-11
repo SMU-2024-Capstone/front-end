@@ -46,10 +46,6 @@ const HomeMap = () => {
       mapRef.current.panTo(position);
     }
 
-    window.open(
-      "https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh",
-      "_blank"
-    );
   };
 
   return (

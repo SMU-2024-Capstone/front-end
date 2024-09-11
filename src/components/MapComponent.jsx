@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { GoogleMap, useJsApiLoader, MarkerF } from '@react-google-maps/api';
-import nowPlace from '../assets/images/icons/marker/now_place.svg';
-import book from '../assets/images/icons/marker/book.svg';
-import cafe from '../assets/images/icons/marker/cafe.svg';
-import concert from '../assets/images/icons/marker/concert.svg';
-import drunk from '../assets/images/icons/marker/drunk.svg';
-import etc from '../assets/images/icons/marker/etc.svg';
-import exhibit from '../assets/images/icons/marker/exhibit.svg';
-import food from '../assets/images/icons/marker/food.svg';
-import game from '../assets/images/icons/marker/game.svg';
-import movie from '../assets/images/icons/marker/movie.svg';
-import shopping from '../assets/images/icons/marker/shopping.svg';
-import sport from '../assets/images/icons/marker/sport.svg';
-import tour from '../assets/images/icons/marker/tour.svg';
+import React, { useState, useEffect, useRef } from "react";
+import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
+import nowPlace from "../assets/images/icons/marker/now_place.svg";
+import book from "../assets/images/icons/marker/book.svg";
+import cafe from "../assets/images/icons/marker/cafe.svg";
+import concert from "../assets/images/icons/marker/concert.svg";
+import drunk from "../assets/images/icons/marker/drunk.svg";
+import etc from "../assets/images/icons/marker/etc.svg";
+import exhibit from "../assets/images/icons/marker/exhibit.svg";
+import food from "../assets/images/icons/marker/food.svg";
+import game from "../assets/images/icons/marker/game.svg";
+import movie from "../assets/images/icons/marker/movie.svg";
+import shopping from "../assets/images/icons/marker/shopping.svg";
+import sport from "../assets/images/icons/marker/sport.svg";
+import tour from "../assets/images/icons/marker/tour.svg";
 
 const containerStyle = {
-  width: '392px',
-  height: '852px',
+  width: "392px",
+  height: "852px",
 };
 
 const MapComponent = ({ selectedCategories }) => {
@@ -38,7 +38,7 @@ const MapComponent = ({ selectedCategories }) => {
         }
       );
     } else {
-      alert('GPS를 지원하지 않습니다. 설정을 확인하세요.');
+      alert("GPS를 지원하지 않습니다. 설정을 확인하세요.");
     }
   };
 
@@ -49,29 +49,29 @@ const MapComponent = ({ selectedCategories }) => {
   // 각 카테고리에 맞는 아이콘을 매핑하는 함수 (label을 기준으로)
   const getCategoryIcon = (label) => {
     switch (label) {
-      case '식사':
+      case "식사":
         return food;
-      case '카페':
+      case "카페":
         return cafe;
-      case '독서':
+      case "독서":
         return book;
-      case '공연':
+      case "공연":
         return concert;
-      case '술':
+      case "술":
         return drunk;
-      case '기타':
+      case "기타":
         return etc;
-      case '전시':
+      case "전시":
         return exhibit;
-      case '오락':
+      case "오락":
         return game;
-      case '영화':
+      case "영화":
         return movie;
-      case '쇼핑':
+      case "쇼핑":
         return shopping;
-      case '스포츠':
+      case "스포츠":
         return sport;
-      case '관광':
+      case "관광":
         return tour;
       default:
         return nowPlace;
@@ -99,9 +99,15 @@ const MapComponent = ({ selectedCategories }) => {
     }
 
     window.open(
-      'https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh',
-      '_blank'
+      "https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh",
+      "_blank"
     );
+  };
+
+  const handleMarkerClick2 = (position) => {
+    if (mapRef.current) {
+      mapRef.current.panTo(position);
+    }
   };
 
   return (
@@ -118,21 +124,23 @@ const MapComponent = ({ selectedCategories }) => {
       <MarkerF
         position={markerPosition}
         icon={{ url: nowPlace }}
-        onClick={() => handleMarkerClick(markerPosition)}
+        onClick={() => handleMarkerClick2(markerPosition)}
       />
 
       {/* 선택된 카테고리에 따라 마커 생성 */}
       {selectedCategories.map((category, index) => {
         const position = getRandomNearbyPosition(lat, lng);
-        const iconUrl = getCategoryIcon(category.label);  // label을 기준으로 아이콘 매핑
+        const iconUrl = getCategoryIcon(category.label); // label을 기준으로 아이콘 매핑
 
-        console.log(`Rendering marker for category: ${category.label}, icon: ${iconUrl}`);  // 디버깅용 로그
+        console.log(
+          `Rendering marker for category: ${category.label}, icon: ${iconUrl}`
+        ); // 디버깅용 로그
 
         return (
           <MarkerF
             key={index}
             position={position}
-            icon={{ url: iconUrl }}  // 아이콘 URL 설정
+            icon={{ url: iconUrl }} // 아이콘 URL 설정
             onClick={() => handleMarkerClick(position)}
           />
         );
