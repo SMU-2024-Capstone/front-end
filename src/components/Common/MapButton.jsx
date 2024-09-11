@@ -42,8 +42,7 @@ const Text = styled.div`
   line-height: 129%;
   color: #D3FF4E;
   padding-top: 50px;
-  padding-left: 7px;
-
+  padding-left: 12px;
   ${MapBtn}:hover & {
     color: #282728;
   }

@@ -36,6 +36,8 @@ const Text = styled.div`
   font-size: 18px;
 `;
 
+const accessToken = window.localStorage.getItem("accessToken");
+
 const SearchBox = ({ canProceed, selectedCategories, selectedOptions, nothingState }) => {
   const [requestData, setRequestData] = useState({
     region: sidoText + gugunText,
@@ -75,31 +77,31 @@ const SearchBox = ({ canProceed, selectedCategories, selectedOptions, nothingSta
       setRequestData(updatedRequestData);
 
       // Commenting out the API call
-      // fetch(`http://localhost:8080/search/category`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: "Bearer " + accessToken,
-      //   },
-      //   body: JSON.stringify(updatedRequestData),
-      // })
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error("Failed to fetch");
-      //     }
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     console.log(data);
-      //     navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
-      //   })
-      //   .catch((error) => {
-      //     console.error("지역검색 코스 추천 중 오류 발생:", error);
-      //   });
+      fetch(`http://localhost:8080/search/category`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify(updatedRequestData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
+        })
+        .catch((error) => {
+          console.error("지역검색 코스 추천 중 오류 발생:", error);
+        });
 
       // Testing navigation
       console.log("Navigating to /searchresult with:", { selectedCategories, requestData: updatedRequestData });
-      navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
+      // navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
     }
   };
 

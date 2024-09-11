@@ -14,6 +14,7 @@ import Redirection from './components/Redirection';
 import HomeResult from './pages/HomeResult';
 import Map from './pages/Map';
 import Mypage from './pages/Mypage';
+import SearchError from './pages/SearchError';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/filter" element={<HomeFilter />} />
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/searchresult" element={<SearchResult />} />
+          <Route path="/searchrerror" element={<SearchError />} />
           <Route path="/homeresult" element={<HomeResult />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage" element={<Mypage />} />

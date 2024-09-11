@@ -76,18 +76,18 @@ const SwiperSlideStyled = styled(SwiperSlide)`
 `;
 
 const DetailOptions = {
-  식사: ['한식', '중식', '일식', '양식', '동남아', '상관없음'],
-  카페: ['프랜차이즈카페', '개인카페', '상관없음'],
-  술: ['한식주점', '이자카야', '바', '포차', '상관없음'],
+  식사: ['한식', '중식', '일식', '양식', '아시아음식', '상관없음'],
+  카페: ['커피전문점', '디저트카페', '베이커리', '상관없음'],
+  술: ['요리주점', '이자카야', '호프','포차', '와인바','상관없음'],
   스포츠: ['볼링', '당구', '사격', '상관없음'],
-  오락: ['VR', '보드게임', '만화카페', '방탈출', '오락실', '인형뽑기', '상관없음'],
-  영화: ['실내', '실외', '상관없음'],
-  공연: ['뮤지컬', '연극', '상관없음'],
-  전시: ['전시회', '상관없음'],
-  독서: ['도서관', '대형서점', '북카페', '상관없음'],
-  관광: ['유명 관광지', '사진명소', '박물관', '미술관', '상관없음'],
-  쇼핑: ['백화점', '쇼핑몰', '시장', '소품샵', '플리마켓', '대형 문구점', '상관없음'],
-  기타: ['공방', '원데이클래스', '드로잉카페', '동물카페', '룸카페', '상관없음'],
+  오락: ['보드게임', '만화카페', '방탈출', '오락실', 'vr', '인형뽑기', '상관없음'],
+  영화: ['영화관', '상관없음'],
+  공연: ['공연장', '연극극장', '상관없음'],
+  전시: ['전시관', '상관없음'],
+  독서: ['도서관', '서점', '북카페', '상관없음'],
+  관광: ['관광', '박물관', '미술관', '상관없음'],
+  쇼핑: ['백화점', '복합쇼핑몰', '시장', '소품샵', '장난감', '문구점', '상관없음'],
+  기타: ['공방', '애견카페', '룸카페', '상관없음'],
 };
 
 const getSwiperSettings = (category) => {
@@ -97,13 +97,13 @@ const getSwiperSettings = (category) => {
     술: { slidesPerView: 4, spaceBetween: 8 },
     스포츠: { slidesPerView: 4, spaceBetween: 8 },
     오락: { slidesPerView: 4, spaceBetween: 8 },
-    영화: { slidesPerView: 3, spaceBetween: 8 },
+    영화: { slidesPerView: 2, spaceBetween: 8 },
     공연: { slidesPerView: 3, spaceBetween: 8 },
     전시: { slidesPerView: 2, spaceBetween: 8 },
     독서: { slidesPerView: 4, spaceBetween: 8 },
     관광: { slidesPerView: 4, spaceBetween: 8 },
     쇼핑: { slidesPerView: 4, spaceBetween: 8 },
-    기타: { slidesPerView: 3, spaceBetween: 8 },
+    기타: { slidesPerView: 4, spaceBetween: 8 },
   };
   return settings[category] || { slidesPerView: 4, spaceBetween: 8 };
 };
