@@ -104,8 +104,8 @@ const SidoBox = styled.div`
   background-color: #282728;
   padding-top: 55px;
   position: absolute;
-  top: 176px;
-  right: 40px;
+  top: 73px;
+  right: 24px;
   font-size: 16px;
   font-family: "GothicA1-Medium";
   display: flex;

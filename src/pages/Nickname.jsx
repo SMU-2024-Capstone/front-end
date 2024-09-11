@@ -39,7 +39,7 @@ const InputBox = styled.div`
     height: 36px;  
     margin-left: 24px;
     outline: none;
-    border-width: 0 0 1px;
+    border-width: 0 0 2px;
     background-color: transparent;
     color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
     font-size: 30px;
@@ -50,15 +50,17 @@ const InputBox = styled.div`
     &::placeholder {
       color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
       opacity: 40%;
+      outline: none;
     }
 
     &:hover {
-      border-width: 0 0 1px;
+      color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
+      outline: none;
     }
 
     &:focus {
       color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
-      border-width: 0 0 1px;
+      outline: none;
     }
   }
 
@@ -68,6 +70,7 @@ const InputBox = styled.div`
     font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.4%;
     line-height: 140%;
+    outline: none;
   }
 
   .error-message {
@@ -76,6 +79,7 @@ const InputBox = styled.div`
     margin-left: 24px;
     margin-top: 7px;
     font-family: "Apple-SD-GothicNeo-Medium";
+    outline: none;
   }
 `;
 
@@ -107,18 +111,20 @@ const Nickname = () => {
 
   const handleNickname = (e) => {
     const newValue = e.target.value;
-    const filteredValue = newValue.replace(/[^a-zA-Z가-힣]/g, '');
-
+    const filteredValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, '');
+  
     if (filteredValue.length > 5) {
       setNickname(filteredValue.substr(0, 5));
     } else {
       setNickname(filteredValue);
     }
+  
+    setIsDuplicate(false); // 닉네임 수정 시 중복 상태 초기화
   };
-
+  
   const handleCompositionEnd = (e) => {
     const newValue = e.target.value;
-    const filteredValue = newValue.replace(/[^a-zA-Z가-힣]/g, '');
+    const filteredValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, '');
 
     if (filteredValue.length > 5) {
       setNickname(filteredValue.substr(0, 5));
@@ -127,29 +133,58 @@ const Nickname = () => {
     }
   };
 
-  const handleCheckDuplicate = () => {
-    axios.post('http://localhost:8080/user/nickname', {
-      nickname: nickname
-    })
-    .then((res) => {
-      if (res.data.message === '닉네임 중복') {
-        setIsDuplicate(true); // 닉네임이 중복되면 색상을 빨간색으로
-      } else {
-        setIsDuplicate(false); // 중복이 없으면 원래 색상으로
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  const handleFocus = () => {
+    if (isDuplicate) {
+      setNickname(''); // 중복일 때 입력 필드 비움
+    }
+    setIsDuplicate(false); // 입력 창을 클릭하면 중복 상태 초기화
   };
 
+  const handleCheckDuplicate = async () => {
+    const accessToken = window.localStorage.getItem("accessToken");
+    const requestData = {
+      nickname: nickname
+    };
+  console.log(nickname);
+
+    try {
+      const response = await fetch(`http://localhost:8080/user/nickname`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify(requestData),
+      });
+      
+      const data = await response.json(); // JSON 형식으로 응답 처리
+  
+      if (data.status === 200 && data.message === "닉네임 중복") {
+        setIsDuplicate(true); // 닉네임 중복일 경우 true로 설정
+        return false; // 중복일 경우 false 반환
+      } else if (data.accessToken) {
+        window.localStorage.setItem("accessToken", data.accessToken);
+        window.localStorage.setItem("refreshToken", data.refreshToken);
+        setIsDuplicate(false); // 중복 아님
+        return true; // 성공 시 true 반환
+      } else {
+        throw new Error("알 수 없는 응답입니다.");
+      }
+    } catch (error) {
+      console.error("닉네임 중복 또는 오류 발생:", error);
+      setIsDuplicate(true); // 에러가 발생하면 중복으로 처리
+      return false; // 오류 발생 시 false 반환
+    }
+  };
+  
   useEffect(() => {
-    setIsActive(nickname.length > 0 && !isDuplicate); 
+    const Jamo = /^[ㄱ-ㅎ]*$/.test(nickname);
+    setIsActive(nickname.length > 0 && !isDuplicate && !Jamo); 
   }, [nickname, isDuplicate]);
 
-  const handleNextButtonClick = () => {
-    handleCheckDuplicate(); 
-    if (isActive && !isDuplicate) {
+  const handleNextButtonClick = async () => {
+    const isNotDuplicate = await handleCheckDuplicate(); // 중복 확인 후 결과 받기
+    if (isActive && isNotDuplicate) {
       navigate("/onboarding", { state: { nickname } });
     }
   };
@@ -166,6 +201,7 @@ const Nickname = () => {
             value={nickname}
             onChange={handleNickname}
             onCompositionEnd={handleCompositionEnd}
+            onFocus={handleFocus} // 입력창을 클릭하면 중복 상태 초기화 및 내용 비우기
             id="nickname"
             placeholder='최대 5자까지'/>
           <text>입니다.</text>
