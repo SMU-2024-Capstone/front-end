@@ -35,7 +35,7 @@ const Button = styled.img`
 
 const BottomIcon = styled.img`
   position: absolute;
-  bottom: -8px;
+  bottom: -7.5px;
   transition: all 0.3s ease;
 `;
 
@@ -48,7 +48,10 @@ const Navigation = () => {
 
   useEffect(() => {
     const path = location.pathname.replace("/", "") || "home";
-    const page = path === "map" ||path === "searchresult" || path === "homeresult" ? "home" : path;
+    const page =
+      path === "map" || path === "searchresult" || path === "homeresult"
+        ? "home"
+        : path;
     setCurrentPage(page);
     setStylePosition({ left: calculatePosition(page) });
   }, [location.pathname]);
@@ -95,15 +98,46 @@ const Navigation = () => {
     }
   };
 
+  const isHomeClicked = getImageSrc("home") === home_clicked;
+  const isSocialClicked = getImageSrc("social") === social_clicked;
+  const isRecommendClicked = getImageSrc("recommend") === recommend_clicked;
+  const isBookMarkClicked = getImageSrc("bookmark") === bookmark_clicked;
+  const isMypageClicked = getImageSrc("mypage") === mypage_clicked;
+
   return (
     <BottomBar>
       <Bottom>
         <BottomIcon src={bottom} style={stylePosition} alt="표시" />
-        <Button src={getImageSrc("home")} onClick={() => handleClick("home")} alt="홈버튼" />
-        <Button src={getImageSrc("social")} onClick={() => handleClick("social")} alt="친구버튼" />
-        <Button src={getImageSrc("recommend")} onClick={() => handleClick("recommend")} alt="추천버튼" />
-        <Button src={getImageSrc("bookmark")} onClick={() => handleClick("bookmark")} alt="북마크버튼" />
-        <Button src={getImageSrc("mypage")} onClick={() => handleClick("mypage")} alt="마이페이지버튼" />
+        <Button
+          src={getImageSrc("home")}
+          onClick={() => handleClick("home")}
+          alt="홈버튼"
+          style={isHomeClicked ? { paddingTop: "8px" } : {}}
+        />
+        <Button
+          src={getImageSrc("social")}
+          onClick={() => handleClick("social")}
+          alt="친구버튼"
+          style={isSocialClicked ? { paddingTop: "8px" } : {}}
+        />
+        <Button
+          src={getImageSrc("recommend")}
+          onClick={() => handleClick("recommend")}
+          alt="추천버튼"
+          style={isRecommendClicked ? { paddingTop: "8px" } : {}}
+        />
+        <Button
+          src={getImageSrc("bookmark")}
+          onClick={() => handleClick("bookmark")}
+          alt="북마크버튼"
+          style={isBookMarkClicked ? { paddingTop: "8px" } : {}}
+        />
+        <Button
+          src={getImageSrc("mypage")}
+          onClick={() => handleClick("mypage")}
+          alt="마이페이지버튼"
+          style={isMypageClicked ? { paddingTop: "8px" } : {}}
+        />
       </Bottom>
     </BottomBar>
   );

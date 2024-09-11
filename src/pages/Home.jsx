@@ -16,13 +16,24 @@ const Text = styled.div`
   margin-bottom: 8px;
 `;
 
+const Text2 = styled.text`
+  padding-top: 16px;
+  padding-left: 2px;
+  color: #D3FF4E;
+  font-size: 16px;
+  font-family: "Apple-SD-GothicNeo-Bold";
+  letter-spacing: -0.3%;
+  line-height: 140%;
+  margin-bottom: 8px;
+`;
+
 
 
 const Home = () => {
   return (
     <div>
       <SearchFilterBox></SearchFilterBox>
-      <Text>이길로 추천 장소</Text>
+      <Text>이길로 추천 장소 <Text2>종로구</Text2></Text>
       <HomeContents></HomeContents>
       <MapButton></MapButton>
       <Navigation></Navigation>

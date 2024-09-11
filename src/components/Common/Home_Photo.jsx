@@ -87,15 +87,11 @@ const HomeContent = () => {
     setIsBookmarked(!isBookmarked);
   };
 
-  const navigate = useNavigate();
-
-  const handleButtonClick = () => {
-    navigate("/homeresult");
-  };
+ 
 
   return (
     <Container>
-      <HomePhoto src={Test} alt="Home Photo" onClick={handleButtonClick}/>
+      <HomePhoto src={Test} alt="Home Photo"/>
       <BlurBackground />
       <TextContainer>
         <Header>

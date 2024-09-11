@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
 import NextButton from '../components/Common/NextButton';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const SmallLogo = styled.div`
   img {
@@ -40,14 +41,14 @@ const InputBox = styled.div`
     outline: none;
     border-width: 0 0 1px;
     background-color: transparent;
-    color: #D3FF4E;
+    color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
     font-size: 30px;
     font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.4%;
     line-height: 140%;
 
     &::placeholder {
-      color: #D3FF4E;
+      color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
       opacity: 40%;
     }
 
@@ -56,7 +57,7 @@ const InputBox = styled.div`
     }
 
     &:focus {
-      color: #D3FF4E;
+      color: ${(props) => (props.isDuplicate ? '#F44336' : '#D3FF4E')};
       border-width: 0 0 1px;
     }
   }
@@ -67,6 +68,14 @@ const InputBox = styled.div`
     font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.4%;
     line-height: 140%;
+  }
+
+  .error-message {
+    color: #F44336;
+    font-size: 12px;
+    margin-left: 24px;
+    margin-top: 7px;
+    font-family: "Apple-SD-GothicNeo-Medium";
   }
 `;
 
@@ -92,6 +101,7 @@ const CateGoryText = styled.div`
 const Nickname = () => {
   const [nickname, setNickname] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState(false);
 
   const navigate = useNavigate();
 
@@ -99,7 +109,6 @@ const Nickname = () => {
     const newValue = e.target.value;
     const filteredValue = newValue.replace(/[^a-zA-Z가-힣]/g, '');
 
-    // Set the character limit to 5
     if (filteredValue.length > 5) {
       setNickname(filteredValue.substr(0, 5));
     } else {
@@ -118,13 +127,29 @@ const Nickname = () => {
     }
   };
 
+  const handleCheckDuplicate = () => {
+    axios.post('http://localhost:8080/user/nickname', {
+      nickname: nickname
+    })
+    .then((res) => {
+      if (res.data.message === '닉네임 중복') {
+        setIsDuplicate(true); // 닉네임이 중복되면 색상을 빨간색으로
+      } else {
+        setIsDuplicate(false); // 중복이 없으면 원래 색상으로
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   useEffect(() => {
-    setIsActive(nickname.length === 5);
-  }, [nickname]);
+    setIsActive(nickname.length > 0 && !isDuplicate); 
+  }, [nickname, isDuplicate]);
 
   const handleNextButtonClick = () => {
-    if (isActive) {
+    handleCheckDuplicate(); 
+    if (isActive && !isDuplicate) {
       navigate("/onboarding", { state: { nickname } });
     }
   };
@@ -136,7 +161,7 @@ const Nickname = () => {
       </SmallLogo>
       <BackgroundBox bgColor1="#282728" bgColor2="#0D0E10">
         <Text>나의 닉네임은</Text>
-        <InputBox>
+        <InputBox isDuplicate={isDuplicate}>
           <input 
             value={nickname}
             onChange={handleNickname}
@@ -144,6 +169,7 @@ const Nickname = () => {
             id="nickname"
             placeholder='최대 5자까지'/>
           <text>입니다.</text>
+          {isDuplicate && <div className="error-message">이미 사용 중인 닉네임입니다.</div>}
         </InputBox>
       </BackgroundBox>
       <CateGoryBox>

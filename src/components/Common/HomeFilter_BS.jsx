@@ -1,38 +1,38 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import PhotoSlider from './HomeFilter_PhotoSlider';
-import bookmark from '../../assets/images/bookmark.svg';
-import bookmark_clicked from '../../assets/images/bookmark_clicked.svg';
-import send from '../../assets/images/send.svg';
-import ReturnButton from '../Common/Return';
-import { sidoText, gugunText } from '../CustomSelect';
-import Food from '../../assets/images/icons/category/Food.svg';
-import Cafe from '../../assets/images/icons/category/Cafe.svg';
-import Drink from '../../assets/images/icons/category/Drink.svg';
-import Sports from '../../assets/images/icons/category/Sports.svg';
-import Game from '../../assets/images/icons/category/Game.svg';
-import Movie from '../../assets/images/icons/category/Movie.svg';
-import Show from '../../assets/images/icons/category/Show.svg';
-import Exhibition from '../../assets/images/icons/category/Exhibition.svg';
-import Book from '../../assets/images/icons/category/Book.svg';
-import Tourism from '../../assets/images/icons/category/Tourism.svg';
-import Shopping from '../../assets/images/icons/category/Shopping.svg';
-import Add from '../../assets/images/icons/category/Add.svg';
-import SelectedFood from '../../assets/images/icons/category/Selected_Food.svg';
-import SelectedCafe from '../../assets/images/icons/category/Selected_Cafe.svg';
-import SelectedDrink from '../../assets/images/icons/category/Selected_Drink.svg';
-import SelectedSports from '../../assets/images/icons/category/Selected_Sports.svg';
-import SelectedGame from '../../assets/images/icons/category/Selected_Game.svg';
-import SelectedMovie from '../../assets/images/icons/category/Selected_Movie.svg';
-import SelectedShow from '../../assets/images/icons/category/Selected_Show.svg';
-import SelectedExhibition from '../../assets/images/icons/category/Selected_Exhibition.svg';
-import SelectedBook from '../../assets/images/icons/category/Selected_Book.svg';
-import SelectedTourism from '../../assets/images/icons/category/Selected_Tourism.svg';
-import SelectedShopping from '../../assets/images/icons/category/Selected_Shopping.svg';
-import SelectedAdd from '../../assets/images/icons/category/Selected_Add.svg';
-import bus from '../../assets/images/icons/bus.svg';
-import subway from '../../assets/images/icons/subway.svg';
-import walking from '../../assets/images/icons/walking.svg';
+import React, { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
+import PhotoSlider from "./HomeFilter_PhotoSlider";
+import bookmark from "../../assets/images/bookmark.svg";
+import bookmark_clicked from "../../assets/images/bookmark_clicked.svg";
+import send from "../../assets/images/send.svg";
+import ReturnButton from "../Common/Return";
+import { sidoText, gugunText } from "../CustomSelect";
+import Food from "../../assets/images/icons/category/Food.svg";
+import Cafe from "../../assets/images/icons/category/Cafe.svg";
+import Drink from "../../assets/images/icons/category/Drink.svg";
+import Sports from "../../assets/images/icons/category/Sports.svg";
+import Game from "../../assets/images/icons/category/Game.svg";
+import Movie from "../../assets/images/icons/category/Movie.svg";
+import Show from "../../assets/images/icons/category/Show.svg";
+import Exhibition from "../../assets/images/icons/category/Exhibition.svg";
+import Book from "../../assets/images/icons/category/Book.svg";
+import Tourism from "../../assets/images/icons/category/Tourism.svg";
+import Shopping from "../../assets/images/icons/category/Shopping.svg";
+import Add from "../../assets/images/icons/category/Add.svg";
+import SelectedFood from "../../assets/images/icons/category/Selected_Food.svg";
+import SelectedCafe from "../../assets/images/icons/category/Selected_Cafe.svg";
+import SelectedDrink from "../../assets/images/icons/category/Selected_Drink.svg";
+import SelectedSports from "../../assets/images/icons/category/Selected_Sports.svg";
+import SelectedGame from "../../assets/images/icons/category/Selected_Game.svg";
+import SelectedMovie from "../../assets/images/icons/category/Selected_Movie.svg";
+import SelectedShow from "../../assets/images/icons/category/Selected_Show.svg";
+import SelectedExhibition from "../../assets/images/icons/category/Selected_Exhibition.svg";
+import SelectedBook from "../../assets/images/icons/category/Selected_Book.svg";
+import SelectedTourism from "../../assets/images/icons/category/Selected_Tourism.svg";
+import SelectedShopping from "../../assets/images/icons/category/Selected_Shopping.svg";
+import SelectedAdd from "../../assets/images/icons/category/Selected_Add.svg";
+import bus from "../../assets/images/icons/bus.svg";
+import subway from "../../assets/images/icons/subway.svg";
+import walking from "../../assets/images/icons/walking.svg";
 
 export const MIN_Y = 0;
 export const MAX_Y = 548;
@@ -44,7 +44,7 @@ const Wrapper = styled.div`
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   height: 592px;
-  background: #0D0E10; 
+  background: #0d0e10;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease-out;
   z-index: 3;
@@ -86,7 +86,7 @@ const Content = styled.div`
 
 const TopBar = styled.div`
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   margin-top: 8px;
   margin-bottom: 12px;
@@ -142,7 +142,8 @@ const CategoryButtonContainer = styled.div`
 const CategoryButton = styled.div`
   width: 44px;
   height: 44px;
-  background-color: ${(props) => (props.isSelected ? '#F8FAF9' : 'transparent')};
+  background-color: ${(props) =>
+    props.isSelected ? "#F8FAF9" : "transparent"};
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   display: flex;
@@ -157,22 +158,22 @@ const CategoryButton = styled.div`
 `;
 
 const CategoryText = styled.div`
-  color: ${(props) => (props.isSelected ? '#FFFFFF' : '#ECEFF0')}; 
+  color: ${(props) => (props.isSelected ? "#FFFFFF" : "#ECEFF0")};
   text-align: center;
   font-size: 12px;
-  font-family: 'Apple-SD-GothicNeo-Medium';
+  font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
   line-height: 140%;
-  margin-top: 8px; 
+  margin-top: 8px;
 `;
 
 const NumberCircle = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 8px;
-  font-family: 'Apple-SD-GothicNeo-Medium';
-  background-color: #B083D3;
-  color: #F8FAF9;
+  font-family: "Apple-SD-GothicNeo-Medium";
+  background-color: #b083d3;
+  color: #f8faf9;
   font-size: 10px;
   display: flex;
   align-items: center;
@@ -186,49 +187,49 @@ const NumberCircle = styled.div`
 
 const MethodContainer = styled.div`
   width: auto;
-  height: 20px;  
+  height: 20px;
   display: flex;
-  align-items: center;  
-  margin-left: 24px; 
+  align-items: center;
+  margin-left: 24px;
 `;
 
 const MethodImg = styled.img`
-  width:14px;
+  width: 14px;
   height: 16px;
   margin-top: 2px;
   margin-right: 6px;
 `;
 
 const MethodText = styled.div`
-  color: #C675FF;
+  color: #c675ff;
   text-align: center;
   font-size: 14px;
-  font-family: 'Apple-SD-GothicNeo-Bold';
+  font-family: "Apple-SD-GothicNeo-Bold";
   letter-spacing: -0.3%;
   line-height: 140%;
-  margin-left: 6px;  
+  margin-left: 6px;
 `;
 
 const MethodRod = styled.div`
   width: 40px;
   height: 4px;
-  background-color: #C675FF;
+  background-color: #c675ff;
   border-radius: 12px;
 `;
 
 const categories = [
-  { icon: Food, selectedIcon: SelectedFood, label: '식사' },
-  { icon: Cafe, selectedIcon: SelectedCafe, label: '카페' },
-  { icon: Drink, selectedIcon: SelectedDrink, label: '술' },
-  { icon: Sports, selectedIcon: SelectedSports, label: '스포츠' },
-  { icon: Game, selectedIcon: SelectedGame, label: '오락' },
-  { icon: Movie, selectedIcon: SelectedMovie, label: '영화' },
-  { icon: Show, selectedIcon: SelectedShow, label: '공연' },
-  { icon: Exhibition, selectedIcon: SelectedExhibition, label: '전시' },
-  { icon: Book, selectedIcon: SelectedBook, label: '독서' },
-  { icon: Tourism, selectedIcon: SelectedTourism, label: '관광' },
-  { icon: Shopping, selectedIcon: SelectedShopping, label: '쇼핑' },
-  { icon: Add, selectedIcon: SelectedAdd, label: '기타' }
+  { icon: Food, selectedIcon: SelectedFood, label: "식사" },
+  { icon: Cafe, selectedIcon: SelectedCafe, label: "카페" },
+  { icon: Drink, selectedIcon: SelectedDrink, label: "술" },
+  { icon: Sports, selectedIcon: SelectedSports, label: "스포츠" },
+  { icon: Game, selectedIcon: SelectedGame, label: "오락" },
+  { icon: Movie, selectedIcon: SelectedMovie, label: "영화" },
+  { icon: Show, selectedIcon: SelectedShow, label: "공연" },
+  { icon: Exhibition, selectedIcon: SelectedExhibition, label: "전시" },
+  { icon: Book, selectedIcon: SelectedBook, label: "독서" },
+  { icon: Tourism, selectedIcon: SelectedTourism, label: "관광" },
+  { icon: Shopping, selectedIcon: SelectedShopping, label: "쇼핑" },
+  { icon: Add, selectedIcon: SelectedAdd, label: "기타" },
 ];
 
 const BottomSheet = ({ selectedCategories }) => {
@@ -271,12 +272,12 @@ const BottomSheet = ({ selectedCategories }) => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDragging]);
 
@@ -284,12 +285,21 @@ const BottomSheet = ({ selectedCategories }) => {
     setIsBookmarked(!isBookmarked);
   };
 
-  const selectedCategoryLabels = selectedCategories.map(category => category.label);
-
+  const selectedCategoryLabels = selectedCategories.map(
+    (category) => category.label
+  );
+  window.localStorage.setItem(
+    "selectedCategories",
+    JSON.stringify(selectedCategoryLabels)
+  );
 
   const filteredCategories = categories
-  .filter(category => selectedCategoryLabels.includes(category.label))
-  .sort((a, b) => selectedCategoryLabels.indexOf(a.label) - selectedCategoryLabels.indexOf(b.label));
+    .filter((category) => selectedCategoryLabels.includes(category.label))
+    .sort(
+      (a, b) =>
+        selectedCategoryLabels.indexOf(a.label) -
+        selectedCategoryLabels.indexOf(b.label)
+    );
 
   return (
     <Wrapper style={{ transform: `translateY(${position}px)` }}>
@@ -297,19 +307,21 @@ const BottomSheet = ({ selectedCategories }) => {
         <Handle />
       </Header>
       <Content>
-      <PhotoSlider selectedCategories={selectedCategoryLabels} />
+        <PhotoSlider selectedCategories={selectedCategoryLabels} />
         <TopBar>
           <Send src={send} />
           <BookMarkButton onClick={toggleBookmark}>
-            <img 
-              src={isBookmarked ? bookmark_clicked : bookmark} 
-              alt="bookMark" 
-              style={{ width: '100%', height: '100%' }} 
+            <img
+              src={isBookmarked ? bookmark_clicked : bookmark}
+              alt="bookMark"
+              style={{ width: "100%", height: "100%" }}
             />
           </BookMarkButton>
         </TopBar>
       </Content>
-      <Head>{sidoText} {gugunText}에 도착</Head>
+      <Head>
+        {sidoText} {gugunText}에 도착
+      </Head>
       <T1>#국립현대미술관</T1>
       <MethodContainer>
         <MethodImg src={walking} alt="walking" />
@@ -336,16 +348,15 @@ const BottomSheet = ({ selectedCategories }) => {
 
           return (
             <CategoryButtonContainer key={index}>
-              <CategoryButton
-                isSelected={isSelected}
-                isSelectable={true} 
-              >
-                <img 
-                  src={isSelected ? category.selectedIcon : category.icon} 
-                  alt={category.label} 
+              <CategoryButton isSelected={isSelected} isSelectable={true}>
+                <img
+                  src={isSelected ? category.selectedIcon : category.icon}
+                  alt={category.label}
                 />
                 {isSelected && (
-                  <NumberCircle>{selectedCategoryLabels.indexOf(category.label) + 1}</NumberCircle>
+                  <NumberCircle>
+                    {selectedCategoryLabels.indexOf(category.label) + 1}
+                  </NumberCircle>
                 )}
               </CategoryButton>
               <CategoryText isSelected={isSelected}>

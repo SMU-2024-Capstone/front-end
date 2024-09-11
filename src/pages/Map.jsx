@@ -6,6 +6,8 @@ import Navigation from '../components/Common/Navigation';
 import HomeBottomSheet from '../components/Common/Home_BS';
 import MapComponent from '../components/MapComponent';
 import MapSearchBox from '../components/Common/MapSearchBox';
+import NaverMap from '../components/NaverMap';
+import HomeMap from '../components/HomeMap';
 
 const Map = () => {
   const location = useLocation();
@@ -14,7 +16,7 @@ const Map = () => {
   return (
     <div>
       <MapSearchBox />
-      <MapComponent />
+      <HomeMap />
       <Navigation></Navigation>
     </div>
   );

@@ -52,9 +52,15 @@ const Search = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [canProceed, setCanProceed] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]); 
+  const [nothingState, setNothingState] = useState({});
 
   const handleClick = (index) => {
     setActiveIndex(index);
+  };
+
+  const handleNothingStateChange = (newNothingState) => {
+    setNothingState(newNothingState);
   };
 
   const updateCanProceed = (selectedCategories) => {
@@ -72,6 +78,10 @@ const Search = () => {
       <DetailSelect
         selectedCategories={selectedCategories}
         setCanProceed={setCanProceed}
+        selectedOptions={selectedOptions} 
+        setSelectedOptions={setSelectedOptions} 
+        nothingState={nothingState}
+        onNothingStateChange={handleNothingStateChange}
       />
     ) : (
       <div style={{ padding: "24px", color: "#D9D9D9" }}>
@@ -93,8 +103,7 @@ const Search = () => {
             <button
               className="button"
               onClick={() => {
-                if (gugunText == "전체") return;
-
+                if (gugunText === "전체") return;
                 if (index === 2 && selectedCategories.length < 2) return;
                 handleClick(index);
               }}
@@ -109,7 +118,9 @@ const Search = () => {
       </Ul>
       <SearchBox
         selectedCategories={selectedCategories}
+        selectedOptions={selectedOptions}
         canProceed={canProceed}
+        nothingState={nothingState}
       />
     </div>
   );

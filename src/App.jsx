@@ -13,6 +13,7 @@ import SearchResult from './pages/SearchResult';
 import Redirection from './components/Redirection';
 import HomeResult from './pages/HomeResult';
 import Map from './pages/Map';
+import Mypage from './pages/Mypage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/searchresult" element={<SearchResult />} />
           <Route path="/homeresult" element={<HomeResult />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Routes>
       </BrowserRouter>
     </div>

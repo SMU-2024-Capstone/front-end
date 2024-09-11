@@ -80,14 +80,14 @@ const DetailOptions = {
   카페: ['프랜차이즈카페', '개인카페', '상관없음'],
   술: ['한식주점', '이자카야', '바', '포차', '상관없음'],
   스포츠: ['볼링', '당구', '사격', '상관없음'],
-  오락: ['VR', '보드게임', '만화카페', '방탈출', '오락실&인형뽑기', '상관없음'],
+  오락: ['VR', '보드게임', '만화카페', '방탈출', '오락실', '인형뽑기', '상관없음'],
   영화: ['실내', '실외', '상관없음'],
   공연: ['뮤지컬', '연극', '상관없음'],
-  전시: ['전시', '상관없음'],
+  전시: ['전시회', '상관없음'],
   독서: ['도서관', '대형서점', '북카페', '상관없음'],
-  관광: ['유명 관광지', '사진명소', '박물관&미술관', '상관없음'],
+  관광: ['유명 관광지', '사진명소', '박물관', '미술관', '상관없음'],
   쇼핑: ['백화점', '쇼핑몰', '시장', '소품샵', '플리마켓', '대형 문구점', '상관없음'],
-  기타: ['공방&원데이클래스', '드로잉카페', '동물카페', '룸카페', '상관없음'],
+  기타: ['공방', '원데이클래스', '드로잉카페', '동물카페', '룸카페', '상관없음'],
 };
 
 const getSwiperSettings = (category) => {
@@ -96,21 +96,19 @@ const getSwiperSettings = (category) => {
     카페: { slidesPerView: 3, spaceBetween: 8 },
     술: { slidesPerView: 4, spaceBetween: 8 },
     스포츠: { slidesPerView: 4, spaceBetween: 8 },
-    오락: { slidesPerView: 3, spaceBetween: 8 },
+    오락: { slidesPerView: 4, spaceBetween: 8 },
     영화: { slidesPerView: 3, spaceBetween: 8 },
     공연: { slidesPerView: 3, spaceBetween: 8 },
     전시: { slidesPerView: 2, spaceBetween: 8 },
     독서: { slidesPerView: 4, spaceBetween: 8 },
-    관광: { slidesPerView: 3, spaceBetween: 8 },
-    쇼핑: { slidesPerView: 3, spaceBetween: 8 },
-    기타: { slidesPerView: 2, spaceBetween: 8 },
+    관광: { slidesPerView: 4, spaceBetween: 8 },
+    쇼핑: { slidesPerView: 4, spaceBetween: 8 },
+    기타: { slidesPerView: 3, spaceBetween: 8 },
   };
   return settings[category] || { slidesPerView: 4, spaceBetween: 8 };
 };
 
-const DetailSelect = ({ selectedCategories, setCanProceed }) => {
-  const [selectedOptions, setSelectedOptions] = useState({});
-
+const DetailSelect = ({ selectedCategories, selectedOptions, setSelectedOptions, setCanProceed, nothingState, onNothingStateChange }) => {
   useEffect(() => {
     const allCategoriesSelected = selectedCategories.every(category => {
       const selections = selectedOptions[category.label];
@@ -121,30 +119,48 @@ const DetailSelect = ({ selectedCategories, setCanProceed }) => {
   }, [selectedOptions, selectedCategories, setCanProceed]);
 
   const handleOptionClick = (category, option) => {
-    setSelectedOptions((prevState) => {
+    setSelectedOptions(prevState => {
+      const nothingOptions = DetailOptions[category].filter(opt => opt !== '상관없음');
+
+      const currentNothingState = nothingState[category] || [];
+
       if (option === '상관없음') {
-        if (prevState[category] === '상관없음') {
-          return { ...prevState, [category]: [] };
-        } else {
-          return { ...prevState, [category]: '상관없음' };
-        }
+        // '상관없음' 선택 시 처리
+        onNothingStateChange(prevState => ({
+          ...prevState,
+          [category]: nothingOptions
+        }));
+
+        // '상관없음'으로 설정
+        return { ...prevState, [category]: '상관없음' };
       } else {
+        // '상관없음'이 선택된 경우 복원
         if (prevState[category] === '상관없음') {
           return { ...prevState, [category]: [option] };
         }
-        return {
-          ...prevState,
-          [category]: prevState[category]?.includes(option)
-            ? prevState[category].filter(o => o !== option)
-            : [...(prevState[category] || []), option]
-        };
+
+        // 옵션 추가 또는 제거
+        const updatedOptions = prevState[category]?.includes(option)
+          ? prevState[category].filter(o => o !== option)
+          : [...(prevState[category] || []), option];
+
+        // '상관없음'을 선택 상태로부터 제거
+        if (currentNothingState.length > 0 && updatedOptions.length > 0) {
+          onNothingStateChange(prevState => {
+            const newNothingState = { ...prevState };
+            delete newNothingState[category];
+            return newNothingState;
+          });
+        }
+
+        return { ...prevState, [category]: updatedOptions.length > 0 ? updatedOptions : [] };
       }
     });
   };
 
   return (
     <Container>
-      <Head>카테고리를 선택해 주세요</Head>
+      <Head>세부사항을 선택해 주세요</Head>
       <DetailContainer>
         {selectedCategories.map((category, index) => {
           const swiperSettings = getSwiperSettings(category.label);

@@ -349,6 +349,7 @@ const HomeFilterCategory = () => {
                   </FilterCircleContainer>
                 </div>
               ))}
+              <div style={{width: "360px", height: "330px"}} />
             </SwiperSlide>
           </Swiper>
           </SwiperContainer>
