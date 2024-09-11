@@ -13,7 +13,7 @@ const SearchResult = () => {
   return (
     <Container>
       <MapWrapper>
-        <MapComponent />
+       <MapComponent selectedCategories={selectedCategories} />
       </MapWrapper>
       <ContentWrapper>
         <SearchIconCourseBox></SearchIconCourseBox>

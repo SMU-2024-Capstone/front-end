@@ -1,32 +1,27 @@
-import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
-import { useState, useEffect, useRef } from "react";
-import nowPlace from "../assets/images/icons/marker/now_place.svg";
-import book from "../assets/images/icons/marker/book.svg";
-import cafe from "../assets/images/icons/marker/cafe.svg";
-import concert from "../assets/images/icons/marker/concert.svg";
-import drunk from "../assets/images/icons/marker/drunk.svg";
-import etc from "../assets/images/icons/marker/etc.svg";
-import exhibit from "../assets/images/icons/marker/exhibit.svg";
-import food from "../assets/images/icons/marker/food.svg";
-import game from "../assets/images/icons/marker/game.svg";
-import movie from "../assets/images/icons/marker/movie.svg";
-import shopping from "../assets/images/icons/marker/shopping.svg";
-import sport from "../assets/images/icons/marker/sport.svg";
-import tour from "../assets/images/icons/marker/tour.svg";
+import React, { useState, useEffect, useRef } from 'react';
+import { GoogleMap, useJsApiLoader, MarkerF } from '@react-google-maps/api';
+import nowPlace from '../assets/images/icons/marker/now_place.svg';
+import book from '../assets/images/icons/marker/book.svg';
+import cafe from '../assets/images/icons/marker/cafe.svg';
+import concert from '../assets/images/icons/marker/concert.svg';
+import drunk from '../assets/images/icons/marker/drunk.svg';
+import etc from '../assets/images/icons/marker/etc.svg';
+import exhibit from '../assets/images/icons/marker/exhibit.svg';
+import food from '../assets/images/icons/marker/food.svg';
+import game from '../assets/images/icons/marker/game.svg';
+import movie from '../assets/images/icons/marker/movie.svg';
+import shopping from '../assets/images/icons/marker/shopping.svg';
+import sport from '../assets/images/icons/marker/sport.svg';
+import tour from '../assets/images/icons/marker/tour.svg';
 
 const containerStyle = {
-  width: "392px",
-  height: "852px",
+  width: '392px',
+  height: '852px',
 };
 
-const MapComponent = () => {
+const MapComponent = ({ selectedCategories }) => {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
-  const [categoryArray, setCategoryArray] = useState(() => {
-    const storedCategories = window.localStorage.getItem("selectedCategories");
-    return storedCategories ? JSON.parse(storedCategories) : [];
-  });
-
   const markerPosition = { lat, lng };
   const mapRef = useRef(null);
 
@@ -43,7 +38,7 @@ const MapComponent = () => {
         }
       );
     } else {
-      alert("GPS를 지원하지 않습니다. 설정을 확인하세요.");
+      alert('GPS를 지원하지 않습니다. 설정을 확인하세요.');
     }
   };
 
@@ -51,47 +46,32 @@ const MapComponent = () => {
     getLocation();
   }, []);
 
-  // storage 이벤트를 감지하여 selectedCategories 상태를 업데이트
-  useEffect(() => {
-    const handleStorageChange = (event) => {
-      if (event.key === "selectedCategories") {
-        setCategoryArray(JSON.parse(event.newValue));
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  // 각 카테고리에 맞는 아이콘을 매핑하는 함수
-  const getCategoryIcon = (category) => {
-    switch (category) {
-      case "식사":
+  // 각 카테고리에 맞는 아이콘을 매핑하는 함수 (label을 기준으로)
+  const getCategoryIcon = (label) => {
+    switch (label) {
+      case '식사':
         return food;
-      case "카페":
+      case '카페':
         return cafe;
-      case "독서":
+      case '독서':
         return book;
-      case "공연":
+      case '공연':
         return concert;
-      case "술":
+      case '술':
         return drunk;
-      case "기타":
+      case '기타':
         return etc;
-      case "전시":
+      case '전시':
         return exhibit;
-      case "오락":
+      case '오락':
         return game;
-      case "영화":
+      case '영화':
         return movie;
-      case "쇼핑":
+      case '쇼핑':
         return shopping;
-      case "스포츠":
+      case '스포츠':
         return sport;
-      case "관광":
+      case '관광':
         return tour;
       default:
         return nowPlace;
@@ -100,7 +80,7 @@ const MapComponent = () => {
 
   // 현재 위치 근처에 마커를 랜덤으로 배치하기 위한 함수
   const getRandomNearbyPosition = (latitude, longitude) => {
-    const randomOffset = () => (Math.random() - 0.5) * 0.001; // 0.001은 약 100m 정도의 범위
+    const randomOffset = () => (Math.random() - 0.5) * 0.001; // 약 100m 범위
     return {
       lat: latitude + randomOffset(),
       lng: longitude + randomOffset(),
@@ -120,8 +100,8 @@ const MapComponent = () => {
     }
 
     window.open(
-      "https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh",
-      "_blank"
+      'https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh',
+      '_blank'
     );
   };
 
@@ -142,16 +122,18 @@ const MapComponent = () => {
         onClick={() => handleMarkerClick(markerPosition)}
       />
 
-      {/* 카테고리 배열에 따라 마커 생성 */}
-      {categoryArray.map((category, index) => {
-        const position = getRandomNearbyPosition(lat, lng); // 현재 위치 근처에 랜덤 위치 생성
-        const iconUrl = getCategoryIcon(category); // 카테고리에 맞는 아이콘 설정
+      {/* 선택된 카테고리에 따라 마커 생성 */}
+      {selectedCategories.map((category, index) => {
+        const position = getRandomNearbyPosition(lat, lng);
+        const iconUrl = getCategoryIcon(category.label);  // label을 기준으로 아이콘 매핑
+
+        console.log(`Rendering marker for category: ${category.label}, icon: ${iconUrl}`);  // 디버깅용 로그
 
         return (
           <MarkerF
             key={index}
             position={position}
-            icon={{ url: iconUrl }}
+            icon={{ url: iconUrl }}  // 아이콘 URL 설정
             onClick={() => handleMarkerClick(position)}
           />
         );
