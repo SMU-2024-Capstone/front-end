@@ -78,7 +78,6 @@ const MapComponent = ({ selectedCategories }) => {
     }
   };
 
-  // 현재 위치 근처에 마커를 랜덤으로 배치하기 위한 함수
   const getRandomNearbyPosition = (latitude, longitude) => {
     const randomOffset = () => (Math.random() - 0.5) * 0.001; // 약 100m 범위
     return {
