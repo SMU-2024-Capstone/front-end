@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLocation } from "react";
 import styled from "styled-components";
 import PhotoSlider from "./HomeFilter_PhotoSlider";
 import bookmark from "../../assets/images/bookmark.svg";
@@ -232,13 +232,15 @@ const categories = [
   { icon: Add, selectedIcon: SelectedAdd, label: "기타" },
 ];
 
-const BottomSheet = ({ selectedCategories }) => {
+const BottomSheet = ({ selectedCategories, requestData }) => {
+
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(MIN_Y);
   const startY = useRef(0);
   const startPos = useRef(0);
   const animationFrameId = useRef(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  console.log(requestData);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -366,7 +368,7 @@ const BottomSheet = ({ selectedCategories }) => {
           );
         })}
       </CategoryList>
-      <ReturnButton />
+      <ReturnButton requestData={requestData}/>
     </Wrapper>
   );
 };

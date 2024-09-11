@@ -201,7 +201,7 @@ const Nickname = () => {
           <input 
             value={nickname}
             onChange={handleNickname}
-            // onCompositionEnd={handleCompositionEnd}
+            onCompositionEnd={handleCompositionEnd}
             onFocus={handleFocus} // 입력창을 클릭하면 중복 상태 초기화 및 내용 비우기
             id="nickname"
             placeholder='최대 5자까지'/>
@@ -210,7 +210,7 @@ const Nickname = () => {
         </InputBox>
       </BackgroundBox>
       <CateGoryBox>
-        <CateGoryText>카테고리</CateGoryText>
+        <CateGoryText>취향 설정</CateGoryText>
       </CateGoryBox>
       <NextButton 
         disabled={!isActive} // 로딩 상태 제거 후 버튼 활성화 조건 업데이트

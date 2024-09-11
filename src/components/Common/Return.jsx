@@ -58,33 +58,52 @@ const Img = styled.img`
   bottom: 94px;
 `;
 
-const ReturnButton = (props) => {
+const accessToken = window.localStorage.getItem("accessToken");
+
+const ReturnButton = ({ disabled, requestData }) => {
   const [hover, setHover] = useState(false);
 
-  const handleMouseEnter = () => {
-    setHover(true);
-  };
+  const handleMouseEnter = () => setHover(true);
+  const handleMouseLeave = () => setHover(false);
 
-  const handleMouseLeave = () => {
-    setHover(false);
-  };
+  const handleButtonClick = () => {
+    if (!disabled) { //disabled는 상호작용 여부 true일 때 클릭 안됨
 
-  const handleClick = () => {
-    if (!props.disabled && props.onClick) {
-      props.onClick();
+      // fetch(`http://localhost:8080/search/category`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + accessToken,
+      //   },
+      //   body: JSON.stringify(requestData),
+      // })
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error("Failed to fetch");
+      //     }
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     console.log(data);
+      //     navigate("/searchresult", { state: { requestData }});
+      //   })
+      //   .catch((error) => {
+      //     console.error("지역검색 코스 추천 중 오류 발생:", error);
+      //   });
+        console.log(requestData);
     }
   };
 
   return (
     <ReturnBtn 
-      disabled={props.disabled}
-      onClick={handleClick}
+      disabled={disabled}
+      onClick={handleButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <Return>
         <Img src={hover ? return_clicked : return_default} />
-        <Text disabled={props.disabled}>
+        <Text>
           다시추천
         </Text>
       </Return>

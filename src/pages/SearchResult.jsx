@@ -9,6 +9,8 @@ import MapComponent from '../components/MapComponent';
 const SearchResult = () => {
   const location = useLocation();
   const selectedCategories = location.state?.selectedCategories || [];
+  const requestData = location.state?.requestData || {};
+  console.log(requestData);
 
   return (
     <Container>
@@ -18,7 +20,7 @@ const SearchResult = () => {
       <ContentWrapper>
         <SearchIconCourseBox></SearchIconCourseBox>
       </ContentWrapper>
-        <BottomSheet selectedCategories={selectedCategories} />
+        <BottomSheet selectedCategories={selectedCategories} requestData={requestData}/>
         <Navigation />
     </Container>
   );

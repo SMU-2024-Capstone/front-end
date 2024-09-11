@@ -61,7 +61,7 @@ const HomeFilterBackBox = () => {
         <img src={Back} alt="Back" />
       </BackButton>
       <SearchButton>
-        <Text>카테고리 필터를 선택하세요!</Text>
+        <Text>취향 카테고리를 선택해 주세요!</Text>
       </SearchButton>
     </SearchBackBox>
   )
