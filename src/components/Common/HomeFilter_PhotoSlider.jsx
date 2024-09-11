@@ -46,7 +46,6 @@ const Indicator = styled.button`
   background-color: ${({ isActive }) => (isActive ? "#D9D9D9" : "#6A6D6E")};
   border: none;
   border-radius: 50%;
-  cursor: pointer;
 `;
 
 const PhotoSlider = ({ selectedCategories = [] }) => {

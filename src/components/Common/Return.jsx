@@ -41,7 +41,7 @@ const Text = styled.div`
   line-height: 129%;
   color: #B083D3;
   padding-top: 50px;
-  padding-left: 7px;
+  padding-left: 12px;
 
   ${ReturnBtn}:hover & {
     color: #282728;
