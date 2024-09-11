@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Search_grey from '../../assets/images/icons/Search_grey.svg';
 import Search_black from '../../assets/images/icons/Search_black.svg';
 import { useNavigate } from "react-router-dom";
+import { sidoText, gugunText } from '../CustomSelect';
 
 const SearchButton = styled.div`
   width: 360px;
@@ -35,12 +36,66 @@ const Text = styled.div`
   font-size: 18px;
 `;
 
-const SearchBox = ({ canProceed, selectedCategories }) => {
+const accessToken = window.localStorage.getItem("accessToken");
+
+const SearchBox = ({ canProceed, selectedCategories, selectedOptions, nothingState }) => {
   const navigate = useNavigate();
-  
+  const region = sidoText + gugunText;
+
+  const groupCategories = (options) => {
+    const groupedCategories = [];
+
+    selectedCategories.forEach(category => {
+      const categoryLabel = category.label;
+      const categoryOptions = options[categoryLabel];
+
+      if (categoryOptions === '상관없음') {
+
+        groupedCategories.push(nothingState[categoryLabel] || []);
+      } else {
+
+        groupedCategories.push(categoryOptions.filter(option => option !== '상관없음'));
+      }
+    });
+
+    return groupedCategories;
+  };
+
   const handleClick = () => {
     if (canProceed) {
-      navigate('/searchresult', { state: { selectedCategories } }); // 선택된 카테고리를 상태로 전달
+      const categories = groupCategories(selectedOptions);
+
+      const requestData = {
+        region: region,
+        categories: categories,
+      };
+
+      fetch(`http://localhost:8080/search/category`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          navigate("/searchresult", { state: { selectedCategories } }); 
+        })
+        .catch((error) => {
+          console.error("지역검색 코스 추천 중 오류 발생:", error);
+        });
+
+      console.log(selectedOptions);
+      console.log(selectedCategories);
+      console.log(categories);
+      navigate("/searchresult", { state: { selectedCategories } }); 
     }
   };
 

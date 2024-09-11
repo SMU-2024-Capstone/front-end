@@ -5,15 +5,13 @@ import styled from "styled-components";
 import logo from "../assets/images/logo/Logo.svg";
 
 const Container = styled.div`
-  display:flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 852px;
 `;
 
-const Logo = styled.img`
-`;
-
+const Logo = styled.img``;
 
 const Redirection = (props) => {
   // 인가코드 백으로 보내는 코드
@@ -27,6 +25,7 @@ const Redirection = (props) => {
       .get(`http://localhost:8080/user/callback/kakao${code}`)
       .then((res) => {
         console.log(res.data);
+        window.localStorage.setItem("accessToken", res.data.accessToken);
         navigate("/nickname");
       })
       .catch((error) => {
