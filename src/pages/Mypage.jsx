@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import styled from "styled-components";
-import MyPagePost from '../components/Common/MyPagePost';
-import Navigation from '../components/Common/Navigation';
-import MyPageSetting from '../components/Common/MyPageSetting';
-import ProfileLogo from '../assets/images/logo/ProfileLogo.svg';
+import MyPagePost from "../components/Common/MyPagePost";
+import Navigation from "../components/Common/Navigation";
+import MyPageSetting from "../components/Common/MyPageSetting";
+import ProfileLogo from "../assets/images/logo/ProfileLogo.svg";
 
 const HeadBox = styled.div`
   width: 392px;
   height: 112px;
-  background-color: #0D0E10;
+  background-color: #0d0e10;
   display: flex;
   align-items: center;
   justify-content: left;
@@ -18,7 +18,7 @@ const Profile = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 100px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-right: 16px;
   margin-left: 16px;
 `;
@@ -30,7 +30,7 @@ const ProfileImg = styled.img`
 `;
 
 const Nickname = styled.div`
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 20px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
@@ -38,7 +38,7 @@ const Nickname = styled.div`
 `;
 
 const Address = styled.div`
-  color: #6A6D6E;
+  color: #6a6d6e;
   font-size: 16px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.3%;
@@ -56,11 +56,11 @@ const ButtonContainer = styled.div`
 const Button = styled.div`
   width: 196px;
   height: 22px;
-  border-bottom: ${(props) => (props.active ? '1px solid #eceff0' : 'none')};
+  border-bottom: ${(props) => (props.active ? "1px solid #eceff0" : "none")};
 `;
 
 const ButtonText = styled.div`
-  color: #ECEFF0;
+  color: #eceff0;
   font-size: 14px;
   font-family: "Apple-SD-GothicNeo-Bold";
   letter-spacing: -0.3%;
@@ -70,14 +70,15 @@ const ButtonText = styled.div`
 `;
 
 const MyPage = () => {
-  const [activeButton, setActiveButton] = useState('post');
-  const [activeTab, setActiveTab] = useState('post');
+  const nickname = window.localStorage.getItem("nickname");
+  const [activeButton, setActiveButton] = useState("post");
+  const [activeTab, setActiveTab] = useState("post");
 
   const renderTabContent = () => {
-    if (activeTab === 'post') {
+    if (activeTab === "post") {
       return <MyPagePost />;
     }
-    if (activeTab === 'setting') {
+    if (activeTab === "setting") {
       return <MyPageSetting />;
     }
     return null;
@@ -92,25 +93,25 @@ const MyPage = () => {
           <ProfileImg src={ProfileLogo} alt="ProfileLogo" />
         </Profile>
         <NicknameAddressBox>
-          <Nickname>닉네임</Nickname>
+          <Nickname>{nickname}</Nickname>
           <Address>Igilro@igilro.com</Address>
         </NicknameAddressBox>
       </HeadBox>
       <ButtonContainer>
         <Button
-          active={activeButton === 'post'}
+          active={activeButton === "post"}
           onClick={() => {
-            setActiveButton('post');
-            setActiveTab('post');
+            setActiveButton("post");
+            setActiveTab("post");
           }}
         >
           <ButtonText>게시물</ButtonText>
         </Button>
         <Button
-          active={activeButton === 'setting'}
+          active={activeButton === "setting"}
           onClick={() => {
-            setActiveButton('setting');
-            setActiveTab('setting');
+            setActiveButton("setting");
+            setActiveTab("setting");
           }}
         >
           <ButtonText>설정</ButtonText>
