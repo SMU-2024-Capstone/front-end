@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import return_default from '../../assets/images/return_default.svg';
 import return_clicked from '../../assets/images/return_clicked.svg';
+import { useNavigate } from "react-router-dom";
 
 const ReturnBtn = styled.div`
   width: 40px;
@@ -60,8 +61,9 @@ const Img = styled.img`
 
 const accessToken = window.localStorage.getItem("accessToken");
 
-const ReturnButton = ({ disabled, requestData }) => {
+const ReturnButton = ({ disabled, selectedCategories, requestData }) => {
   const [hover, setHover] = useState(false);
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => setHover(true);
   const handleMouseLeave = () => setHover(false);
@@ -77,37 +79,69 @@ const ReturnButton = ({ disabled, requestData }) => {
         },
         body: JSON.stringify(requestData),
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          navigate("/searchresult", { state: { requestData }});
-        })
-        .catch((error) => {
-          console.error("지역검색 코스 추천 중 오류 발생:", error);
-        });
-        console.log(requestData);
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+
+            if (data.info == 0) {
+              navigate("/searchrerror");
+            } else {
+              const places = data.info[0]; // 장소 배열
+              const lng = data.info[1]; // 경도
+              const lat = data.info[2]; // 위도
+              const link = data.info[3]; //링크
+
+              // route 배열에서 routeDescription을 <br> 기준으로 나눠 2차원 배열로 저장
+              const route = data.route.map((r) =>
+                  r.routeDescription.split("<br>").filter(Boolean)
+              );
+              // route = [["도보 51m"], ["도보 1분", "버스 7분", "도보 8분"]]
+
+              navigate("/searchresult", {
+                state: {
+                  selectedCategories,
+                  requestData,
+                  places,
+                  lng,
+                  lat,
+                  route,
+                  link,
+                },
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("지역검색 코스 추천 중 오류 발생:", error);
+          });
+
+      // Testing navigation
+      console.log("Navigating to /searchresult with:", {
+        selectedCategories,
+        requestData,
+      });
+      // navigate("/searchresult", { state: { selectedCategories, requestData: updatedRequestData } });
     }
   };
 
   return (
-    <ReturnBtn 
-      disabled={disabled}
-      onClick={handleButtonClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Return>
-        <Img src={hover ? return_clicked : return_default} />
-        <Text>
-          다시추천
-        </Text>
-      </Return>
-    </ReturnBtn>
+      <ReturnBtn
+          disabled={disabled}
+          onClick={handleButtonClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+      >
+        <Return>
+          <Img src={hover ? return_clicked : return_default} />
+          <Text>
+            다시추천
+          </Text>
+        </Return>
+      </ReturnBtn>
   );
 };
 

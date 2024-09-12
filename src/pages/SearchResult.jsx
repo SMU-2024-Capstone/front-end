@@ -15,11 +15,17 @@ const SearchResult = () => {
   const lng = location.state?.lng || {};
   const lat = location.state?.lat || {};
   const route = location.state?.route || {};
+  const link = location.state?.link || {};
 
   return (
     <Container>
       <MapWrapper>
-        <MapComponent selectedCategories={selectedCategories} />
+        <MapComponent 
+          selectedCategories={selectedCategories} 
+          lng={lng}
+          lat={lat}
+          link={link}
+          />
       </MapWrapper>
       <ContentWrapper>
         <SearchIconCourseBox></SearchIconCourseBox>
@@ -28,8 +34,6 @@ const SearchResult = () => {
         selectedCategories={selectedCategories}
         requestData={requestData}
         places={places}
-        lng={lng}
-        lat={lat}
         route={route}
       />
       {/* <Navigation /> */}

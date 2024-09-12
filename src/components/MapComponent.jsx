@@ -108,7 +108,7 @@ const MapComponent = ({ selectedCategories, lng, lat, link }) => {
   return (
     <GoogleMap
       options={{ disableDefaultUI: true }}
-      zoom={18}
+      zoom={16}
       center={initialCenter}
       mapContainerStyle={containerStyle}
       onLoad={(map) => {

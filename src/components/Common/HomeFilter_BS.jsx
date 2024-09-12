@@ -40,7 +40,7 @@ export const MAX_Y = 548;
 const Wrapper = styled.div`
   position: relative;
   width: 392px;
-  top: 124px;
+  top: 180px; 
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   height: 592px;
@@ -374,7 +374,7 @@ const BottomSheet = ({ selectedCategories, requestData, places, route }) => {
           );
         })}
       </CategoryList>
-      <ReturnButton requestData={requestData} />
+      <ReturnButton requestData={requestData} selectedCategories={selectedCategories} />
     </Wrapper>
   );
 };

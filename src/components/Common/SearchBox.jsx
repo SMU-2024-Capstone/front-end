@@ -112,6 +112,7 @@ const SearchBox = ({
             const places = data.info[0]; // 장소 배열
             const lng = data.info[1]; // 경도
             const lat = data.info[2]; // 위도
+            const link = data.info[3]; //링크
 
             // route 배열에서 routeDescription을 <br> 기준으로 나눠 2차원 배열로 저장
             const route = data.route.map((r) =>
@@ -127,6 +128,7 @@ const SearchBox = ({
                 lng,
                 lat,
                 route,
+                link,
               },
             });
           }
