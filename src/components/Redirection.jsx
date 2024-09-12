@@ -25,8 +25,38 @@ const Redirection = (props) => {
       .get(`http://localhost:8080/user/callback/kakao${code}`)
       .then((res) => {
         console.log(res.data);
-        window.localStorage.setItem("accessToken", res.data.accessToken);
-        navigate("/nickname");
+
+        // 회원가입
+        if (res.data.status == 201) {
+          window.localStorage.setItem(
+            "accessToken",
+            res.data.token.accessToken
+          );
+          window.localStorage.setItem(
+            "refreshToken",
+            res.data.token.refreshToken
+          );
+
+          navigate("/nickname");
+        }
+
+        // 로그인
+        // 선호도 테스트까지 다 끝낸 경우
+        if (res.data.status == 200 && res.data.message == "홈화면") {
+          navigate("/home");
+          window.localStorage.setItem("nickname", res.data.nickname);
+        }
+
+        // 닉네임 설정을 하지 않은 경우
+        if (res.data.status == 200 && res.data.message == "닉네임 없음") {
+          navigate("/nickname");
+        }
+
+        // 선호도 테스트를 안 한 경우
+        if (res.data.status == 200 && res.data.message == "선호도 테스트") {
+          window.localStorage.setItem("nickname", res.data.nickname);
+          navigate("/onboarding");
+        }
       })
       .catch((error) => {
         console.log(error);
