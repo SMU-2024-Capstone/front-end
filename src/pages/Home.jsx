@@ -70,7 +70,7 @@ const Home = () => {
       </Text>
       <HomeContents></HomeContents>
       <MapButton></MapButton>
-      <Navigation></Navigation>
+      {/* <Navigation></Navigation> */}
     </div>
   );
 };
