@@ -101,6 +101,15 @@ const CompleteButton = (props) => {
       })
       .then((data) => {
         console.log(data);
+
+        // ai_recommend 배열의 각 요소를 로컬 스토리지에 저장
+        data.ai_recommend.forEach((item, index) => {
+          const idx = index + 1; // 인덱스를 1부터 시작
+          localStorage.setItem(`tag${idx}`, item.tag);
+          localStorage.setItem(`placename${idx}`, item.placename);
+          localStorage.setItem(`category${idx}`, item.category);
+          localStorage.setItem(`URL${idx}`, item.URL);
+        });
       })
       .catch((error) => {
         console.error("취향 카테고리 선택 중 오류 발생:", error);
