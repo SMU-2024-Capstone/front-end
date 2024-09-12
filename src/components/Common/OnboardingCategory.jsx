@@ -244,8 +244,7 @@ const HomeFilterCategory = () => {
     setActiveIndex(swiper.activeIndex);
   };
 
-  const location = useLocation();
-  const { nickname } = location.state || { nickname: '' };
+  const nickname = window.localStorage.getItem("nickname");
 
   const renderStepContent = () => {
     if (step === 1) {
