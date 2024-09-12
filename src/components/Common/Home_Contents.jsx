@@ -35,15 +35,18 @@ const HomeContents = () => {
     const places = [];
     const categories = [];
     const tags = [];
+    const urls = [];
 
     for (let i = 1; i <= 5; i++) {
-      const place = localStorage.getItem(`place${i}`);
+      const place = localStorage.getItem(`placename${i}`);
       const category = localStorage.getItem(`category${i}`);
       const tag = localStorage.getItem(`tag${i}`);
+      const url = localStorage.getItem(`URL${i}`);
 
       if (place) places.push(place);
       if (category) categories.push(category);
       if (tag) tags.push(tag);
+      if (url) urls.push(url);
     }
 
     setContentItems(
@@ -51,6 +54,7 @@ const HomeContents = () => {
         place,
         category: categories[index] || "",
         tag: tags[index] || "",
+        url: urls[index] || "",
       }))
     );
   }, []);
@@ -106,6 +110,7 @@ const HomeContents = () => {
             title={item.place}
             category={item.category}
             tag={item.tag}
+            url={item.url}
           />
         ))}
       </ScrollableContent>

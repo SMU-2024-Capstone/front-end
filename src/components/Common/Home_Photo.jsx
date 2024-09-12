@@ -79,15 +79,23 @@ const Text1 = styled.div`
   letter-spacing: -0.3%;
 `;
 
-const HomeContent = ({ title, category, tag }) => {
+const HomeContent = ({ title, category, tag, url }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
 
+  window.open(url, "_blank");
+
+  const handleClick = () => {
+    if (url) {
+      window.open(url, "_blank"); // URL로 이동
+    }
+  };
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <HomePhoto src={Test} alt="Home Photo" />
       <BlurBackground />
       <TextContainer>
