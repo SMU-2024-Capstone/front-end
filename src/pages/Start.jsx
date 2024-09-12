@@ -15,7 +15,7 @@ const StartBack = styled.div`
 const Logo = styled.img`
   display: block;
   margin: 0 auto;
-  padding-top: 168px;
+  padding-top: 228px;
 `;
 
 const Igilro = styled.img.attrs({
@@ -23,7 +23,7 @@ const Igilro = styled.img.attrs({
   alt: "이길로",
 })`
   display: block;
-  margin-top: 168px;
+  margin-top: 91px;
 `;
 
 const P = styled.p`
@@ -41,8 +41,8 @@ const Start = () => {
       <Logo src={logo} alt="로고 이미지" />
       <Igilro />
       <KaKaoLogin />
-      <NaverLogin />
-      <P>로그인 방법 선택</P>
+      {/* <NaverLogin />
+      <P>로그인 방법 선택</P> */}
     </StartBack>
   );
 };

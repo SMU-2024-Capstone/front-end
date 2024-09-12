@@ -9,7 +9,7 @@ const KaKaoButton = styled.div`
   margin: 0 auto;
   cursor: pointer;
   filter: drop-shadow(0px 6px 8px #fee5004d);
-  margin-top: 40px;
+  margin-top: 110px;
 `;
 
 const KaKao = styled.img`

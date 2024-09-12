@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import bookmark from "../../assets/images/bookmark.svg";
-import Test from "../../assets/images/photo/Test.svg";
 import bookmark_clicked from "../../assets/images/bookmark_clicked.svg";
 import { useNavigate } from "react-router-dom";
+import Food_2 from '../../assets/images/photo/Food/Food_2.jpg';
+import Cafe_3 from '../../assets/images/photo/Cafe/Cafe_3.jpg';
+import Drink_1 from '../../assets/images/photo/Drink/Drink_1.jpg';
+import Add_1 from '../../assets/images/photo/Add/Add_1.jpg';
 
 const Container = styled.div`
   position: relative;
@@ -80,8 +83,37 @@ const Text1 = styled.div`
   letter-spacing: -0.3%;
 `;
 
+const imageData = [
+  {
+    label: "Food_2",
+    alt: "Food_2",
+    src: Food_2,
+    category: "식사",
+  },
+  {
+    label: "Cafe_3",
+    alt: "Cafe_3",
+    src: Cafe_3,
+    category: "카페",
+  },
+  {
+    label: "Drink_1",
+    alt: "Drink_1",
+    src: Drink_1,
+    category: "술집",
+  },
+  {
+    label: "Add_1",
+    alt: "Add_1",
+    src: Add_1,
+    category: "놀거리",  
+  },
+];
+
 const HomeContent = ({ title, category, tag, url }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const categoryImage = imageData.find(image => image.category === category);
 
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
@@ -95,7 +127,7 @@ const HomeContent = ({ title, category, tag, url }) => {
 
   return (
     <Container onClick={handleClick}>
-      <HomePhoto src={Test} alt="Home Photo" />
+      <HomePhoto src={categoryImage?.src} alt={categoryImage?.alt || "Default Image"} />
       <BlurBackground />
       <TextContainer>
         <Header>
