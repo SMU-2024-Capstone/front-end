@@ -1,6 +1,9 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; 
+import React, { useState } from 'react';
 import styled from "styled-components";
+import MyPagePost from '../components/Common/MyPagePost';
+import Navigation from '../components/Common/Navigation';
+import MyPageSetting from '../components/Common/MyPageSetting';
+import ProfileLogo from '../assets/images/logo/ProfileLogo.svg';
 
 const HeadBox = styled.div`
   width: 392px;
@@ -18,6 +21,12 @@ const Profile = styled.div`
   background-color: #FFFFFF;
   margin-right: 16px;
   margin-left: 16px;
+`;
+
+const ProfileImg = styled.img`
+  width: 44px;
+  height: 44px;
+  margin: 18px;
 `;
 
 const Nickname = styled.div`
@@ -40,34 +49,77 @@ const NicknameAddressBox = styled.div`
   height: 48px;
 `;
 
-const PostButton = styled.div`
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
+const Button = styled.div`
   width: 196px;
   height: 22px;
-  border-bottom: 1px solid #eceff0;
+  border-bottom: ${(props) => (props.active ? '1px solid #eceff0' : 'none')};
+`;
 
-  .text {
-    color: #ECEFF0;
-    font-size: 14px;
-    font-family: "Apple-SD-GothicNeo-Bold";
-    letter-spacing: -0.3%;
-    line-height: 129%;
-  }
+const ButtonText = styled.div`
+  color: #ECEFF0;
+  font-size: 14px;
+  font-family: "Apple-SD-GothicNeo-Bold";
+  letter-spacing: -0.3%;
+  line-height: 129%;
+  text-align: center;
+  cursor: pointer;
 `;
 
 const MyPage = () => {
+  const [activeButton, setActiveButton] = useState('post');
+  const [activeTab, setActiveTab] = useState('post');
+
+  const renderTabContent = () => {
+    if (activeTab === 'post') {
+      return <MyPagePost />;
+    }
+    if (activeTab === 'setting') {
+      return <MyPageSetting />;
+    }
+    return null;
+  };
+
   window.localStorage.getItem("nickname");
 
   return (
     <div>
       <HeadBox>
-        <Profile />
+        <Profile>
+          <ProfileImg src={ProfileLogo} alt="ProfileLogo" />
+        </Profile>
         <NicknameAddressBox>
-          <Nickname>닉네임</Nickname> <Address>abcdefg1234@naver.com</Address>
+          <Nickname>닉네임</Nickname>
+          <Address>Igilro@igilro.com</Address>
         </NicknameAddressBox>
       </HeadBox>
-      <PostButton>
-        <text>게시물</text>
-        </PostButton>
+      <ButtonContainer>
+        <Button
+          active={activeButton === 'post'}
+          onClick={() => {
+            setActiveButton('post');
+            setActiveTab('post');
+          }}
+        >
+          <ButtonText>게시물</ButtonText>
+        </Button>
+        <Button
+          active={activeButton === 'setting'}
+          onClick={() => {
+            setActiveButton('setting');
+            setActiveTab('setting');
+          }}
+        >
+          <ButtonText>설정</ButtonText>
+        </Button>
+      </ButtonContainer>
+
+      {/* 탭 내용 표시 */}
+      {renderTabContent()}
+      <Navigation />
     </div>
   );
 };
