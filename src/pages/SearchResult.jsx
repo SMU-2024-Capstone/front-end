@@ -32,7 +32,7 @@ const SearchResult = () => {
         lat={lat}
         route={route}
       />
-      <Navigation />
+      {/* <Navigation /> */}
     </Container>
   );
 };

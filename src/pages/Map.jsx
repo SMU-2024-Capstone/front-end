@@ -14,7 +14,7 @@ const Map = () => {
     <div>
       <MapSearchBox />
       <HomeMap />
-      <Navigation></Navigation>
+      {/* <Navigation></Navigation> */}
     </div>
   );
 };
