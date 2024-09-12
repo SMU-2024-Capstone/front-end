@@ -37,7 +37,7 @@ const Img = styled.img`
 `;
 
 const TextContainer = styled.div`
-  width: 162px;
+  width: 180px;
   height: 102px;
   margin-right: 16px;
   margin-top: 74px;

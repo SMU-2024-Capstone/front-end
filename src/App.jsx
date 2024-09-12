@@ -31,7 +31,7 @@ function App() {
           <Route path="/filter" element={<HomeFilter />} />
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/searchresult" element={<SearchResult />} />
-          <Route path="/searchrerror" element={<SearchError />} />
+          <Route path="/searcherror" element={<SearchError />} />
           <Route path="/homeresult" element={<HomeResult />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage" element={<Mypage />} />

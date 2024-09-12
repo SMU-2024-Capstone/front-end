@@ -161,18 +161,14 @@ const Nickname = () => {
       if (data.status === 200 && data.message === "닉네임 중복") {
         setIsDuplicate(true); // 닉네임 중복일 경우 true로 설정
         return false; // 중복일 경우 false 반환
-      } else if (data.accessToken) {
-        window.localStorage.setItem("accessToken", data.accessToken);
-        window.localStorage.setItem("refreshToken", data.refreshToken);
+      } else if (data.status === 200 && data.message === "닉네임 사용 가능") {
         setIsDuplicate(false); // 중복 아님
         return true; // 성공 시 true 반환
       } else {
-        throw new Error("알 수 없는 응답입니다.");
+        throw new Error("닉네임 중복 코드 오류");
       }
     } catch (error) {
-      console.error("닉네임 중복 또는 오류 발생:", error);
-      setIsDuplicate(true); // 에러가 발생하면 중복으로 처리
-      return false; // 오류 발생 시 false 반환
+      console.error("오류 발생:", error);
     }
   };
 

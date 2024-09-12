@@ -21,7 +21,7 @@ const NaverLogin = () => {
   const navigate = useNavigate(); 
 
   const handleButtonClick = () => {
-    navigate("/nickname"); 
+    navigate("/searcherror"); 
   };
 
   return (

@@ -7,18 +7,16 @@ import ErrorBottomSheet from '../components/Common/Error_BS';
 import HomeMap from '../components/HomeMap';
 
 const SearchError = () => {
-
-
   return (
     <Container>
       <MapWrapper>
-       <HomeMap />
+        <HomeMap />
       </MapWrapper>
       <ContentWrapper>
-        <SearchIconCourseBox></SearchIconCourseBox>
+        <SearchIconCourseBox />
       </ContentWrapper>
-        <ErrorBottomSheet />
-        <Navigation />
+      <ErrorBottomSheet /> 
+      <Navigation />
     </Container>
   );
 };
@@ -46,5 +44,3 @@ const ContentWrapper = styled.div`
   justify-content: space-between; 
   height: 100%; 
 `;
-
-

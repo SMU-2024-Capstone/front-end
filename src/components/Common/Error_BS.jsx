@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import logo from "../../assets/images/logo/Logo.svg"
 
 
 export const MIN_Y = 0;
@@ -12,7 +13,7 @@ const Wrapper = styled.div`
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   height: 592px;
-  background: #FFFFFF;
+  background: #0d0e10;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease-out;
   z-index: 3;
@@ -33,6 +34,22 @@ const Handle = styled.div`
   background-color: #282728;
   margin: auto;
 `;
+
+const Logo = styled.img`
+  display: block;
+  margin: 0 auto;
+  padding-top: 122px;
+`;
+
+const Text = styled.div`
+  color: #ffffff;
+  font-family: "Apple-SD-GothicNeo-Bold";
+  font-size: 14px;
+  line-height: 130%;
+  letter-spacing: -0.3%;
+  margin-top: 92px;
+  margin-left: 138px;
+`
 
 
 const ErrorBottomSheet = ({ }) => {
@@ -91,6 +108,8 @@ const ErrorBottomSheet = ({ }) => {
       <Header onMouseDown={handleMouseDown}>
         <Handle />
       </Header>
+      <Logo src={logo} alt="로고 이미지" />
+      <Text>검색 결과가 없습니다.</Text>
     </Wrapper>
   );
 };

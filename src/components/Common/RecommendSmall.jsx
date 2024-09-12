@@ -10,7 +10,7 @@ const SmallBox = styled.div`
   margin-left: 18px;
   margin-right: 8px;
   width: 170px;
-  height: 137px;
+  height: 150px;
 `;
 
 const Img = styled.img`

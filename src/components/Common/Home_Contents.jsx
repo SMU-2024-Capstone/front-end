@@ -11,11 +11,9 @@ const Container = styled.div`
 `;
 
 const ScrollableContent = styled.div`
-  flex: 1; 
+  height: 670px; /* 고정된 높이 설정 */
   overflow-y: auto; 
   -webkit-overflow-scrolling: touch; 
-  position: relative;
-  padding-bottom: 200px; 
 
   &::-webkit-scrollbar {
     width: 0px; 

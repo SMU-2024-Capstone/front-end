@@ -49,7 +49,7 @@ const Navigation = () => {
   useEffect(() => {
     const path = location.pathname.replace("/", "") || "home";
     const page =
-      path === "map" || path === "searchresult" || path === "homeresult"
+      path === "map" || path === "searchresult" || path === "homeresult" || path === "searcherror"
         ? "home"
         : path;
     setCurrentPage(page);

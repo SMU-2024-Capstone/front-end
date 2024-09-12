@@ -13,7 +13,7 @@ const Text = styled.div`
   font-family: "Apple-SD-GothicNeo-Bold";
   letter-spacing: -0.3%;
   line-height: 140%;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
 `;
 
 const Text2 = styled.text`
@@ -24,7 +24,7 @@ const Text2 = styled.text`
   font-family: "Apple-SD-GothicNeo-Bold";
   letter-spacing: -0.3%;
   line-height: 140%;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
 `;
 
 
