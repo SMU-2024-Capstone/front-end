@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 274px;
   margin-left: 16px;
   margin-bottom: 24px;
+  cursor: pointer;
 `;
 
 const HomePhoto = styled.img`
@@ -85,8 +86,6 @@ const HomeContent = ({ title, category, tag, url }) => {
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
-
-  window.open(url, "_blank");
 
   const handleClick = () => {
     if (url) {

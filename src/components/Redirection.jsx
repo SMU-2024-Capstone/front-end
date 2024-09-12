@@ -43,7 +43,6 @@ const Redirection = (props) => {
         // 로그인
         // 선호도 테스트까지 다 끝낸 경우
         if (res.data.status == 200 && res.data.message == "홈화면") {
-          navigate("/home");
           window.localStorage.setItem("nickname", res.data.nickname);
           window.localStorage.setItem(
             "accessToken",
@@ -53,6 +52,9 @@ const Redirection = (props) => {
             "refreshToken",
             res.data.token.refreshToken
           );
+
+          window.localStorage.setItem("login", "로그인");
+          navigate("/home");
         }
 
         // 닉네임 설정을 하지 않은 경우

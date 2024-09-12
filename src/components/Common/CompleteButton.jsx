@@ -72,7 +72,6 @@ const CompleteButton = (props) => {
 
   const handleButtonClick = () => {
     console.log("Navigating to /welcome");
-    navigate("/welcome", { state: { nickname } });
 
     console.log(importance);
     console.log(preference);
@@ -110,6 +109,7 @@ const CompleteButton = (props) => {
           localStorage.setItem(`category${idx}`, item.category);
           localStorage.setItem(`URL${idx}`, item.URL);
         });
+        navigate("/welcome");
       })
       .catch((error) => {
         console.error("취향 카테고리 선택 중 오류 발생:", error);
