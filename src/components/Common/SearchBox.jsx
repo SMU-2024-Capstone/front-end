@@ -87,6 +87,7 @@ const SearchBox = ({
 
       setRequestData(updatedRequestData);
 
+
       // Commenting out the API call
       fetch(`http://localhost:8080/search/category`, {
         method: "POST",
@@ -129,10 +130,6 @@ const SearchBox = ({
               },
             });
           }
-
-          navigate("/searchresult", {
-            state: { selectedCategories, requestData: updatedRequestData },
-          });
         })
         .catch((error) => {
           console.error("지역검색 코스 추천 중 오류 발생:", error);
