@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 import Back from "../../assets/images/icons/Back.svg";
-import { useLocation, useNavigate } from 'react-router-dom'; 
-import ProfileLogo from '../../assets/images/logo/ProfileLogo.svg';
-
-
+import { useLocation, useNavigate } from "react-router-dom";
+import ProfileLogo from "../../assets/images/logo/ProfileLogo.svg";
 
 const Text = styled.div`
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
   font-size: 20px;
@@ -19,7 +17,7 @@ const Profile = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 100px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 `;
 
 const ProfileImg = styled.img`
@@ -33,27 +31,22 @@ const SearchBackBox = styled.div`
   align-items: center;
   width: 392px;
   height: 80px;
-  box-shadow: 0px 8px 8px rgba(79, 80, 82, 0.2); 
+  box-shadow: 0px 8px 8px rgba(79, 80, 82, 0.2);
   padding-top: 20px;
   padding-left: 16px;
 `;
 
 const BookMarkBox = () => {
-  const navigate = useNavigate(); 
+  const nickname = window.localStorage.getItem("nickname");
 
-
-  const handleButtonClick = () => {
-    navigate("/social"); 
-  };
-  
   return (
     <SearchBackBox>
       <Profile>
         <ProfileImg src={ProfileLogo} alt="ProfileLogo" />
       </Profile>
-      <Text>닉네임님의 북마크</Text>
+      <Text>{nickname}님의 북마크</Text>
     </SearchBackBox>
-  )
+  );
 };
 
 export default BookMarkBox;

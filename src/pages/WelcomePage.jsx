@@ -1,13 +1,16 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import Logo_welcome from '../assets/images/logo/Logo.svg';
-import NextButtonColored from '../components/Common/NextButtonColored';
-import { useNavigate } from 'react-router-dom'; 
+import Logo_welcome from "../assets/images/logo/Logo.svg";
+import NextButtonColored from "../components/Common/NextButtonColored";
+import { useNavigate } from "react-router-dom";
 
 const BackgroundBox = styled.div`
   width: 360px;
   height: 726px;
-  background: linear-gradient(${(props) => props.bgColor1}, ${(props) => props.bgColor2});
+  background: linear-gradient(
+    ${(props) => props.bgColor1},
+    ${(props) => props.bgColor2}
+  );
   border-radius: 12px;
   filter: drop-shadow(0px 8px 16px #282728);
   margin-left: 16px;
@@ -27,7 +30,7 @@ const Logo = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  color: #ECEFF0;
+  color: #eceff0;
   font-size: 36px;
   font-family: "Apple-SD-GothicNeo-Medium";
   letter-spacing: -0.4%;
@@ -43,12 +46,12 @@ const NicknameText = styled.span`
 `;
 
 const Welcome = () => {
-  window.localStorage.getItem("nickname");
-  const navigate = useNavigate();  
+  const nickname = window.localStorage.getItem("nickname");
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    console.log('Navigating to /home'); 
-    navigate("/home"); 
+    console.log("Navigating to /home");
+    navigate("/home");
   };
 
   return (
@@ -60,7 +63,9 @@ const Welcome = () => {
           </Logo>
           <TextWrapper>
             <NicknameText textColor="#D3FF4E">{nickname}</NicknameText>님,
-            <br />이길로에 오신 걸<br />환영합니다!
+            <br />
+            이길로에 오신 걸<br />
+            환영합니다!
           </TextWrapper>
         </BackgroundBox>
       </Box>
