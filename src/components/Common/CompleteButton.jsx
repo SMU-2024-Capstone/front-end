@@ -108,7 +108,7 @@ const CompleteButton = (props) => {
           localStorage.setItem(`placename${idx}`, item.placename);
           localStorage.setItem(`category${idx}`, item.category);
           localStorage.setItem(`URL${idx}`, item.URL);
-        });
+        }); 
         navigate("/welcome");
       })
       .catch((error) => {
