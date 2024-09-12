@@ -45,6 +45,14 @@ const Redirection = (props) => {
         if (res.data.status == 200 && res.data.message == "홈화면") {
           navigate("/home");
           window.localStorage.setItem("nickname", res.data.nickname);
+          window.localStorage.setItem(
+            "accessToken",
+            res.data.token.accessToken
+          );
+          window.localStorage.setItem(
+            "refreshToken",
+            res.data.token.refreshToken
+          );
         }
 
         // 닉네임 설정을 하지 않은 경우
