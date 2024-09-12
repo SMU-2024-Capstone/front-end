@@ -232,8 +232,7 @@ const categories = [
   { icon: Add, selectedIcon: SelectedAdd, label: "기타" },
 ];
 
-const BottomSheet = ({ selectedCategories, requestData }) => {
-
+const BottomSheet = ({ selectedCategories, requestData, places, route }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState(MIN_Y);
   const startY = useRef(0);
@@ -324,25 +323,32 @@ const BottomSheet = ({ selectedCategories, requestData }) => {
       <Head>
         {sidoText} {gugunText}에 도착
       </Head>
-      <T1>#국립현대미술관</T1>
-      <MethodContainer>
-        <MethodImg src={walking} alt="walking" />
-        <MethodRod></MethodRod>
-        <MethodText>도보 10분</MethodText>
-      </MethodContainer>
-      <T1>#스타벅스 광화문점</T1>
-      <MethodContainer>
-        <MethodImg src={subway} alt="subway" />
-        <MethodRod></MethodRod>
-        <MethodText>지하철 20분</MethodText>
-      </MethodContainer>
-      <T1>#뼈탄집</T1>
-      <MethodContainer>
-        <MethodImg src={bus} alt="bus" />
-        <MethodRod></MethodRod>
-        <MethodText>버스 23분</MethodText>
-      </MethodContainer>
-      <T1>#스타벅스 경복궁점</T1>
+
+      {/* 장소와 경로를 순서대로 렌더링 */}
+      {places.map((place, index) => (
+        <div key={index}>
+          <T1>#{place}</T1>
+
+          {/* 경로는 place보다 하나 적으므로 마지막 place 뒤에는 경로가 없음 */}
+          {index < route.length && (
+            <MethodContainer>
+              <MethodImg
+                src={
+                  route[index].some((step) => step.includes("버스"))
+                    ? bus
+                    : route[index].some((step) => step.includes("지하철"))
+                    ? subway
+                    : walking
+                }
+                alt="method"
+              />
+              <MethodRod></MethodRod>
+              <MethodText>{route[index].join(" ")}</MethodText>
+            </MethodContainer>
+          )}
+        </div>
+      ))}
+
       <T2>코스 순서:</T2>
       <CategoryList>
         {filteredCategories.map((category, index) => {
@@ -368,7 +374,7 @@ const BottomSheet = ({ selectedCategories, requestData }) => {
           );
         })}
       </CategoryList>
-      <ReturnButton requestData={requestData}/>
+      <ReturnButton requestData={requestData} />
     </Wrapper>
   );
 };

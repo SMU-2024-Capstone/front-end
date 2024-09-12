@@ -69,27 +69,27 @@ const ReturnButton = ({ disabled, requestData }) => {
   const handleButtonClick = () => {
     if (!disabled) { //disabled는 상호작용 여부 true일 때 클릭 안됨
 
-      // fetch(`http://localhost:8080/search/category`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: "Bearer " + accessToken,
-      //   },
-      //   body: JSON.stringify(requestData),
-      // })
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error("Failed to fetch");
-      //     }
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     console.log(data);
-      //     navigate("/searchresult", { state: { requestData }});
-      //   })
-      //   .catch((error) => {
-      //     console.error("지역검색 코스 추천 중 오류 발생:", error);
-      //   });
+      fetch(`http://localhost:8080/search/category`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          navigate("/searchresult", { state: { requestData }});
+        })
+        .catch((error) => {
+          console.error("지역검색 코스 추천 중 오류 발생:", error);
+        });
         console.log(requestData);
     }
   };

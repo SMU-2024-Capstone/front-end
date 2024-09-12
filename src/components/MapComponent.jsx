@@ -19,10 +19,9 @@ const containerStyle = {
   height: "852px",
 };
 
-const MapComponent = ({ selectedCategories }) => {
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
-  const markerPosition = { lat, lng };
+const MapComponent = ({ selectedCategories, lng, lat, link }) => {
+  const [currentLat, setCurrentLat] = useState(0);
+  const [currentLng, setCurrentLng] = useState(0);
   const mapRef = useRef(null);
 
   // 현재 위치 가져오기
@@ -30,8 +29,8 @@ const MapComponent = ({ selectedCategories }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLat(position.coords.latitude);
-          setLng(position.coords.longitude);
+          setCurrentLat(position.coords.latitude);
+          setCurrentLng(position.coords.longitude);
         },
         (error) => {
           console.error(error);
@@ -78,33 +77,29 @@ const MapComponent = ({ selectedCategories }) => {
     }
   };
 
-  const getRandomNearbyPosition = (latitude, longitude) => {
-    const randomOffset = () => (Math.random() - 0.5) * 0.001; // 약 100m 범위
-    return {
-      lat: latitude + randomOffset(),
-      lng: longitude + randomOffset(),
-    };
-  };
-
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
   });
 
   if (!isLoaded) return <div>Loading...</div>;
 
-  // 마커 클릭 시 해당 위치로 지도 이동, 링크 열기
-  const handleMarkerClick = (position) => {
+  // 첫 번째 마커의 위치를 구해서 초기 지도 중심에 설정
+  const initialCenter = {
+    lat: parseFloat(lat[0]),
+    lng: parseFloat(lng[0]),
+  };
+
+  const handleMarkerClickWithPan = (position, url) => {
+    // 지도 이동
     if (mapRef.current) {
       mapRef.current.panTo(position);
     }
 
-    window.open(
-      "https://map.naver.com/p/entry/place/11591565?c=15.00,0,0,0,dh",
-      "_blank"
-    );
+    // 링크 이동
+    window.open(url, "_blank");
   };
 
-  const handleMarkerClick2 = (position) => {
+  const handleMarkerClick = (position) => {
     if (mapRef.current) {
       mapRef.current.panTo(position);
     }
@@ -114,7 +109,7 @@ const MapComponent = ({ selectedCategories }) => {
     <GoogleMap
       options={{ disableDefaultUI: true }}
       zoom={18}
-      center={markerPosition}
+      center={initialCenter}
       mapContainerStyle={containerStyle}
       onLoad={(map) => {
         mapRef.current = map;
@@ -122,26 +117,32 @@ const MapComponent = ({ selectedCategories }) => {
     >
       {/* 현재 위치 마커 */}
       <MarkerF
-        position={markerPosition}
+        position={{ lat: currentLat, lng: currentLng }}
         icon={{ url: nowPlace }}
-        onClick={() => handleMarkerClick2(markerPosition)}
+        onClick={() => handleMarkerClick({ lat: currentLat, lng: currentLng })}
       />
 
       {/* 선택된 카테고리에 따라 마커 생성 */}
       {selectedCategories.map((category, index) => {
-        const position = getRandomNearbyPosition(lat, lng);
+        // 위도와 경도 배열에서 값을 추출
+        const markerPosition = {
+          lat: parseFloat(lat[index]),
+          lng: parseFloat(lng[index]),
+        };
+
         const iconUrl = getCategoryIcon(category.label); // label을 기준으로 아이콘 매핑
+        const markerLink = link[index]; // 해당 인덱스의 링크 가져오기
 
         console.log(
-          `Rendering marker for category: ${category.label}, icon: ${iconUrl}`
+          `Rendering marker for category: ${category.label}, icon: ${iconUrl}, link: ${markerLink}`
         ); // 디버깅용 로그
 
         return (
           <MarkerF
             key={index}
-            position={position}
+            position={markerPosition}
             icon={{ url: iconUrl }} // 아이콘 URL 설정
-            onClick={() => handleMarkerClick(position)}
+            onClick={() => handleMarkerClickWithPan(markerPosition, markerLink)} // 해당 장소의 링크로 이동
           />
         );
       })}

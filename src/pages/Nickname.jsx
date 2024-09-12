@@ -163,6 +163,7 @@ const Nickname = () => {
         return false; // 중복일 경우 false 반환
       } else if (data.status === 200 && data.message === "닉네임 사용 가능") {
         setIsDuplicate(false); // 중복 아님
+        window.localStorage.setItem("nickname", nickname);
         return true; // 성공 시 true 반환
       } else {
         throw new Error("닉네임 중복 코드 오류");

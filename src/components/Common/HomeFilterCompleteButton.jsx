@@ -21,8 +21,6 @@ const HomeFilterCompleteButton = (props) => {
   `;
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const { nickname } = location.state || { nickname: "" };
 
   // 문자열을 숫자로 매핑하는 함수
   const mapImportance = (value) => {
@@ -74,7 +72,7 @@ const HomeFilterCompleteButton = (props) => {
 
   const handleButtonClick = () => {
     console.log("Navigating to /home");
-    navigate("/home", { state: { nickname } });
+    navigate("/home");
 
     console.log(importance);
     console.log(preference);

@@ -51,7 +51,10 @@ const Navigation = () => {
     const page =
       path === "map" || path === "searchresult" || path === "homeresult" || path === "searcherror"
         ? "home"
+        : path === "alarm"
+        ? "social"
         : path;
+        
     setCurrentPage(page);
     setStylePosition({ left: calculatePosition(page) });
   }, [location.pathname]);

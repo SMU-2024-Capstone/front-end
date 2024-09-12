@@ -15,6 +15,8 @@ import HomeResult from './pages/HomeResult';
 import Map from './pages/Map';
 import Mypage from './pages/Mypage';
 import SearchError from './pages/SearchError';
+import Community from './pages/Community';
+import Alarm from './pages/Alarm';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           <Route path="/homeresult" element={<HomeResult />} />
           <Route path="/map" element={<Map />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/social" element={<Community />} />
+          <Route path="/alarm" element={<Alarm />} />
         </Routes>
       </BrowserRouter>
     </div>

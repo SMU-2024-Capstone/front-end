@@ -40,19 +40,34 @@ const NicknameAddressBox = styled.div`
   height: 48px;
 `;
 
+const PostButton = styled.div`
+  width: 196px;
+  height: 22px;
+  border-bottom: 1px solid #eceff0;
+
+  .text {
+    color: #ECEFF0;
+    font-size: 14px;
+    font-family: "Apple-SD-GothicNeo-Bold";
+    letter-spacing: -0.3%;
+    line-height: 129%;
+  }
+`;
+
 const MyPage = () => {
-  const location = useLocation();
-  const { nickname } = location.state || { nickname: '' };
-  const navigate = useNavigate();  
+  window.localStorage.getItem("nickname");
 
   return (
     <div>
       <HeadBox>
         <Profile />
         <NicknameAddressBox>
-          <Nickname>{nickname}</Nickname> <Address>abcdefg1234@naver.com</Address>
+          <Nickname>닉네임</Nickname> <Address>abcdefg1234@naver.com</Address>
         </NicknameAddressBox>
       </HeadBox>
+      <PostButton>
+        <text>게시물</text>
+        </PostButton>
     </div>
   );
 };

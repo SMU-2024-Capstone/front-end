@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import Logo_welcome from '../assets/images/logo/Logo.svg';
 import NextButtonColored from '../components/Common/NextButtonColored';
-import { useLocation, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const BackgroundBox = styled.div`
   width: 360px;
@@ -43,13 +43,12 @@ const NicknameText = styled.span`
 `;
 
 const Welcome = () => {
-  const location = useLocation();
-  const { nickname } = location.state || { nickname: '' };
+  window.localStorage.getItem("nickname");
   const navigate = useNavigate();  
 
   const handleButtonClick = () => {
     console.log('Navigating to /home'); 
-    navigate("/home", { state: { nickname } }); 
+    navigate("/home"); 
   };
 
   return (

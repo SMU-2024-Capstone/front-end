@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Search from '../../assets/images/icons/Search.svg'
-import Filter from "../../assets/images/icons/Filter.svg"
+import Alarm from "../../assets/images/icons/Alarm.svg"
 import { useLocation, useNavigate } from 'react-router-dom'; 
 
-const SearchFilterBox = () => {
+const SearchFriend = () => {
   const SearchButton = styled.div`
     width: 296px;
     height: 48px;
@@ -47,27 +47,22 @@ const SearchFilterBox = () => {
   
   const navigate = useNavigate();  
   
-  const handleSearchButtonClick = () => {
-    console.log('Navigating to /search'); 
-    navigate("/search"); 
-  };
-
-  const handleFilterButtonClick = () => {
-    console.log('Navigating to /filter'); 
-    navigate("/filter"); 
+  const handleAlarmButtonClick = () => {
+    console.log('Navigating to /alarm'); 
+    navigate("/alarm"); 
   };
 
   return (
     <SearchFilterBox>
-      <SearchButton onClick={handleSearchButtonClick}>
+      <SearchButton>
         <img src={Search} />
-        <text>나에게 맞는 코스 찾아보기</text>
+        <text>친구 찾아보기</text>
       </SearchButton>
-      <FilterButton onClick={handleFilterButtonClick}>
-        <img src={Filter} />
+      <FilterButton onClick={handleAlarmButtonClick}>
+        <img src={Alarm} />
       </FilterButton>
     </SearchFilterBox>
   )
 };
 
-export default SearchFilterBox;
+export default SearchFriend;

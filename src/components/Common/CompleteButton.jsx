@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const CompleteButton = (props) => {
 const StyledCompleteButton = styled.button`
@@ -21,12 +21,10 @@ const StyledCompleteButton = styled.button`
 `;
 
 const navigate = useNavigate(); 
-const location = useLocation();
-const { nickname } = location.state || { nickname: '' };
 
 const handleButtonClick = () => {
   console.log('Navigating to /welcome'); 
-  navigate("/welcome", { state: { nickname } }); 
+  navigate("/welcome"); 
 };
 
   return (
