@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import igilro_signboard from "../assets/images/logo/igilro_signboard.svg";
 import Navigation from '../components/Common/Navigation';
-import RecommendSmallList from "../components/Common/RecommendSmallList"; // Adjust import path as needed
-import RecommendBigList from "../components/Common/RecommendBigList";
+import RecommendSmallList from "../components/Page_Components/Recommend/RecommendSmallList";
+import RecommendBigList from "../components/Page_Components/Recommend/RecommendBigList";
 
 const Container = styled.div`
   position: relative;

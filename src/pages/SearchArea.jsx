@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CustomSelect from "../components/CustomSelect";
+import CustomSelect from "../components/Page_Components/Search/Region";
 
 const BigText = styled.div`
   margin: 36px 0 12px 24px;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
-import HomeFilterCategory from "../components/Common/HomeFilterCategory";
-import HomeFilterBackBox from "../components/Common/HomeFilterBackBox";
-import homefilter_logo from "../assets/images/logo/homefilter_logo.svg";
+import HomeFilterCategory from "../components/Page_Components/Home/Home_Category";
+import HomeFilterBackBox from "../components/Common/Box_Search&Back/HomeFilterBackBox";
+import homefilter_logo from "../assets/images/logo/homefilter_logo.svg"
 
 const Img = styled.img`
   width: 69px;

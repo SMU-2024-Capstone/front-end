@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchIconCourseBox from '../components/Common/SearchIconCourseBox';
+import SearchIconCourseBox from '../components/Common/Box_Search&Back/SearchIconCourseBox';
 import Navigation from '../components/Common/Navigation';
-import ErrorBottomSheet from '../components/Common/Error_BS';
-import HomeMap from '../components/HomeMap';
+import ErrorBottomSheet from '../components/Page_Components/Search/Error_BS';
+import HomeMap from '../components/Common/HomeMap';
 
 const SearchError = () => {
   return (

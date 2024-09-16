@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import SearchIconCourseBox from "../components/Common/SearchIconCourseBox";
+import SearchIconCourseBox from "../components/Common/Box_Search&Back/SearchIconCourseBox";
 import Navigation from "../components/Common/Navigation";
-import BottomSheet from "../components/Common/HomeFilter_BS";
-import MapComponent from "../components/MapComponent";
+import Test_BottomSheet from "../components/Page_Components/Search/HomeFilter_BS_TEST";
+import MapComponent_TEST from "../components/Common/MapComponent_TEST";
 
 const SearchResult = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const SearchResult = () => {
   return (
     <Container>
       <MapWrapper>
-        <MapComponent 
+        <MapComponent_TEST 
           selectedCategories={selectedCategories} 
           lng={lng}
           lat={lat}
@@ -30,7 +30,7 @@ const SearchResult = () => {
       <ContentWrapper>
         <SearchIconCourseBox></SearchIconCourseBox>
       </ContentWrapper>
-      <BottomSheet
+      <Test_BottomSheet
         selectedCategories={selectedCategories}
         requestData={requestData}
         places={places}

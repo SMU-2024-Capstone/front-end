@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MyPagePost from "../components/Common/MyPagePost";
+import MyPagePost from "../components/Page_Components/MyPage/MyPagePost";
 import Navigation from "../components/Common/Navigation";
-import MyPageSetting from "../components/Common/MyPageSetting";
-import ProfileLogo from "../assets/images/logo/ProfileLogo.svg";
+import MyPageSetting from "../components/Page_Components/MyPage/MyPageSetting";
+import ProfileLogo from "../assets/images/logo/logo_profile.svg";
 
 const HeadBox = styled.div`
   width: 392px;

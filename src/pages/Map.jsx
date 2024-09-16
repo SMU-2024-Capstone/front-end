@@ -1,13 +1,7 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import styled from "styled-components";
-import HomeSearchIconCourseBox from '../components/Common/HomeSearchIconCourseBox';
 import Navigation from '../components/Common/Navigation';
-import HomeBottomSheet from '../components/Common/Home_BS';
-import MapComponent from '../components/MapComponent';
-import MapSearchBox from '../components/Common/MapSearchBox';
-import NaverMap from '../components/NaverMap';
-import HomeMap from '../components/HomeMap';
+import MapSearchBox from '../components/Common/Box_Search&Back/MapSearchBox';
+import HomeMap from '../components/Common/HomeMap';
 
 const Map = () => {
   return (

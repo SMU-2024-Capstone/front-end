@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from "styled-components";
-import SearchFriend from '../components/Common/SearchFriend';
+import SearchFriend from '../components/Common/Box_Search&Back/SearchFriend';
 import Navigation from '../components/Common/Navigation';
-import CommunityContents from '../components/Common/Community_Contents';
-import NewPost from '../assets/images/icons/NewPost.svg';
+import CommunityContents from '../components/Page_Components/Community/Community_Contents';
+import NewPost from "../assets/icons/button/add_newpost.svg";
 
 const Text = styled.div`
   margin-top: 12px;

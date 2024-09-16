@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import Category from '../components/Common/Category';
+import Category from '../components/Page_Components/Search/Category';
 
 const BigText = styled.div`
   margin-top: 36px;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Logo_welcome from "../assets/images/logo/Logo.svg";
-import NextButtonColored from "../components/Common/NextButtonColored";
+import Logo_welcome from "../assets/images/logo/logo.svg";
+import NextButtonColored from "../components/Common/Button_Next&Complete/NextButtonColored";
 import { useNavigate } from "react-router-dom";
 
 const BackgroundBox = styled.div`

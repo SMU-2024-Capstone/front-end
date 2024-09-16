@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SearchCourseBox from "../components/Common/SearchCourseBox";
-import SearchBox from "../components/Common/SearchBox";
+import SearchCourseBox from "../components/Common/Box_Search&Back/SearchCourseBox";
+import SearchBox from "../components/Common/Box_Search&Back/SearchBox";
 import SearchCategory from "./SearchCategory";
 import SearchArea from "./SearchArea";
-import DetailSelect from "../components/Common/DetailSelect";
-import { sidoText, gugunText } from "../components/CustomSelect";
+import DetailSelect from "../components/Page_Components/Search/DetailSelect";
+import { sidoText, gugunText } from "../components/Page_Components/Search/Region";
 
 const Ul = styled.ul`
   display: flex;

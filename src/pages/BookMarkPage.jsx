@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import MyPagePost from '../components/Common/MyPagePost';
 import Navigation from '../components/Common/Navigation';
-import MyPageSetting from '../components/Common/MyPageSetting';
-import BookMarkBox from '../components/Common/BookMarkBox';
-import BookMarkPost from '../components/Common/BookMarkPost';
+import BookMarkBox from '../components/Common/Box_Search&Back/BookMarkBox';
+import BookMarkPost from '../components/BookMark/BookMarkPost';
 
 const Text = styled.div`
   color: #FFFFFF;

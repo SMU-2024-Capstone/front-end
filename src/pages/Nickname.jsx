@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
-import NextButton from '../components/Common/NextButton';
+import Logo_lettering from "../assets/images/logo/logo_lettering.svg";
+import NextButton from '../components/Common/Button_Next&Complete/NextButton';
 import { useNavigate } from "react-router-dom";
 
 const SmallLogo = styled.div`
@@ -140,37 +140,41 @@ const Nickname = () => {
   };
 
   const handleCheckDuplicate = async () => {
-    const accessToken = window.localStorage.getItem("accessToken");
-    const requestData = {
-      nickname: nickname
-    };
-    console.log(nickname);
+    // const accessToken = window.localStorage.getItem("accessToken");
+    // const requestData = {
+    //   nickname: nickname
+    // };
+    // console.log(nickname);
 
-    try {
-      const response = await fetch(`http://localhost:8080/user/nickname`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-        body: JSON.stringify(requestData),
-      });
+    // try {
+    //   const response = await fetch(`http://localhost:8080/user/nickname`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Bearer " + accessToken,
+    //     },
+    //     body: JSON.stringify(requestData),
+    //   });
       
-      const data = await response.json(); // JSON 형식으로 응답 처리
+    //   const data = await response.json(); // JSON 형식으로 응답 처리
   
-      if (data.status === 200 && data.message === "닉네임 중복") {
-        setIsDuplicate(true); // 닉네임 중복일 경우 true로 설정
-        return false; // 중복일 경우 false 반환
-      } else if (data.status === 200 && data.message === "닉네임 사용 가능") {
-        setIsDuplicate(false); // 중복 아님
-        window.localStorage.setItem("nickname", nickname);
-        return true; // 성공 시 true 반환
-      } else {
-        throw new Error("닉네임 중복 코드 오류");
-      }
-    } catch (error) {
-      console.error("오류 발생:", error);
-    }
+    //   if (data.status === 200 && data.message === "닉네임 중복") {
+    //     setIsDuplicate(true); // 닉네임 중복일 경우 true로 설정
+    //     return false; // 중복일 경우 false 반환
+    //   } else if (data.status === 200 && data.message === "닉네임 사용 가능") {
+    //     setIsDuplicate(false); // 중복 아님
+    //     window.localStorage.setItem("nickname", nickname);
+    //     return true; // 성공 시 true 반환
+    //   } else {
+    //     throw new Error("닉네임 중복 코드 오류");
+    //   }
+    // } catch (error) {
+    //   console.error("오류 발생:", error);
+    // }
+
+    window.localStorage.setItem("nickname", nickname); //TEST 지워야 됨 !!!!!!
+    console.log("nickname", nickname)
+    return true; //TEST 지워야 됨 !!!!!!
   };
 
   useEffect(() => {

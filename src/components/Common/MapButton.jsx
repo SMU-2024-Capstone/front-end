@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import map_default from '../../assets/images/map_default.svg';
-import map_clicked from '../../assets/images/map_clicked.svg';
+import map_default from '../../assets/icons/button/map_default.svg'
+import map_clicked from '../../assets/icons/button/map_clicked.svg';
 import { useNavigate } from "react-router-dom";
 
 const MapBtn = styled.div`

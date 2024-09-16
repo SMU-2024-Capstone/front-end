@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import Logo_lettering from "../assets/images/logo/Logo_lettering.svg";
-import nicknameback from "../assets/images/nicknameback.svg";
-import OnboardingCategory from '../components/Common/OnboardingCategory';
+import nicknameback from "../assets/icons/button/back_nickname.svg";
+import OnboardingCategory from '../components/Page_Components/Onboarding/Onboarding_Category';
 import { useNavigate } from "react-router-dom";  
 
 const SmallLogo = styled.div`

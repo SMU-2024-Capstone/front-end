@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import home from "../../assets/images/icons/home.svg";
-import social from "../../assets/images/icons/social.svg";
-import recommend from "../../assets/images/icons/recommend.svg";
-import bookmark from "../../assets/images/icons/bookmark.svg";
-import mypage from "../../assets/images/icons/mypage.svg";
-import home_clicked from "../../assets/images/icons/home_clicked.svg";
-import social_clicked from "../../assets/images/icons/social_clicked.svg";
-import recommend_clicked from "../../assets/images/icons/recommend_clicked.svg";
-import bookmark_clicked from "../../assets/images/icons/bookmark_clicked.svg";
-import mypage_clicked from "../../assets/images/icons/mypage_clicked.svg";
-import bottom from "../../assets/images/icons/bottom.svg";
+import home from "../../assets/icons/navi/home.svg";
+import social from "../../assets/icons/navi/social.svg";
+import recommend from "../../assets/icons/navi/recommend.svg";
+import bookmark from "../../assets/icons/navi/bookmark.svg";
+import mypage from "../../assets/icons/navi/mypage.svg";
+import home_clicked from "../../assets/icons/navi/home_clicked.svg";
+import social_clicked from "../../assets/icons/navi/social_clicked.svg";
+import recommend_clicked from "../../assets/icons/navi/recommend_clicked.svg";
+import bookmark_clicked from "../../assets/icons/navi/bookmark_clicked.svg";
+import mypage_clicked from "../../assets/icons/navi/mypage_clicked.svg";
+import bottom from "../../assets/icons/navi/bottom.svg";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 

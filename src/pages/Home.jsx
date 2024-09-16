@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SearchFilterBox from "../components/Common/SearchFilterBox";
+import SearchFilterBox from "../components/Common/Box_Search&Back/SearchFilterBox";
 import Navigation from "../components/Common/Navigation";
-import HomeContents from "../components/Common/Home_Contents";
+import HomeContents from "../components/Page_Components/Home/Home_Contents";
 import MapButton from "../components/Common/MapButton";
 
 const Text = styled.div`
