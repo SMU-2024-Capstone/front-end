@@ -46,7 +46,7 @@ const Popup = ({ onClose, title, initialRating }) => {
     });
 
     fetch(`http://localhost:8080/home/ai`, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + accessToken,

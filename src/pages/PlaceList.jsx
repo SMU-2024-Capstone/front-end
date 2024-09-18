@@ -100,6 +100,7 @@ const PlaceList = () => {
     .then(data => {
       console.log(data);
       placelist = data.rating_places;
+      console.log(placelist);
       })
     .catch(error => {
       console.error("DB 장소 리스트 오류:", error);

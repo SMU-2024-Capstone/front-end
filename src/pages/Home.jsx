@@ -55,7 +55,7 @@ const Home = () => {
   if (window.localStorage.getItem("login") == "로그인") {
     // fetch함수 추가
     fetch(`http://localhost:8080/home/ai`, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + accessToken,
