@@ -118,10 +118,8 @@ const PlaceListContents = ({ selectedCategory, placelist }) => {
   const [showPopup, setShowPopup] = useState(false); // 팝업 표시 상태
   const [selectedPlace, setSelectedPlace] = useState(null); // 선택된 항목 저장
 
-  console.log(placelist);
-
   useEffect(() => {
-
+    console.log(placelist);
     setContentItems(placelist);
 
     const updatedRatings = {};
@@ -131,7 +129,7 @@ const PlaceListContents = ({ selectedCategory, placelist }) => {
 
     setRatings(updatedRatings);
     setCurrentPage(1);
-  }, [selectedCategory]);
+  }, [selectedCategory, placelist]);
 
   const paginatedItems = contentItems.slice(
     (currentPage - 1) * itemsPerPage,

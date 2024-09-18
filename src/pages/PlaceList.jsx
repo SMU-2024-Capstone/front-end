@@ -77,6 +77,11 @@ const PlaceList = () => {
     fetchData(selectedCategory);
   }, [selectedCategory]);
 
+    // placelist가 업데이트될 때마다 콘솔에 출력 (디버깅용)
+  useEffect(() => {
+      console.log('Updated placelist:', placelist);
+    }, [placelist]);
+
   const fetchData = () => {
     const url = `http://localhost:8080/places?category=${selectedCategory}`;
     console.log(url);
