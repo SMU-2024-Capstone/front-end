@@ -69,6 +69,7 @@ const categories = [
 ];
 
 const PlaceList = () => {
+  console.log('PlaceList rendering');
   const accessToken = window.localStorage.getItem("accessToken");
   const [selectedCategory, setSelectedCategory] = useState('전체'); 
   const [placelist, setPlacelist] = useState([]); 
@@ -82,32 +83,33 @@ const PlaceList = () => {
       console.log('Updated placelist:', placelist);
     }, [placelist]);
 
-  const fetchData = () => {
-    const url = `http://localhost:8080/places?category=${selectedCategory}`;
-    console.log(url);
-    console.log(selectedCategory);
-
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      }
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch");
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      setPlacelist(data.rating_places);
-      console.log(placelist);
+    const fetchData = () => {
+      const url = `http://localhost:8080/places?category=${selectedCategory}`;
+      console.log(url);
+      console.log(selectedCategory);
+    
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        }
       })
-    .catch(error => {
-      console.error("DB 장소 리스트 오류:", error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setPlacelist(data.rating_places);
+      })
+      .catch(error => {
+        console.error("DB 장소 리스트 오류:", error);
+      });
+    };
+    
 
   const handleClick = (category) => {
     if (selectedCategory !== category.label) {
@@ -146,6 +148,5 @@ const PlaceList = () => {
     </>
   );
 }
-};
 
 export default PlaceList;
