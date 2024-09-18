@@ -17,6 +17,7 @@ import Mypage from './pages/Mypage';
 import SearchError from './pages/SearchError';
 import Community from './pages/Community';
 import Alarm from './pages/Alarm';
+import PlaceList from './pages/PlaceList';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/social" element={<Community />} />
           <Route path="/alarm" element={<Alarm />} />
+          <Route path="/placelist" element={<PlaceList />} />
         </Routes>
       </BrowserRouter>
     </div>

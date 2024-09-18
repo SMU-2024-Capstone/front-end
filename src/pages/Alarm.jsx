@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import Navigation from '../components/Common/Navigation';
-import BackBox from '../components/Common/Box_Search&Back/BackBox';
+import BackBox_Alarm from '../components/Common/Box_Search&Back/BackBox_Alarm';
 
 
 const Alarm = () => {
 
   return (
     <div>
-      <BackBox />
+      <BackBox_Alarm />
       <Navigation />
     </div>
   );

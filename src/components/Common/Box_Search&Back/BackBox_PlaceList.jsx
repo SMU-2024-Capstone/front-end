@@ -39,12 +39,12 @@ const SearchBackBox = styled.div`
   box-shadow: 0px 8px 8px rgba(79, 80, 82, 0.2); 
 `;
 
-const BackBox = () => {
+const BackBox_PlaceList = () => {
   const navigate = useNavigate(); 
 
 
   const handleButtonClick = () => {
-    navigate("/social"); 
+    navigate("/home"); 
   };
   
   return (
@@ -52,9 +52,9 @@ const BackBox = () => {
       <BackButton onClick={handleButtonClick}> 
         <img src={Back} alt="Back" />
       </BackButton>
-      <Text>알림</Text>
+      <Text>종로구</Text>
     </SearchBackBox>
   )
 };
 
-export default BackBox;
+export default BackBox_PlaceList;

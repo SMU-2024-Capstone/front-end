@@ -33,9 +33,32 @@ import SelectedAdd from '../../../assets/icons/category/Selected_Add.svg';
 import bus from "../../../assets/icons/search_result/bus.svg";
 import subway from "../../../assets/icons/search_result/subway.svg";
 import walking from "../../../assets/icons/search_result/walking.svg";
+import logo from "../../../assets/images/logo/logo.svg";
 
 export const MIN_Y = 0;
 export const MAX_Y = 548;
+
+const LoadingScreen = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0d0e10;
+  font-family: "Apple-SD-GothicNeo-Bold";
+  font-size: 20px;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+  z-index: 5; // Content 컴포넌트 위에 나타나도록 설정
+`;
+
+const Logo = styled.img`
+  display: block;
+  margin: 0 auto;
+  padding-top: 116px;
+  padding-bottom: 92px;
+`;
 
 const Wrapper = styled.div`
   position: relative;
@@ -239,6 +262,7 @@ const BottomSheet = ({ selectedCategories, requestData, places, route }) => {
   const startPos = useRef(0);
   const animationFrameId = useRef(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 검색 중 상태 추가
   console.log(requestData);
 
   const handleMouseDown = (e) => {
@@ -307,6 +331,12 @@ const BottomSheet = ({ selectedCategories, requestData, places, route }) => {
       <Header onMouseDown={handleMouseDown}>
         <Handle />
       </Header>
+      {isLoading && ( // isLoading 상태가 true일 때만 표시
+        <LoadingScreen>
+          <Logo src={logo} alt="로고 이미지" />
+          검색 중.....
+        </LoadingScreen>
+      )}
       <Content>
         <PhotoSlider selectedCategories={selectedCategoryLabels} />
         <TopBar>
@@ -374,7 +404,7 @@ const BottomSheet = ({ selectedCategories, requestData, places, route }) => {
           );
         })}
       </CategoryList>
-      <ReturnButton requestData={requestData} selectedCategories={selectedCategories} />
+      <ReturnButton requestData={requestData} selectedCategories={selectedCategories} setIsLoading={setIsLoading}/>
     </Wrapper>
   );
 };

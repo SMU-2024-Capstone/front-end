@@ -12,7 +12,7 @@ const HomeFilterCompleteButton = (props) => {
     background-color: ${(props) => (props.disabled ? "#0D0E10" : "#ECEFF0")};
     color: ${(props) => (props.disabled ? "#6A6D6E" : "#0D0E10")};
     font-size: 18px;
-    font-family: "GothicA1-Medium";
+    font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.3%;
     line-height: 140%;
     text-align: center;
@@ -108,6 +108,7 @@ const HomeFilterCompleteButton = (props) => {
           localStorage.setItem(`placename${idx}`, item.placename);
           localStorage.setItem(`category${idx}`, item.category);
           localStorage.setItem(`URL${idx}`, item.URL);
+          localStorage.setItem(`rating${idx}`, item.rating);
         });
 
         navigate("/home");

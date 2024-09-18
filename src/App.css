@@ -56,6 +56,11 @@
 }
 
 @font-face {
+  font-family: "Apple-SD-GothicNeo-Regular";
+  src: url(./fonts/AppleSD_Gothic_Neo/AppleSDGothicNeoR.ttf);
+}
+
+@font-face {
   font-family: "Yeongdo";
   src: url(./fonts/Yeongdo/Yeongdo.ttf);
 }

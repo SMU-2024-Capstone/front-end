@@ -12,7 +12,7 @@ const CompleteButton = (props) => {
     background-color: ${(props) => (props.disabled ? "#0D0E10" : "#ECEFF0")};
     color: ${(props) => (props.disabled ? "#6A6D6E" : "#0D0E10")};
     font-size: 18px;
-    font-family: "GothicA1-Medium";
+    font-family: "Apple-SD-GothicNeo-Medium";
     letter-spacing: -0.3%;
     line-height: 140%;
     text-align: center;
@@ -76,46 +76,45 @@ const CompleteButton = (props) => {
     console.log(importance);
     console.log(preference);
 
-    // const accessToken = window.localStorage.getItem("accessToken");
+    const accessToken = window.localStorage.getItem("accessToken");
 
-    // const requestData = {
-    //   importance: importance,
-    //   preference: preference,
-    // };
+    const requestData = {
+      importance: importance,
+      preference: preference,
+    };
 
-    // // API
-    // fetch(`http://localhost:8080/test-result`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: "Bearer " + accessToken,
-    //   },
-    //   body: JSON.stringify(requestData),
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("Failed to fetch");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
+    // API
+    fetch(`http://localhost:8080/test-result`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
 
-    //     // ai_recommend 배열의 각 요소를 로컬 스토리지에 저장
-    //     data.ai_recommend.forEach((item, index) => {
-    //       const idx = index + 1; // 인덱스를 1부터 시작
-    //       localStorage.setItem(`tag${idx}`, item.tag);
-    //       localStorage.setItem(`placename${idx}`, item.placename);
-    //       localStorage.setItem(`category${idx}`, item.category);
-    //       localStorage.setItem(`URL${idx}`, item.URL);
-    //     }); 
-    //     navigate("/welcome");
-    //   })
-    //   .catch((error) => {
-    //     console.error("취향 카테고리 선택 중 오류 발생:", error);
-    //   });
-
-    navigate("/welcome"); //TEST 지워야 됨 !!!!!!
+        // ai_recommend 배열의 각 요소를 로컬 스토리지에 저장
+        data.ai_recommend.forEach((item, index) => {
+          const idx = index + 1; // 인덱스를 1부터 시작
+          localStorage.setItem(`tag${idx}`, item.tag);
+          localStorage.setItem(`placename${idx}`, item.placename);
+          localStorage.setItem(`category${idx}`, item.category);
+          localStorage.setItem(`URL${idx}`, item.URL);
+          localStorage.setItem(`rating${idx}`, item.rating);
+        }); 
+        navigate("/welcome");
+      })
+      .catch((error) => {
+        console.error("취향 카테고리 선택 중 오류 발생:", error);
+      });
   };
 
   return (
