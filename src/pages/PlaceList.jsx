@@ -71,15 +71,13 @@ const categories = [
 const PlaceList = () => {
   const accessToken = window.localStorage.getItem("accessToken");
   const [selectedCategory, setSelectedCategory] = useState('전체'); 
-  const [contentItems, setContentItems] = useState([]);
-
-  let placelist;
+  const [placelist, setPlacelist] = useState([]); 
 
   useEffect(() => {
     fetchData(selectedCategory);
   }, [selectedCategory]);
 
-  const fetchData = (category) => {
+  const fetchData = () => {
     const url = `http://localhost:8080/places?category=${selectedCategory}`;
     console.log(url);
     console.log(selectedCategory);
@@ -99,7 +97,7 @@ const PlaceList = () => {
     })
     .then(data => {
       console.log(data);
-      placelist = data.rating_places;
+      setPlacelist(data.rating_places);
       console.log(placelist);
       })
     .catch(error => {
