@@ -118,6 +118,8 @@ const PlaceListContents = ({ selectedCategory, placelist }) => {
   const [showPopup, setShowPopup] = useState(false); // 팝업 표시 상태
   const [selectedPlace, setSelectedPlace] = useState(null); // 선택된 항목 저장
 
+  console.log(placelist);
+
   useEffect(() => {
 
     setContentItems(placelist);
