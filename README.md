@@ -2,6 +2,18 @@
 
 Igilro 프로젝트의 Client Repository 입니다.
 
+# 주요 기능
+<p align="center">
+   <img width="934" height="446" alt="Image" src="https://github.com/user-attachments/assets/e5c634c6-1c7c-467d-9b25-3acc21a245fd" />
+   <img width="934" height="520" alt="Image" src="https://github.com/user-attachments/assets/19371511-f188-4e6e-b263-942663a48538" />
+   <img width="934" height="535" alt="Image" src="https://github.com/user-attachments/assets/92bab4a9-39f8-4178-8c0e-8bad5c8b8f9b" />
+</p>
+
+# 시스템 구성도
+<p align="center">
+   <img width="676" height="413" alt="Image" src="https://github.com/user-attachments/assets/9de553b2-3963-4b7d-b54f-07f66a6d67e1" />
+</p>
+
 # GitHub Role
 
 해당 Repository는 다음과 같은 규칙을 따르고 있습니다.
